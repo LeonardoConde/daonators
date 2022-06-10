@@ -1,0 +1,30 @@
+@import "../variables";
+
+.table {
+  @apply bg-white border-collapse mb-16 shadow min-w-full;
+
+  thead {
+    @apply shadow;
+  }
+
+  tr {
+    &:nth-child(even) {
+      background-color: $tertiary-color;
+    }
+
+    th {
+      @apply bg-white whitespace-no-wrap align-bottom text-left p-3 pt-6;
+
+      .adap-orderby {
+        @apply transition;
+        &:hover {
+          transform: translateY(3px);
+        }
+      }
+    }
+
+    td {
+      @apply align-middle p-3;
+    }
+  }
+}
