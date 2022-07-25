@@ -1,14 +1,14 @@
 <template>
-  <div class="h-screen w-screen bg-gray-800 verti">
+  <div class="h-screen w-screen verti">
     <Navbar />
-    aaaaaaa
+    {{ $t('app.title') }}
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Mixins} from 'vue-property-decorator'
 import {MixinScreenSize} from '@/components/mixins/MixinScreenSize'
-import Navbar from '@/components/Navbar.vue'
+import Navbar from '@/components/navbar/Navbar.vue'
 
 @Component({components: {Navbar}})
 export default class LandingPage extends Mixins(MixinScreenSize) {

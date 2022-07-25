@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Simpli App",
+    "title": "Simpli 5",
     "subtitle": "Painel Admin",
     "logout": "Sair",
     "menu": "Menu",
@@ -20,8 +20,22 @@
     "version": "Versão",
     "onlyIfWantChangePassword": "Preencha este campo somente se quiser alterar a senha",
     "noResultFound": "Nenhum resultado encontrado",
-    "emptyList": "Lista vazia"
+    "emptyList": "Lista vazia",
+    "navbar": {
+      "title": "aaaaz",
+      "items": [
+        {
+          "title": "zudy",
+          "href": ""
+        },
+        {
+          "title": "zudy",
+          "href": ""
+        }
+      ]
+    }
   },
+
   "system": {
     "question": {
       "confirmRemove": "Tem certeza que deseja remover este item?",

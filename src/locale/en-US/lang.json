@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Crypto Charity",
+    "title": "Crypto Charity b",
     "subtitle": "",
     "logout": "Logout",
     "menu": "Menu",
@@ -20,8 +20,22 @@
     "version": "Version",
     "onlyIfWantChangePassword": "Fill this field only if you want to change the password",
     "noResultFound": "No result found",
-    "emptyList": "List is empty"
+    "emptyList": "List is empty",
+    "navbar": {
+      "title": "aaaaz",
+      "items": [
+        {
+          "title": "Youtube",
+          "href": "https://www.youtube.com/"
+        },
+        {
+          "title": "disney",
+          "href": "https://www.disneyplus.com/pt-br/home"
+        }
+      ]
+    }
   },
+
   "system": {
     "question": {
       "confirmRemove": "Are you sure you want to remove this item?",

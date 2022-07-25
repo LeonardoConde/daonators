@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" width="154px" height="44px" viewBox="0 0 154 44" version="1.1">
+    <title>Rectangle</title>
+    <g id="bt-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.18558785" stroke-opacity="0.549087631">
+        <g id="发送弹窗" transform="translate(-643.000000, -517.000000)" fill="#FFFFFF" stroke="#000000" stroke-width="1.4">
+            <g id="编组-4" transform="translate(370.000000, 139.000000)">
+                <g id="btn" transform="translate(273.000000, 378.000000)">
+                    <path d="M150,0.7 C150.91127,0.7 151.73627,1.06936508 152.333452,1.66654762 C152.930635,2.26373016 153.3,3.08873016 153.3,4 L153.3,4 L153.3,27.5105713 L140.556525,43.3 L4,43.3 C3.08873016,43.3 2.26373016,42.9306349 1.66654762,42.3334524 C1.06936508,41.7362698 0.7,40.9112698 0.7,40 L0.7,40 L0.7,17.4156045 L15.5702244,0.7 Z" id="Rectangle"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
