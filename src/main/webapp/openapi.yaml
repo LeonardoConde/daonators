@@ -1,0 +1,7 @@
+openAPI:
+  info:
+    title: 'daonators'
+    description: 'Welcome to daonators API documentation.'
+    version: 0.1.0
+  servers:
+    - url: '/api'

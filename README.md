@@ -6,29 +6,48 @@
   <a href="https://www.npmjs.com/package/@simpli/cli"><img src="https://img.shields.io/npm/l/@simpli/cli.svg"></a>
 </p>
 
-# Simpli CLI Client Project
+### Simpli CLI - API daonators
 
-Go to your project directory root and run:
+Make sure the port 8080 is not in use.
+
+Go to your project directory root and seed your database:
+
 ```sh
-$ npm i
+$ simpli server:seed
 ```
 
-To enter on `development mode`, run:
+Then, run this shell:
+
 ```sh
-$ npm run serve
+$ sh build.sh
 ```
 
-To build for `production mode`, run:
-```sh
-$ npm run build
-```
+This command will use the `mvn` CLI and the `docker` CLI.
+Therefore, it should have those installed.
 
-When you enter on `dev`, you may see this screen at `localhost:8181`:
+Go to `localhost:8080`
 
-![Client Running](https://raw.githubusercontent.com/simplitech/simpli-cli/master/docs/img/client-img3.png)
-> The default login from generated `data.sql` located in server project is `test@test.com` and the password is `tester`
+![Server Running](https://raw.githubusercontent.com/simplitech/simpli-cli/master/docs/img/server-img3.png)
+
+Copy the swagger URL in order to generate the `Client Project`.
+
+### Generating Fake Data
+
+Another useful feature of Simpli CLI is `Fake Data`. This data can be found in `root-project/src/test/resources/database/data.sql`.
+If you could not find it, go to the root of project and generate the `data.sql` by running `simpli new:seed`. Then run `simpli server:seed` to populate the fake data into your database.
+
+> The default login is `test@test.com` and the password is `tester`
 
 #### _Important_
-> The password column of your login table must be encrypted by `double SHA-256`. E.g.: The password `123456` should be `49dc52e6bf2abe5ef6e2bb5b0f1ee2d765b922ae6cc8b95d39dc06c21c848f8c` in the password column.
+
+Make sure your database is used for testing because the command `simpli server:seed` will TRUNCATE your tables.
 
 ---
+
+## Contribute
+To generate an exact copy of this:
+- Run test/resources/database/create.sql
+- `npm install -g @simpli/cli`
+- `simpli new:project <project_name>`
+- Choose `Web Server project (backend)`
+- Choose `daonators` for database

@@ -1,0 +1,27 @@
+server:
+  image: simpli/tomcat:env
+  container_name: tomcat-container-daonators
+  environment:
+    ENVIRONMENT: beta
+    LOG_LEVEL: debug
+    DB_URL: db
+    DB_NAME: daonators
+    DB_USER: root
+    DB_PASS: root
+    HTTP_PORT: 8080
+    HTTPS_PORT: 8443
+  ports:
+    - "8080:8080"
+  volumes:
+    - ./target/daonators.war:/usr/local/tomcat/webapps/ROOT.war
+  links:
+    - db
+db:
+  image: mysql:5.7
+  container_name: mysql-container-daonators
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_DATABASE: daonators
+  volumes:
+    - ./src/test/resources/database/create.sql:/docker-entrypoint-initdb.d/create.sql
+    - ./src/test/resources/database/data.sql:/docker-entrypoint-initdb.d/data.sql
