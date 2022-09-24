@@ -1,0 +1,15 @@
+.header {
+  @apply verti z-10 shadow-lg bg-white;
+
+  .header__title {
+    @apply my-2 text-center text-2xl font-light w-full;
+  }
+
+  .header__items {
+    @apply horiz flex-wrap items-center-center;
+
+    > * {
+      @apply m-3;
+    }
+  }
+}
