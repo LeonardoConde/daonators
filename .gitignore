@@ -1,4 +1,5 @@
 .DS_Store
+src/main/contracts/venv
 src/main/webapp/node_modules
 /target/
 .idea
