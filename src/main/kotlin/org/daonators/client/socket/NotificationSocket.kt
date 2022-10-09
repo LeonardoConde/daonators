@@ -35,7 +35,7 @@ class NotificationSocket: RouterWrapper() {
         param.clientVersion = "ws.auth"
         param.authorization = """Bearer $token"""
 
-        AuthPipe.handle(connectionPipe, param) { _, auth ->
+        AuthPipe.handle(readPipe, param) { _, auth ->
             session.userProperties["token"] = auth.token
             session.userProperties["email"] = auth.email
 

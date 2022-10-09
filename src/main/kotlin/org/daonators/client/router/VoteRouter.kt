@@ -8,6 +8,7 @@ import org.daonators.model.param.AuthVoteListParam
 import org.daonators.model.resource.Vote
 import br.com.simpli.model.PageCollection
 import io.swagger.v3.oas.annotations.Operation
+import org.daonators.client.context.PublicPipe
 import javax.ws.rs.BeanParam
 import javax.ws.rs.DELETE
 import javax.ws.rs.GET
@@ -29,8 +30,8 @@ class VoteRouter : RouterWrapper() {
     @Operation(tags = ["Vote"], summary = "Gets a instance of a given ID of Vote")
     fun getVote(@BeanParam param: DefaultParam.RequiredPathId): Vote {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            VoteProcess(context).get(param.id)
+        return PublicPipe.handle(readPipe, param) {
+            VoteProcess(it).get(param.id)
 		}
     }
 
@@ -38,8 +39,8 @@ class VoteRouter : RouterWrapper() {
     @Operation(tags = ["Vote"], summary = "Lists the instances of Vote")
     fun listVote(@BeanParam param: AuthVoteListParam): PageCollection<Vote> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            VoteProcess(context).list(param)
+        return PublicPipe.handle(readPipe, param) {
+            VoteProcess(it).list(param)
 		}
     }
 
@@ -48,7 +49,7 @@ class VoteRouter : RouterWrapper() {
     @Operation(tags = ["Vote"], summary = "Lists the instances of Vote to export as a file")
     fun listExportVote(@BeanParam param: AuthVoteListParam): PageCollection<Vote> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
+        return AuthPipe.handle(readPipe, param) { context, _ ->
             VoteProcess(context).list(param)
 		}
     }

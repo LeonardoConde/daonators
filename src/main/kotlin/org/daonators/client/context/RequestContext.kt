@@ -7,21 +7,31 @@ import org.daonators.model.filter.ListFilter
 import org.daonators.model.param.DefaultParam
 import br.com.simpli.model.LanguageHolder
 import br.com.simpli.sql.AbstractConnector
+import org.daonators.client.response.AuthResponse
 
 /**
  * Request Context
  * Responsible to validate the request
  * @author Simpli CLI generator
  */
- open class RequestContext(val con: AbstractConnector, param: DefaultParam) {
-     val lang: LanguageHolder = Env.AVAILABLE_LANGUAGES[Lang.from(param.lang)] ?: EnUs()
-     val clientVersion: String = param.clientVersion
+data class RequestContext(var con: AbstractConnector, val param: DefaultParam) {
+    val lang: LanguageHolder = Env.AVAILABLE_LANGUAGES[Lang.from(param.lang)] ?: EnUs()
+    val clientVersion: String = param.clientVersion
+    var auth: AuthResponse? = null
 
-     init {
-         when (param) {
-             is ListFilter -> {
-                 param.query = param.query?.replace("[.,:\\-/]".toRegex(), "")
-             }
-         }
-     }
- }
+    init {
+        when (param) {
+            is ListFilter -> {
+                param.query = param.query?.replace("[.,:\\/]".toRegex(), "")
+            }
+        }
+    }
+
+    fun isLoggedUser(idUser: Long): Boolean {
+        return auth?.id == idUser
+    }
+
+    val isLogged get() = auth?.user != null
+    // Alias
+    val isAdmin get() = isLogged
+}

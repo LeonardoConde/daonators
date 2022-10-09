@@ -8,6 +8,7 @@ import org.daonators.model.param.AuthUserWalletListParam
 import org.daonators.model.resource.UserWallet
 import br.com.simpli.model.PageCollection
 import io.swagger.v3.oas.annotations.Operation
+import org.daonators.client.context.PublicPipe
 import javax.ws.rs.BeanParam
 import javax.ws.rs.DELETE
 import javax.ws.rs.GET
@@ -29,8 +30,8 @@ class UserWalletRouter : RouterWrapper() {
     @Operation(tags = ["UserWallet"], summary = "Gets a instance of a given ID of UserWallet")
     fun getUserWallet(@BeanParam param: DefaultParam.RequiredPathId): UserWallet {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            UserWalletProcess(context).get(param.id)
+        return PublicPipe.handle(readPipe, param) {
+            UserWalletProcess(it).get(param.id)
 		}
     }
 
@@ -38,8 +39,8 @@ class UserWalletRouter : RouterWrapper() {
     @Operation(tags = ["UserWallet"], summary = "Lists the instances of UserWallet")
     fun listUserWallet(@BeanParam param: AuthUserWalletListParam): PageCollection<UserWallet> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            UserWalletProcess(context).list(param)
+        return PublicPipe.handle(readPipe, param) {
+            UserWalletProcess(it).list(param)
 		}
     }
 
@@ -48,7 +49,7 @@ class UserWalletRouter : RouterWrapper() {
     @Operation(tags = ["UserWallet"], summary = "Lists the instances of UserWallet to export as a file")
     fun listExportUserWallet(@BeanParam param: AuthUserWalletListParam): PageCollection<UserWallet> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
+        return AuthPipe.handle(readPipe, param) { context, _ ->
             UserWalletProcess(context).list(param)
 		}
     }

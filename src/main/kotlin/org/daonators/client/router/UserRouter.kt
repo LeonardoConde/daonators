@@ -8,6 +8,7 @@ import org.daonators.model.param.AuthUserListParam
 import org.daonators.model.resource.User
 import br.com.simpli.model.PageCollection
 import io.swagger.v3.oas.annotations.Operation
+import org.daonators.client.context.PublicPipe
 import javax.ws.rs.BeanParam
 import javax.ws.rs.DELETE
 import javax.ws.rs.GET
@@ -29,8 +30,8 @@ class UserRouter : RouterWrapper() {
     @Operation(tags = ["User"], summary = "Gets a instance of a given ID of User")
     fun getUser(@BeanParam param: DefaultParam.RequiredPathId): User {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            UserProcess(context).get(param.id)
+        return PublicPipe.handle(readPipe, param) {
+            UserProcess(it).get(param.id)
 		}
     }
 
@@ -38,8 +39,8 @@ class UserRouter : RouterWrapper() {
     @Operation(tags = ["User"], summary = "Lists the instances of User")
     fun listUser(@BeanParam param: AuthUserListParam): PageCollection<User> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            UserProcess(context).list(param)
+        return PublicPipe.handle(readPipe, param) {
+            UserProcess(it).list(param)
 		}
     }
 
@@ -48,7 +49,7 @@ class UserRouter : RouterWrapper() {
     @Operation(tags = ["User"], summary = "Lists the instances of User to export as a file")
     fun listExportUser(@BeanParam param: AuthUserListParam): PageCollection<User> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
+        return AuthPipe.handle(readPipe, param) { context, _ ->
             UserProcess(context).list(param)
 		}
     }

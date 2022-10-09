@@ -19,7 +19,7 @@ class HealthCheckRouter : RouterWrapper() {
     @Operation(tags = ["HealthCheck"], summary = "Checks status of DB connection and coroutines")
     fun check(): Boolean {
         HealthCheckPipe.apply {
-            return handle(connectionPipe) { con ->
+            return handle(readPipe) { con ->
                 HealthCheckProcess(con).check()
             } &&
             handle(transactionPipe) { con ->
