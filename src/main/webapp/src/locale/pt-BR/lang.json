@@ -20,7 +20,9 @@
     "version": "Versão",
     "onlyIfWantChangePassword": "Preencha este campo somente se quiser alterar a senha",
     "noResultFound": "Nenhum resultado encontrado",
-    "emptyList": "Lista vazia"
+    "emptyList": "Lista vazia",
+    "email": "daonators@gmail.com",
+    "mailto": "mailto:daonators@gmail.com"
   },
   "system": {
     "question": {
@@ -235,6 +237,19 @@
   "navbar": {
     "daonators": "DAOnators",
     "walletConnect": "WalletConnect",
+    "itens": [
+      {
+        "name": "campanhas",
+        "path": "/"
+      },
+      {
+        "name": "organizações",
+        "path": "/"
+      }
+    ]
+  },
+  "footerMenu": {
+    "daonators": "DAOnators",
     "itens": [
       {
         "name": "campanhas",
