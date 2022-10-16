@@ -17,7 +17,7 @@ import javax.ws.rs.ext.ExceptionMapper
  * @author Simpli CLI generator
  */
 abstract class RouterWrapper : ExceptionMapper<Throwable> {
-    val connectionPipe = ReadConPipe(Env.DS_NAME)
+    val readPipe = ReadConPipe(Env.DS_NAME)
     val transactionPipe = TransacConPipe(Env.DS_NAME)
 
     companion object {

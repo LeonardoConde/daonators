@@ -44,6 +44,17 @@ Make sure your database is used for testing because the command `simpli server:s
 
 ---
 
+### VM options:
+```
+-DENVIRONMENT=beta
+-DDB_URL=localhost
+-DDB_NAME=daonators
+-DDB_USER=root
+-DDB_PASS=root
+-DLOG_LEVEL=debug
+```
+
+
 ## Contribute
 To generate an exact copy of this:
 - Run test/resources/database/create.sql

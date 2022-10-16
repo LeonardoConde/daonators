@@ -8,6 +8,7 @@ import org.daonators.model.param.AuthOrganizationListParam
 import org.daonators.model.resource.Organization
 import br.com.simpli.model.PageCollection
 import io.swagger.v3.oas.annotations.Operation
+import org.daonators.client.context.PublicPipe
 import javax.ws.rs.BeanParam
 import javax.ws.rs.DELETE
 import javax.ws.rs.GET
@@ -29,8 +30,8 @@ class OrganizationRouter : RouterWrapper() {
     @Operation(tags = ["Organization"], summary = "Gets a instance of a given ID of Organization")
     fun getOrganization(@BeanParam param: DefaultParam.RequiredPathId): Organization {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            OrganizationProcess(context).get(param.id)
+        return PublicPipe.handle(readPipe, param) { 
+            OrganizationProcess(it).get(param.id)
 		}
     }
 
@@ -38,8 +39,8 @@ class OrganizationRouter : RouterWrapper() {
     @Operation(tags = ["Organization"], summary = "Lists the instances of Organization")
     fun listOrganization(@BeanParam param: AuthOrganizationListParam): PageCollection<Organization> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            OrganizationProcess(context).list(param)
+        return PublicPipe.handle(readPipe, param) {
+            OrganizationProcess(it).list(param)
 		}
     }
 
@@ -48,7 +49,7 @@ class OrganizationRouter : RouterWrapper() {
     @Operation(tags = ["Organization"], summary = "Lists the instances of Organization to export as a file")
     fun listExportOrganization(@BeanParam param: AuthOrganizationListParam): PageCollection<Organization> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
+        return AuthPipe.handle(readPipe, param) { context, _ ->
             OrganizationProcess(context).list(param)
 		}
     }

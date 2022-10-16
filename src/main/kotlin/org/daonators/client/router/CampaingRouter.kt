@@ -8,6 +8,7 @@ import org.daonators.model.param.AuthCampaingListParam
 import org.daonators.model.resource.Campaing
 import br.com.simpli.model.PageCollection
 import io.swagger.v3.oas.annotations.Operation
+import org.daonators.client.context.PublicPipe
 import javax.ws.rs.BeanParam
 import javax.ws.rs.DELETE
 import javax.ws.rs.GET
@@ -29,8 +30,8 @@ class CampaingRouter : RouterWrapper() {
     @Operation(tags = ["Campaing"], summary = "Gets a instance of a given ID of Campaing")
     fun getCampaing(@BeanParam param: DefaultParam.RequiredPathId): Campaing {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            CampaingProcess(context).get(param.id)
+        return PublicPipe.handle(readPipe, param) {
+            CampaingProcess(it).get(param.id)
 		}
     }
 
@@ -38,8 +39,8 @@ class CampaingRouter : RouterWrapper() {
     @Operation(tags = ["Campaing"], summary = "Lists the instances of Campaing")
     fun listCampaing(@BeanParam param: AuthCampaingListParam): PageCollection<Campaing> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            CampaingProcess(context).list(param)
+        return PublicPipe.handle(readPipe, param) { 
+            CampaingProcess(it).list(param)
 		}
     }
 
@@ -48,7 +49,7 @@ class CampaingRouter : RouterWrapper() {
     @Operation(tags = ["Campaing"], summary = "Lists the instances of Campaing to export as a file")
     fun listExportCampaing(@BeanParam param: AuthCampaingListParam): PageCollection<Campaing> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
+        return AuthPipe.handle(readPipe, param) { context, _ ->
             CampaingProcess(context).list(param)
 		}
     }

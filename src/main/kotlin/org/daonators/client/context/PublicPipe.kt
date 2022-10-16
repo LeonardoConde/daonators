@@ -2,6 +2,7 @@ package org.daonators.client.context
 
 import org.daonators.model.param.DefaultParam
 import br.com.simpli.sql.AbstractConPipe
+import org.daonators.client.auth.AuthProcess
 
 /**
  * Public Pipe
@@ -10,12 +11,17 @@ import br.com.simpli.sql.AbstractConPipe
  */
 object PublicPipe {
     fun <T> handle(
-            conPipe: AbstractConPipe,
-            param: DefaultParam,
-            callback: (context: RequestContext) -> T
+        conPipe: AbstractConPipe,
+        param: DefaultParam.Auth,
+        callback: (context: RequestContext) -> T
     ): T {
         return conPipe.handle {
-            callback(RequestContext(it, param))
+            val context = RequestContext(it, param)
+            context.auth = param.authorization?.let {
+                AuthProcess(context).authenticate(param)
+            }
+            callback(context)
         }
     }
 }
+

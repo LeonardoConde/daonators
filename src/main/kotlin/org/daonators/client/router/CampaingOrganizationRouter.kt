@@ -8,6 +8,7 @@ import org.daonators.model.param.AuthCampaingOrganizationListParam
 import org.daonators.model.resource.CampaingOrganization
 import br.com.simpli.model.PageCollection
 import io.swagger.v3.oas.annotations.Operation
+import org.daonators.client.context.PublicPipe
 import javax.ws.rs.BeanParam
 import javax.ws.rs.DELETE
 import javax.ws.rs.GET
@@ -29,8 +30,8 @@ class CampaingOrganizationRouter : RouterWrapper() {
     @Operation(tags = ["CampaingOrganization"], summary = "Gets a instance of a given ID of CampaingOrganization")
     fun getCampaingOrganization(@BeanParam param: CampaingOrganization.RequiredPathId): CampaingOrganization {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            CampaingOrganizationProcess(context).get(param.id1, param.id2)
+        return PublicPipe.handle(readPipe, param) { 
+            CampaingOrganizationProcess(it).get(param.id1, param.id2)
 		}
     }
 
@@ -38,8 +39,8 @@ class CampaingOrganizationRouter : RouterWrapper() {
     @Operation(tags = ["CampaingOrganization"], summary = "Lists the instances of CampaingOrganization")
     fun listCampaingOrganization(@BeanParam param: AuthCampaingOrganizationListParam): PageCollection<CampaingOrganization> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
-            CampaingOrganizationProcess(context).list(param)
+        return PublicPipe.handle(readPipe, param) { 
+            CampaingOrganizationProcess(it).list(param)
 		}
     }
 
@@ -48,7 +49,7 @@ class CampaingOrganizationRouter : RouterWrapper() {
     @Operation(tags = ["CampaingOrganization"], summary = "Lists the instances of CampaingOrganization to export as a file")
     fun listExportCampaingOrganization(@BeanParam param: AuthCampaingOrganizationListParam): PageCollection<CampaingOrganization> {
         // TODO: review generated method
-        return AuthPipe.handle(connectionPipe, param) { context, _ ->
+        return AuthPipe.handle(readPipe, param) { context, _ ->
             CampaingOrganizationProcess(context).list(param)
 		}
     }
