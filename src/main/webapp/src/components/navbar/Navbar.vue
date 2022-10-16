@@ -51,7 +51,7 @@ export default class Navbar extends Vue {
     @apply flex items-center py-2 px-5 font-bold text-4xl;
   }
   &__menu {
-    @apply hidden horiz w-full place-content-end;
+    @apply hidden horiz w-full justify-end;
   }
   &__itens {
     @apply text-sm mr-10 capitalize text-xl text-white;
