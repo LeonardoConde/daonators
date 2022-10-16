@@ -1,11 +1,11 @@
 <template>
-  <div class="navbar">
+  <div class="navbar bg-primary">
     <div class="container">
       <div class="flex justify-between w-full">
         <div class="flex items-center  px-2 w-full">
           <!-- logo -->
           <router-link to="/">
-            <div class="navbar__logo ">
+            <div class="navbar__logo">
               <img src="@/assets/img/logo.png" class="h-20" />
 
               <span class="m-2"> {{ $t('navbar.daonators') }} </span>
@@ -17,14 +17,14 @@
               v-for="(item, i) in itens"
               :key="i"
               :to="item.path"
-              class="navbar__itens hover:text-white"
+              class="navbar__itens hover:text-black"
             >
               {{ item.name }}
             </router-link>
           </div>
           <!-- walletConnect -->
           <button class="navbar__walletConnect hover:text-black ">
-            <div class=" self-end">
+            <div class="self-end bg-secudary">
               {{ $t('navbar.walletConnect') }}
             </div>
           </button>
@@ -46,7 +46,7 @@ export default class Navbar extends Vue {
 
 <style lang="scss" scoped>
 .navbar {
-  @apply shadow-lg bg-primary;
+  @apply shadow-lg;
   &__logo {
     @apply flex items-center py-2 px-5 font-bold text-4xl;
   }
@@ -57,7 +57,7 @@ export default class Navbar extends Vue {
     @apply text-sm mr-10 capitalize text-xl text-white;
   }
   &__walletConnect {
-    @apply hidden flex items-end py-3 px-4 rounded-3xl border-2 border-black bg-yellow-400 text-lg bg-secudary;
+    @apply hidden flex items-end py-3 px-4 rounded-3xl border-2 border-black bg-yellow-400 text-lg;
   }
 }
 </style>
