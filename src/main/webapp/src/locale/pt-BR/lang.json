@@ -232,6 +232,20 @@
     "CampaingType": "Campaing Type",
     "UserWallet": "User Wallet"
   },
+  "navbar": {
+    "daonators": "DAOnators",
+    "walletConnect": "WalletConnect",
+    "itens": [
+      {
+        "name": "campanhas",
+        "path": "/"
+      },
+      {
+        "name": "organizações",
+        "path": "/"
+      }
+    ]
+  },
   "schema": {
     "InputAuthRequest": {
       "email": "Email",
