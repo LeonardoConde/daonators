@@ -1,6 +1,7 @@
 .DS_Store
-src/main/contracts/venv
+contracts/venv
 src/main/webapp/node_modules
+contracts/Neo.TestEngine
 /target/
 .idea
 *.iml

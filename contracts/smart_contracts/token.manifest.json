@@ -1,0 +1,204 @@
+{
+    "name": "token",
+    "groups": [],
+    "abi": {
+        "methods": [
+            {
+                "name": "symbol",
+                "offset": 0,
+                "parameters": [],
+                "returntype": "String",
+                "safe": true
+            },
+            {
+                "name": "decimals",
+                "offset": 2,
+                "parameters": [],
+                "returntype": "Integer",
+                "safe": true
+            },
+            {
+                "name": "totalSupply",
+                "offset": 4,
+                "parameters": [],
+                "returntype": "Integer",
+                "safe": true
+            },
+            {
+                "name": "balanceOf",
+                "offset": 27,
+                "parameters": [
+                    {
+                        "name": "account",
+                        "type": "Hash160"
+                    }
+                ],
+                "returntype": "Integer",
+                "safe": true
+            },
+            {
+                "name": "transfer",
+                "offset": 43,
+                "parameters": [
+                    {
+                        "name": "from_address",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "to_address",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "amount",
+                        "type": "Integer"
+                    },
+                    {
+                        "name": "data",
+                        "type": "Any"
+                    }
+                ],
+                "returntype": "Boolean",
+                "safe": false
+            },
+            {
+                "name": "_deploy",
+                "offset": 663,
+                "parameters": [
+                    {
+                        "name": "data",
+                        "type": "Any"
+                    },
+                    {
+                        "name": "update",
+                        "type": "Boolean"
+                    }
+                ],
+                "returntype": "Void",
+                "safe": false
+            },
+            {
+                "name": "onNEP17Payment",
+                "offset": 402,
+                "parameters": [
+                    {
+                        "name": "from_address",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "amount",
+                        "type": "Integer"
+                    },
+                    {
+                        "name": "data",
+                        "type": "Any"
+                    }
+                ],
+                "returntype": "Void",
+                "safe": false
+            },
+            {
+                "name": "get_ownerless_tokens",
+                "offset": 407,
+                "parameters": [],
+                "returntype": "Integer",
+                "safe": false
+            },
+            {
+                "name": "get_adm",
+                "offset": 438,
+                "parameters": [],
+                "returntype": "Hash160",
+                "safe": false
+            },
+            {
+                "name": "fixTestEngineDeployError",
+                "offset": 514,
+                "parameters": [
+                    {
+                        "name": "wrong_address",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "correct_address",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "value",
+                        "type": "Integer"
+                    }
+                ],
+                "returntype": "Void",
+                "safe": false
+            },
+            {
+                "name": "mint_for_tests",
+                "offset": 546,
+                "parameters": [
+                    {
+                        "name": "address",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "valor",
+                        "type": "Integer"
+                    }
+                ],
+                "returntype": "Void",
+                "safe": false
+            },
+            {
+                "name": "_initialize",
+                "offset": 872,
+                "parameters": [],
+                "returntype": "Void",
+                "safe": false
+            }
+        ],
+        "events": [
+            {
+                "name": "notify",
+                "parameters": [
+                    {
+                        "name": "state",
+                        "type": "Any"
+                    }
+                ]
+            },
+            {
+                "name": "Transfer",
+                "parameters": [
+                    {
+                        "name": "from_addr",
+                        "type": "Any"
+                    },
+                    {
+                        "name": "to_addr",
+                        "type": "Any"
+                    },
+                    {
+                        "name": "amount",
+                        "type": "Integer"
+                    }
+                ]
+            }
+        ]
+    },
+    "permissions": [
+        {
+            "contract": "*",
+            "methods": [
+                "onNEP17Payment"
+            ]
+        }
+    ],
+    "trusts": [],
+    "features": {},
+    "supportedstandards": [
+        "NEP-17"
+    ],
+    "extra": {
+        "Author": "",
+        "Description": "",
+        "Email": ""
+    }
+}
