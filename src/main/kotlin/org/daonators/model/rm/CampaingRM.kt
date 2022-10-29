@@ -14,6 +14,7 @@ object CampaingRM {
         ResultBuilder(allowedColumns, rs, alias).run {
             idCampaingPk = getLong("idCampaingPk")
             idCampaingTypePk = getLong("idCampaingTypePk")
+            name = getString("name")
             beginDate = getTimestamp("beginDate")
             endDate = getTimestamp("endDate")
         }
@@ -22,6 +23,7 @@ object CampaingRM {
     fun selectFields(alias: String = "campaing") = arrayOf(
             "$alias.idCampaingPk",
             "$alias.idCampaingTypePk",
+            "$alias.name",
             "$alias.beginDate",
             "$alias.endDate"
     )
@@ -33,18 +35,21 @@ object CampaingRM {
     fun orderMap(alias: String = "campaing") = mapOf(
             "campaingType" to "$alias.idCampaingTypePk",
             "idCampaingPk" to "$alias.idCampaingPk",
+            "name" to "$alias.name",
             "beginDate" to "$alias.beginDate",
             "endDate" to "$alias.endDate"
     )
 
     fun updateSet(campaing: Campaing) = mapOf(
             "idCampaingTypePk" to campaing.idCampaingTypePk,
+            "name" to campaing.name,
             "beginDate" to campaing.beginDate,
             "endDate" to campaing.endDate
     )
 
     fun insertValues(campaing: Campaing) = mapOf(
             "idCampaingTypePk" to campaing.idCampaingTypePk,
+            "name" to campaing.name,
             "beginDate" to campaing.beginDate,
             "endDate" to campaing.endDate
     )

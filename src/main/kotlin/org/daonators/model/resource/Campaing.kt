@@ -21,6 +21,8 @@ class Campaing {
 
     var endDate: Date? = null
 
+    var name: String? = null
+
     var id
         @Schema(hidden = true)
         get() = idCampaingPk
@@ -49,6 +51,9 @@ class Campaing {
         }
         if (beginDate == null) {
             throw BadRequestException(lang.cannotBeNull(lang["Campaing.beginDate"]))
+        }
+        if (name == null) {
+            throw BadRequestException(lang.cannotBeNull(lang["Campaing.name"]))
         }
     }
 }
