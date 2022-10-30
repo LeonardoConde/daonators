@@ -20,6 +20,8 @@ export class Campaing implements IResource {
 
   endDate: string | null = null
 
+  name: string | null = null
+
   get $id() {
     return this.idCampaingPk
   }

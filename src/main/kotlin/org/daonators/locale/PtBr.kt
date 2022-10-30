@@ -34,6 +34,7 @@ class PtBr : PortugueseLanguage() {
                  */
                 "Campaing.idCampaingPk" to "Id Campaing Pk",
                 "Campaing.idCampaingTypePk" to "Id Campaing Type Pk",
+                "Campaing.name" to "Name",
                 "Campaing.beginDate" to "Begin Date",
                 "Campaing.endDate" to "End Date",
 
