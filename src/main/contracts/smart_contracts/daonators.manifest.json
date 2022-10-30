@@ -1,0 +1,119 @@
+{
+    "name": "daonators",
+    "groups": [],
+    "abi": {
+        "methods": [
+            {
+                "name": "get_campaigns",
+                "offset": 0,
+                "parameters": [],
+                "returntype": "Array",
+                "safe": false
+            },
+            {
+                "name": "get_campaign",
+                "offset": 105,
+                "parameters": [
+                    {
+                        "name": "org_script_hash",
+                        "type": "Hash160"
+                    }
+                ],
+                "returntype": "Any",
+                "safe": false
+            },
+            {
+                "name": "get_orgs",
+                "offset": 189,
+                "parameters": [],
+                "returntype": "Array",
+                "safe": false
+            },
+            {
+                "name": "get_org",
+                "offset": 294,
+                "parameters": [
+                    {
+                        "name": "org_script_hash",
+                        "type": "Hash160"
+                    }
+                ],
+                "returntype": "Any",
+                "safe": false
+            },
+            {
+                "name": "create_campaign",
+                "offset": 378,
+                "parameters": [
+                    {
+                        "name": "org_script_hash",
+                        "type": "Hash160"
+                    }
+                ],
+                "returntype": "Boolean",
+                "safe": false
+            },
+            {
+                "name": "_deploy",
+                "offset": 606,
+                "parameters": [
+                    {
+                        "name": "data",
+                        "type": "Any"
+                    },
+                    {
+                        "name": "update",
+                        "type": "Boolean"
+                    }
+                ],
+                "returntype": "Void",
+                "safe": false
+            },
+            {
+                "name": "_initialize",
+                "offset": 1167,
+                "parameters": [],
+                "returntype": "Void",
+                "safe": false
+            }
+        ],
+        "events": [
+            {
+                "name": "campaign_created",
+                "parameters": [
+                    {
+                        "name": "org_script_hash",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "org_name",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "org_added",
+                "parameters": [
+                    {
+                        "name": "script_hash",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "name",
+                        "type": "String"
+                    }
+                ]
+            }
+        ]
+    },
+    "permissions": [
+        {
+            "contract": "*",
+            "methods": "*"
+        }
+    ],
+    "trusts": [],
+    "features": {},
+    "supportedstandards": [],
+    "extra": null
+}
