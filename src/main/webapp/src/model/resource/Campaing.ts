@@ -7,6 +7,8 @@ import {Request, ResponseSerialize} from '@simpli/serialized-request'
 import {IResource} from '@simpli/resource-collection/dist/types/IResource'
 import {CampaingType} from '@/model/resource/CampaingType'
 import {CampaingCollection} from '@/model/collection/CampaingCollection'
+import {Helper} from 'simpli-web-sdk'
+import moment from 'moment'
 
 /* TODO: review generated class */
 export class Campaing implements IResource {
@@ -71,5 +73,15 @@ export class Campaing implements IResource {
       .name('listExportCampaing')
       .as(CampaingCollection)
       .getData()
+  }
+
+  get formattedBegging() {
+    const date = moment(this.beginDate)
+    return date.isValid() ? date.format($.t('dateFormat.date') as string) : ''
+  }
+
+  get formattedEnd() {
+    const date = moment(this.endDate)
+    return date.isValid() ? date.format($.t('dateFormat.date') as string) : ''
   }
 }

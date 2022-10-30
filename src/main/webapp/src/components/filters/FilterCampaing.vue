@@ -41,6 +41,7 @@ export default class FilterCampaing extends Vue {
 
   async doFilter() {
     this.$emit('submit')
+    this.collection.currentPage = 0
     await this.$await.run('softQuery', () => this.collection.queryAsPage())
   }
 }

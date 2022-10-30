@@ -954,6 +954,66 @@
   resolved "https://registry.yarnpkg.com/@brazilian-utils/brazilian-utils/-/brazilian-utils-1.0.0-rc.12.tgz#1ab9dd02bc7cf9cd999a651eb315a0326b6f490b"
   integrity sha512-gR5TbSKTgFgDe0/ZghgwqCEryLbHjwdEpvr3ao/Z0f8zRu6LD3lif0HJ3eQiC3pJSwtUPyA+97vm1IEqZkYSTA==
 
+"@brazilian-utils/helper-generate-checksum@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@brazilian-utils/helper-generate-checksum/-/helper-generate-checksum-0.1.4.tgz#ea1fc0d36a05cc030908aa8d15fff431c42dce97"
+  integrity sha512-lyF9Us6tlu7xSaEcjmec28QUADC1BWG4qx4H6nnbfJyzydXGbd7Jd2oPnNf6dBXmim+FPHhH/+TQP1sEPMOfLA==
+  dependencies:
+    "@brazilian-utils/helper-only-numbers" "^0.1.5"
+
+"@brazilian-utils/helper-only-numbers@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@brazilian-utils/helper-only-numbers/-/helper-only-numbers-0.1.5.tgz#ad1a18cf219ecd44d8c2c0ae3f058bcd42e795ab"
+  integrity sha512-nsfHGdDr97n8ech2UwMHgUjw9xGxbc5gyGgmSrvqisOzuBAjRx5LfcL7ZNjEiPe4hldwp6AgaMI6WXKCQ3fOfg==
+
+"@brazilian-utils/is-valid-boleto@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@brazilian-utils/is-valid-boleto/-/is-valid-boleto-0.1.0.tgz#81aebcd851707bcfbf5dcdcc0f0ce72befb5e278"
+  integrity sha512-BZuzEXXa2nI0CiIhxBBNele2YKL/1agG2AUGZS8BlljXbJO12KhUFJA0ON9piYDbzYyo6+lzLEIOTjJ47KrwNQ==
+  dependencies:
+    "@brazilian-utils/helper-only-numbers" "^0.1.5"
+
+"@brazilian-utils/is-valid-cep@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@brazilian-utils/is-valid-cep/-/is-valid-cep-0.1.2.tgz#500f835f2934dd4b651022b572a2b3610ed00e01"
+  integrity sha512-aQufnNYXOwoMu9Lh7nUHIfGlp1afpG1575GeOaDrzCm5Vfl+oTDmfyKPHROdzn+8s6uiIMTm03DEn64R5Tbk/g==
+  dependencies:
+    "@brazilian-utils/helper-only-numbers" "^0.1.5"
+
+"@brazilian-utils/is-valid-cnpj@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@brazilian-utils/is-valid-cnpj/-/is-valid-cnpj-0.1.11.tgz#55fa748585507cc2446d268ebceabd14a0e1462d"
+  integrity sha512-bHHU2qItzPX6nhCkiu2fe5QBvpOyMILc2Zd+5u5tR2Pyxm4XxhFIQKf1634OPwts6YrJhwo3ivJnrTykealT5Q==
+  dependencies:
+    "@brazilian-utils/helper-generate-checksum" "^0.1.4"
+    "@brazilian-utils/helper-only-numbers" "^0.1.5"
+
+"@brazilian-utils/is-valid-cpf@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@brazilian-utils/is-valid-cpf/-/is-valid-cpf-0.1.11.tgz#07cc2fff28d017b7366ca6af5c3b3a83e909c013"
+  integrity sha512-qEyJUs7y2iQuWbe7wz8FZS/gwXrcu3LUVZR8BGvc1aWxWSPF/51GQwgJwM2kGl1GEsbmtIq0x6GLabV/1oxPcQ==
+  dependencies:
+    "@brazilian-utils/helper-generate-checksum" "^0.1.4"
+    "@brazilian-utils/helper-only-numbers" "^0.1.5"
+
+"@brazilian-utils/is-valid-phone@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@brazilian-utils/is-valid-phone/-/is-valid-phone-0.1.1.tgz#9190b4ad395e7cd6841f09456134cfad092aeecd"
+  integrity sha512-IuisIlK5RZZ+2c9QyqFmlHI6qNHH23dAo1WQETqXUDEkDXuklamV72/p7cVy8mP5fSoErvqSNi9iLL1Ht6MIXw==
+  dependencies:
+    "@brazilian-utils/helper-only-numbers" "^0.1.5"
+
+"@brazilian-utils/validators@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@brazilian-utils/validators/-/validators-0.1.9.tgz#301bad7a1d2b50e254a862fbb65dd6f99f12b6b9"
+  integrity sha512-PGM4k80EXqZv2Ls39x+Ro8VlZKWBWl0NjY7a4IDft7oJzsH45oAYip/e0FOtoXr0p/REVrzUMqQvtLug0QWX0A==
+  dependencies:
+    "@brazilian-utils/is-valid-boleto" "^0.1.0"
+    "@brazilian-utils/is-valid-cep" "^0.1.2"
+    "@brazilian-utils/is-valid-cnpj" "^0.1.11"
+    "@brazilian-utils/is-valid-cpf" "^0.1.11"
+    "@brazilian-utils/is-valid-phone" "^0.1.1"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -1473,6 +1533,11 @@
   version "7.0.11"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
   integrity sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==
+
+"@types/lodash@^4.14.123":
+  version "4.14.186"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.186.tgz#862e5514dd7bd66ada6c70ee5fce844b06c8ee97"
+  integrity sha512-eHcVlLXP0c2FlMPm56ITode2AgLMSa6aJ05JTTbYbI+7EMkCEE5qk2E41d5g2lCVTqRe0GnnRFurmlCsDODrPw==
 
 "@types/lodash@^4.14.149":
   version "4.14.185"
@@ -2260,12 +2325,17 @@ ajv-errors@^1.0.0:
   resolved "https://registry.yarnpkg.com/ajv-errors/-/ajv-errors-1.0.1.tgz#f35986aceb91afadec4102fbd85014950cefa64d"
   integrity sha512-DCRfO/4nQ+89p/RK43i8Ezd41EqdGIU4ld7nGF8OQ14oc/we5rEntLCUa7+jrn3nn83BosfwZA0wb4pon2o8iQ==
 
+ajv-i18n@^3.4.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/ajv-i18n/-/ajv-i18n-3.6.0.tgz#321313ce421b8a656e38e0cd2872393cab0c57ce"
+  integrity sha512-F21DzmzYq9aVtY8CGGtlnQDy3rFMaFW2KRlMuCQp76KiPIkvqN+mpq5MI9EsgC0VFwj+jeLIsvVCvPOa1sobBQ==
+
 ajv-keywords@^3.1.0, ajv-keywords@^3.4.1, ajv-keywords@^3.5.2:
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-3.5.2.tgz#31f29da5ab6e00d1c2d329acf7b5929614d5014d"
   integrity sha512-5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==
 
-ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.9.1:
+ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.2, ajv@^6.12.3, ajv@^6.12.4, ajv@^6.9.1:
   version "6.12.6"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
   integrity sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==
@@ -2542,7 +2612,7 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.11.0.tgz#d61f46d83b2519250e2784daf5b09479a8b41c59"
   integrity sha512-xh1Rl34h6Fi1DC2WWKfxUTVqRsNnr6LsKz2+hfwDxQJWmrx8+c7ylaqBMcHfl1U1r2dsifOvKX3LQuLNZ+XSvA==
 
-axios@^0.19.2:
+axios@^0.19.0, axios@^0.19.2:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
   integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
@@ -7558,6 +7628,11 @@ lodash.uniqueid@^4.0.1:
   resolved "https://registry.yarnpkg.com/lodash.uniqueid/-/lodash.uniqueid-4.0.1.tgz#3268f26a7c88e4f4b1758d679271814e31fa5b26"
   integrity sha512-GQQWaIeGlL6DIIr06kj1j6sSmBxyNMwI8kaX9aKpHR/XsMTiaXDVPNPAkiboOTK9OJpTJF/dXT3xYoFQnj386Q==
 
+lodash@4.17.15:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
 lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.3, lodash@^4.17.4:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
@@ -10120,6 +10195,38 @@ simple-swizzle@^0.2.2:
   dependencies:
     is-arrayish "^0.3.1"
 
+simpli-web-sdk@^2.7.5:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/simpli-web-sdk/-/simpli-web-sdk-2.7.5.tgz#d3986528883b12656fb38323bf65779639c8e4a5"
+  integrity sha512-Uyy0QLaJT26R7MKGjK4f26Oh8uABfWPrcBfUfD7P9rBpuxLhv87MDbKWhMzVNPNBXswPTDBnR2spwhuGptt7XQ==
+  dependencies:
+    "@brazilian-utils/validators" "^0.1.9"
+    "@types/lodash" "^4.14.123"
+    "@types/papaparse" "^4.5.9"
+    ajv "^6.10.0"
+    ajv-i18n "^3.4.0"
+    axios "^0.19.0"
+    class-transformer "^0.2.0"
+    compressorjs "^1.0.5"
+    cropperjs "^1.5.1"
+    js-sha256 "^0.9.0"
+    lodash "4.17.15"
+    moment "^2.24.0"
+    papaparse "^4.6.3"
+    reflect-metadata "^0.1.13"
+    shortid "^2.2.14"
+    v-money "^0.8.1"
+    vee-validate "^2.2.15"
+    vue "^2.6.10"
+    vue-class-component "^7.1.0"
+    vue-i18n "^7.6.0"
+    vue-multiselect "^2.1.4"
+    vue-property-decorator "^7.2.0"
+    vue-router "^3.0.2"
+    vue-snotify "^3.0.4"
+    vue-the-mask "^0.11.1"
+    vue-upload-component "^2.8.20"
+
 sisteransi@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
@@ -11410,7 +11517,7 @@ vue-moment@^4.0.0:
   dependencies:
     moment "^2.19.2"
 
-vue-multiselect@^2.1.6:
+vue-multiselect@^2.1.4, vue-multiselect@^2.1.6:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/vue-multiselect/-/vue-multiselect-2.1.6.tgz#5be5d811a224804a15c43a4edbb7485028a89c7f"
   integrity sha512-s7jmZPlm9FeueJg1RwJtnE9KNPtME/7C8uRWSfp9/yEN4M8XcS/d+bddoyVwVnvFyRh9msFo0HWeW0vTL8Qv+w==

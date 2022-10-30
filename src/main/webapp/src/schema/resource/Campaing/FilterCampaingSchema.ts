@@ -25,22 +25,7 @@ export class FilterCampaingSchema extends DefaultSchema
         label: this.translateFrom(schema.fieldName),
       },
     }),
-    endBeginDate: (schema): FieldComponent => ({
-      is: Component.InputText,
-      bind: {
-        type: 'mask',
-        maskPreset: 'date',
-        label: this.translateFrom(schema.fieldName),
-      },
-    }),
-    startEndDate: (schema): FieldComponent => ({
-      is: Component.InputText,
-      bind: {
-        type: 'mask',
-        maskPreset: 'date',
-        label: this.translateFrom(schema.fieldName),
-      },
-    }),
+
     endEndDate: (schema): FieldComponent => ({
       is: Component.InputText,
       bind: {

@@ -7,8 +7,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Watch, Mixins, Vue} from 'vue-property-decorator'
-import {MixinScreenSize} from '@/components/mixins/MixinScreenSize'
+import {Component, Vue} from 'vue-property-decorator'
 import Navbar from '@/components/navbar/Navbar.vue'
 import FooterMenu from '@/components/footer/FooterMenu.vue'
 

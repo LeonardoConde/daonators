@@ -225,7 +225,7 @@
     }
   },
   "resource": {
-    "Campaing": "Campaing",
+    "Campaing": "Votação",
     "Vote": "Vote",
     "User": "User",
     "Organization": "Organization",
@@ -240,7 +240,7 @@
     "itens": [
       {
         "name": "campanhas",
-        "path": "/"
+        "path": "/voting"
       },
       {
         "name": "organizações",
@@ -253,13 +253,21 @@
     "itens": [
       {
         "name": "campanhas",
-        "path": "/"
+        "path": "/voting"
       },
       {
         "name": "organizações",
         "path": "/"
       }
     ]
+  },
+  "votingcard": {
+    "tipo": "Tipo:",
+    "aberto": "Aberto",
+    "fechado": "Fechado",
+    "inicio": "Inicio:",
+    "fim": "Fim:",
+    "semfim": "Indefinido"
   },
   "schema": {
     "InputAuthRequest": {
@@ -288,10 +296,10 @@
       "user": "User"
     },
     "FilterCampaing": {
-      "startBeginDate": "Start Begin Date",
+      "startBeginDate": "Começa em:",
       "endBeginDate": "End Begin Date",
       "startEndDate": "Start End Date",
-      "endEndDate": "End End Date"
+      "endEndDate": "Termina em:"
     },
     "InputCampaing": {
       "idCampaingPk": "Id Campaing Pk",

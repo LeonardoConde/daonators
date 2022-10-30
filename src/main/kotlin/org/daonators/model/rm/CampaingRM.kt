@@ -29,7 +29,9 @@ object CampaingRM {
     )
 
     fun fieldsToSearch(alias: String = "campaing") = arrayOf(
-            "$alias.idCampaingPk"
+            "$alias.idCampaingPk",
+            "$alias.name"
+
     )
 
     fun orderMap(alias: String = "campaing") = mapOf(
