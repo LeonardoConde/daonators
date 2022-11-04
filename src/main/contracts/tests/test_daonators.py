@@ -12,7 +12,7 @@ class TestDaonators(BoaTest):
     default_folder: str = str(pathlib.Path(__file__).parent.parent.resolve())
     print(default_folder)
 
-    OWNER_SCRIPT_HASH = bytes(20)
+    USER_SCRIPT_HASH_ONE = bytes(20)
     OTHER_ACCOUNT_1 = to_script_hash(b'NiNmXL8FjEUEs1nfX9uHFBNaenxDHJtmuB')
     OTHER_ACCOUNT_2 = bytes(range(20))
     engine = TestEngine(str(pathlib.Path(__file__).parent.parent.joinpath('Neo.TestEngine').resolve()))
@@ -28,6 +28,10 @@ class TestDaonators(BoaTest):
     @property
     def path(self):
         return self.get_contract_path(self.default_folder, 'smart_contracts', 'daonators.py')
+
+    @property
+    def path_token(self):
+        return self.get_contract_path(self.default_folder, 'smart_contracts', 'token.py')
 
     @property
     def path_test_engine(self):
@@ -82,3 +86,65 @@ class TestDaonators(BoaTest):
         # não pode criar a campanha duas vezes
         result = self.run_smart_contract(self.engine, self.path, 'create_campaign', self.ORG_SCRIPT_HASH1)
         self.assertEqual(False, result)
+
+    def test_dao_vote_campaign(self):
+        self.engine.reset_engine()
+        self.engine.add_contract(self.path)
+        self.engine.add_contract(self.path_token)
+
+        self.run_smart_contract(self.engine, self.path_token, 'symbol')
+        self.set_token_data()
+        self.run_smart_contract(self.engine, self.path, 'get_orgs')
+
+        # can't vote, because campaign doesn't exist yet
+        result = self.run_smart_contract(self.engine, self.path, 'vote', self.ORG_SCRIPT_HASH1,
+                                         self.USER_SCRIPT_HASH_ONE, signer_accounts=[self.USER_SCRIPT_HASH_ONE])
+        self.assertEqual(False, result)
+
+        result = self.run_smart_contract(self.engine, self.path, 'create_campaign', self.ORG_SCRIPT_HASH1)
+        self.assertEqual(True, result)
+
+        # user doesn't have any token to vote yet
+        result = self.run_smart_contract(self.engine, self.path, 'vote', self.ORG_SCRIPT_HASH1,
+                                         self.USER_SCRIPT_HASH_ONE, signer_accounts=[self.USER_SCRIPT_HASH_ONE])
+        self.assertEqual(False, result)
+
+        self.add_tokens_to_user(self.USER_SCRIPT_HASH_ONE, 10 * 10 ** 8)
+
+        # now the user is able to vote
+        result = self.run_smart_contract(self.engine, self.path, 'vote', self.ORG_SCRIPT_HASH1,
+                                         self.USER_SCRIPT_HASH_ONE, signer_accounts=[self.USER_SCRIPT_HASH_ONE])
+        self.assertEqual(True, result)
+
+        # can't vote twice
+        result = self.run_smart_contract(self.engine, self.path, 'vote', self.ORG_SCRIPT_HASH1,
+                                         self.USER_SCRIPT_HASH_ONE, signer_accounts=[self.USER_SCRIPT_HASH_ONE])
+        self.assertEqual(False, result)
+
+        # pega a campanha pra verificar se o usuario esta na lista de votados
+        result = self.run_smart_contract(self.engine, self.path, 'get_campaign', self.ORG_SCRIPT_HASH1)
+        self.assertIn(self.USER_SCRIPT_HASH_ONE.decode('utf-8'), result[1])
+
+        # não é possivel que outra pessoa remova sem permissão
+        result = self.run_smart_contract(self.engine, self.path, 'remove_vote', self.ORG_SCRIPT_HASH1,
+                                         self.USER_SCRIPT_HASH_ONE, signer_accounts=[self.OTHER_ACCOUNT_1])
+        self.assertEqual(False, result)
+
+        result = self.run_smart_contract(self.engine, self.path, 'remove_vote', self.ORG_SCRIPT_HASH1,
+                                         self.USER_SCRIPT_HASH_ONE, signer_accounts=[self.USER_SCRIPT_HASH_ONE])
+        self.assertEqual(True, result)
+
+        # pega a campanha pra verificar que o usuario não esta na lista de votados
+        result = self.run_smart_contract(self.engine, self.path, 'get_campaign', self.ORG_SCRIPT_HASH1)
+        self.assertNotIn(self.USER_SCRIPT_HASH_ONE.decode('utf-8'), result[1])
+
+    def set_token_data(self):
+        total_supply = 10_000_000 * 10 ** 8
+        token_address = self.engine.executed_script_hash.to_array()
+        self.run_smart_contract(self.engine, self.path_token, 'fixTestEngineDeployError',
+                                self.engine.notifications[0].arguments[0],
+                                token_address, total_supply)
+
+    def add_tokens_to_user(self, user_address, amount: int):
+        self.run_smart_contract(self.engine, self.path_token, 'mint_for_tests', user_address, amount,
+                                signer_accounts=[self.USER_SCRIPT_HASH_ONE])
