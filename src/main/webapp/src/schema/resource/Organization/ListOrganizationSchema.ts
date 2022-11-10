@@ -19,7 +19,7 @@ export class ListOrganizationSchema extends DefaultSchema {
     name: (): FieldComponent => ({
       is: Component.Render,
     }),
-    walletAddress: (): FieldComponent => ({
+    scriptHash: (): FieldComponent => ({
       is: Component.Render,
     }),
     active: (schema): FieldComponent => ({

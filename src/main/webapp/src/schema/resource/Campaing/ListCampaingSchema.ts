@@ -16,11 +16,8 @@ export class ListCampaingSchema extends DefaultSchema {
     idCampaingPk: (): FieldComponent => ({
       is: Component.Render,
     }),
-    campaingType: (schema): FieldComponent => ({
+    socialCause: (): FieldComponent => ({
       is: Component.Render,
-      bind: {
-        content: schema.model.campaingType?.$tag,
-      },
     }),
     beginDate: (schema): FieldComponent => ({
       is: Component.Render,
@@ -34,7 +31,7 @@ export class ListCampaingSchema extends DefaultSchema {
         content: $.filter.datetime(schema.model.endDate),
       },
     }),
-    idCampaingTypePk: (): FieldComponent => ({
+    name: (): FieldComponent => ({
       is: Component.Render,
     }),
   }

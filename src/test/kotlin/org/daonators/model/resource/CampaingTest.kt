@@ -19,13 +19,28 @@ class CampaingTest: AppTest() {
 
     init {
         model.idCampaingPk = 1
-        model.idCampaingTypePk = 1
+        model.socialCause = "1"
         model.beginDate = Date()
+        model.endDate = Date()
     }
 
     @Test(expected = BadRequestException::class)
-    fun testValidateIdCampaingTypePkNullFail() {
-        model.idCampaingTypePk = 0L
+    fun testValidateNameLengthFail() {
+        model.name = RandomStringUtils.randomAlphabetic(46)
+
+        model.validate(lang)
+    }
+
+    @Test(expected = BadRequestException::class)
+    fun testValidateSocialCauseNullFail() {
+        model.socialCause = ""
+
+        model.validate(lang)
+    }
+
+    @Test(expected = BadRequestException::class)
+    fun testValidateSocialCauseLengthFail() {
+        model.socialCause = RandomStringUtils.randomAlphabetic(256)
 
         model.validate(lang)
     }
@@ -33,6 +48,13 @@ class CampaingTest: AppTest() {
     @Test(expected = BadRequestException::class)
     fun testValidateBeginDateNullFail() {
         model.beginDate = null
+
+        model.validate(lang)
+    }
+
+    @Test(expected = BadRequestException::class)
+    fun testValidateEndDateNullFail() {
+        model.endDate = null
 
         model.validate(lang)
     }

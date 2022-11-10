@@ -15,10 +15,8 @@ import javax.ws.rs.PathParam
 class UserWallet {
     @Schema(required = true) var idUserWalletPk: Long = 0
 
-    var user: User? = null
-
     @Schema(required = true, maxLength = 34)
-    var walletAddress: String? = null
+    var walletAdress: String? = null
 
     var id
         @Schema(hidden = true)
@@ -27,26 +25,13 @@ class UserWallet {
             idUserWalletPk = value
         }
 
-    var idUserFk: Long?
-        get() = user?.idUser
-        set(value) {
-            if (value == null || value == 0L) {
-                user = null
-                return
-            }
-            if (user == null) {
-                user = User()
-            }
-            user?.idUser = value
-        }
-
     fun validate(lang: LanguageHolder) {
         // TODO: review generated method
-        if (walletAddress.isNullOrBlank()) {
-            throw BadRequestException(lang.cannotBeNull(lang["UserWallet.walletAddress"]))
+        if (walletAdress.isNullOrBlank()) {
+            throw BadRequestException(lang.cannotBeNull(lang["UserWallet.walletAdress"]))
         }
-        if (walletAddress?.length ?: 0 > 34) {
-            throw BadRequestException(lang.lengthCannotBeMoreThan(lang["UserWallet.walletAddress"], 34))
+        if (walletAdress?.length ?: 0 > 34) {
+            throw BadRequestException(lang.lengthCannotBeMoreThan(lang["UserWallet.walletAdress"], 34))
         }
     }
 }

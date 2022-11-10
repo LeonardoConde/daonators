@@ -53,7 +53,7 @@ export default class PersistOrganizationView extends Vue {
   }
 
   populateResource() {
-    this.schema.collectionOrganizationType.queryAsPage()
+    this.schema.collectionCampaing.queryAsPage()
   }
 
   async populate() {

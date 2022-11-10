@@ -7,12 +7,12 @@ import {FieldSet, FieldComponent} from '@simpli/meta-schema'
 import * as Component from '@simpli/vue-input'
 import {ICampaingCollectionResourcesHolder} from '@/model/collection/CampaingCollection'
 import {Campaing} from '@/model/resource/Campaing'
-import {CampaingTypeCollection} from '@/model/collection/CampaingTypeCollection'
+import {OrganizationCollection} from '@/model/collection/OrganizationCollection'
 
 /* TODO: review generated schema */
 export class FilterCampaingSchema extends DefaultSchema
   implements ICampaingCollectionResourcesHolder {
-  collectionCampaingType = new CampaingTypeCollection().noPagination()
+  collectionOrganization = new OrganizationCollection().noPagination()
 
   readonly name = 'FilterCampaing'
 

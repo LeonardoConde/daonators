@@ -33,8 +33,8 @@ export default class FilterVote extends Vue {
     this.collection.resource = this.schema
 
     const promises: Array<Promise<any>> = [
-      this.collection.resource.collectionCampaingOrganization.queryAsPage(),
       this.collection.resource.collectionUserWallet.queryAsPage(),
+      this.collection.resource.collectionVoting.queryAsPage(),
     ]
 
     await this.$await.run('softQuery', () => Promise.all(promises))

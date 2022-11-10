@@ -3,7 +3,6 @@ package org.daonators.dao
 import org.daonators.model.filter.CampaingListFilter
 import org.daonators.model.resource.Campaing
 import org.daonators.model.rm.CampaingRM
-import org.daonators.model.rm.CampaingTypeRM
 import br.com.simpli.sql.AbstractConnector
 import br.com.simpli.sql.Query
 
@@ -27,16 +26,13 @@ class CampaingDao(val con: AbstractConnector) {
     fun getList(filter: CampaingListFilter): MutableList<Campaing> {
         // TODO: review generated method
         val query = Query()
-                .selectFields(CampaingRM.selectFields() + CampaingTypeRM.selectFields())
+                .selectCampaing()
                 .from("campaing")
-                .innerJoin("campaing_type", "campaing_type.idCampaingTypePk", "campaing.idCampaingTypePk")
                 .whereCampaingFilter(filter)
                 .orderAndLimitCampaing(filter)
 
         return con.getList(query) {
-            CampaingRM.build(it).apply {
-                campaingType = CampaingTypeRM.build(it)
-            }
+            CampaingRM.build(it)
         }
     }
 
@@ -89,12 +85,6 @@ class CampaingDao(val con: AbstractConnector) {
         filter.query?.also {
             if (it.isNotEmpty()) {
                 whereSomeLikeThis(CampaingRM.fieldsToSearch(alias), "%$it%")
-            }
-        }
-
-        filter.idCampaingTypePk?.also {
-            if (it.isNotEmpty()) {
-                whereIn("$alias.idCampaingTypePk", *it.toTypedArray())
             }
         }
 

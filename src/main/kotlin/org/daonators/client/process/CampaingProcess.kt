@@ -2,6 +2,7 @@ package org.daonators.client.process
 
 import org.daonators.client.context.RequestContext
 import org.daonators.dao.CampaingDao
+import org.daonators.dao.CampaingOrganizationDao
 import org.daonators.model.filter.CampaingListFilter
 import org.daonators.model.resource.Campaing
 import org.daonators.exception.response.BadRequestException
@@ -21,7 +22,12 @@ class CampaingProcess(val context: RequestContext) {
         // TODO: review generated method
         if (id == null) throw BadRequestException()
 
-        return dao.getOne(id) ?: throw NotFoundException()
+        val campaingOrganizationDao = CampaingOrganizationDao(context.con)
+
+        val model = dao.getOne(id) ?: throw NotFoundException()
+        model.campaingOrganization = campaingOrganizationDao.listOrganizationOfCampaing(id)
+
+        return model
     }
 
     fun list(filter: CampaingListFilter): PageCollection<Campaing> {
@@ -40,6 +46,14 @@ class CampaingProcess(val context: RequestContext) {
             update(model)
         } else {
             create(model)
+        }
+
+        val campaingOrganizationDao = CampaingOrganizationDao(context.con)
+
+        campaingOrganizationDao.removeAllFromCampaing(model.id)
+
+        model.campaingOrganization?.let { list ->
+            list.forEach { campaingOrganizationDao.insert(model.id, it.id) }
         }
 
         return model.id

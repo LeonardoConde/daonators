@@ -32,9 +32,7 @@ export default class FilterUserWallet extends Vue {
   async populateFilterOptions() {
     this.collection.resource = this.schema
 
-    const promises: Array<Promise<any>> = [
-      this.collection.resource.collectionUser.queryAsPage(),
-    ]
+    const promises: Array<Promise<any>> = []
 
     await this.$await.run('softQuery', () => Promise.all(promises))
   }

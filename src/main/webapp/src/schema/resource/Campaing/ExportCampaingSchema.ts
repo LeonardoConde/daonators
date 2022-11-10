@@ -13,9 +13,9 @@ export class ExportCampaingSchema extends DefaultSchema {
 
   readonly fieldSet: FieldSet<Campaing> = {
     idCampaingPk: schema => schema.model.idCampaingPk,
-    campaingType: schema => schema.model.campaingType?.$tag ?? null,
+    socialCause: schema => schema.model.socialCause,
     beginDate: schema => $.filter.datetime(schema.model.beginDate),
     endDate: schema => $.filter.datetime(schema.model.endDate),
-    idCampaingTypePk: schema => schema.model.idCampaingTypePk,
+    name: schema => schema.model.name,
   }
 }

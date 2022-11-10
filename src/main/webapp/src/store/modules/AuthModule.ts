@@ -13,14 +13,14 @@ export class AuthModule implements Module<AuthState, RootState> {
 
   state: AuthState = {
     token: null,
-    user: null,
+    authAdm: null,
     cachePath: null,
   }
 
   getters = {
     isLogged: (state: AuthState) => Boolean(state.token),
     token: (state: AuthState) => state.token,
-    user: (state: AuthState) => state.user,
+    authAdm: (state: AuthState) => state.authAdm,
     cachePath: (state: AuthState) => state.cachePath,
   }
 
@@ -64,7 +64,7 @@ export class AuthModule implements Module<AuthState, RootState> {
 
       const authResponse = await AuthRequest.authenticate()
 
-      const id = authResponse.user?.$id ?? 0
+      const id = authResponse.authAdm?.$id ?? 0
       const token = authResponse.token || ''
 
       // TODO: verify the need of a socket connection
@@ -108,12 +108,12 @@ export class AuthModule implements Module<AuthState, RootState> {
     },
 
     POPULATE(state: AuthState, response: AuthResponse) {
-      state.user = response.user
+      state.authAdm = response.authAdm
     },
 
     FORGET(state: AuthState) {
       state.token = null
-      state.user = null
+      state.authAdm = null
 
       localStorage.removeItem('token')
     },

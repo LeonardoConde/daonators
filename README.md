@@ -6,7 +6,7 @@
   <a href="https://www.npmjs.com/package/@simpli/cli"><img src="https://img.shields.io/npm/l/@simpli/cli.svg"></a>
 </p>
 
-### Simpli CLI - API daonators
+### Simpli CLI - API Daonators
 
 Make sure the port 8080 is not in use.
 
@@ -43,17 +43,6 @@ If you could not find it, go to the root of project and generate the `data.sql` 
 Make sure your database is used for testing because the command `simpli server:seed` will TRUNCATE your tables.
 
 ---
-
-### VM options:
-```
--DENVIRONMENT=beta
--DDB_URL=localhost
--DDB_NAME=daonators
--DDB_USER=root
--DDB_PASS=root
--DLOG_LEVEL=debug
-```
-
 
 ## Contribute
 To generate an exact copy of this:

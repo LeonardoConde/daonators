@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Context path="/daonators">
+<Context path="/Daonators">
     <Resource
         name="jdbc/daonatorsDS"
         url="jdbc:mysql://${DB_URL}:3306/${DB_NAME}?useSSL=false"

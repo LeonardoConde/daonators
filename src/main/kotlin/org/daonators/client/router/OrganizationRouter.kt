@@ -30,8 +30,8 @@ class OrganizationRouter : RouterWrapper() {
     @Operation(tags = ["Organization"], summary = "Gets a instance of a given ID of Organization")
     fun getOrganization(@BeanParam param: DefaultParam.RequiredPathId): Organization {
         // TODO: review generated method
-        return PublicPipe.handle(readPipe, param) { 
-            OrganizationProcess(it).get(param.id)
+        return PublicPipe.handle(readPipe, param) { context ->
+            OrganizationProcess(context).get(param.id)
 		}
     }
 
@@ -39,8 +39,8 @@ class OrganizationRouter : RouterWrapper() {
     @Operation(tags = ["Organization"], summary = "Lists the instances of Organization")
     fun listOrganization(@BeanParam param: AuthOrganizationListParam): PageCollection<Organization> {
         // TODO: review generated method
-        return PublicPipe.handle(readPipe, param) {
-            OrganizationProcess(it).list(param)
+        return PublicPipe.handle(readPipe, param) { context ->
+            OrganizationProcess(context).list(param)
 		}
     }
 
@@ -49,7 +49,7 @@ class OrganizationRouter : RouterWrapper() {
     @Operation(tags = ["Organization"], summary = "Lists the instances of Organization to export as a file")
     fun listExportOrganization(@BeanParam param: AuthOrganizationListParam): PageCollection<Organization> {
         // TODO: review generated method
-        return AuthPipe.handle(readPipe, param) { context, _ ->
+        return PublicPipe.handle(readPipe, param) { context ->
             OrganizationProcess(context).list(param)
 		}
     }

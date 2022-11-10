@@ -30,8 +30,8 @@ class UserWalletRouter : RouterWrapper() {
     @Operation(tags = ["UserWallet"], summary = "Gets a instance of a given ID of UserWallet")
     fun getUserWallet(@BeanParam param: DefaultParam.RequiredPathId): UserWallet {
         // TODO: review generated method
-        return PublicPipe.handle(readPipe, param) {
-            UserWalletProcess(it).get(param.id)
+        return PublicPipe.handle(readPipe, param) { context ->
+            UserWalletProcess(context).get(param.id)
 		}
     }
 
@@ -39,8 +39,8 @@ class UserWalletRouter : RouterWrapper() {
     @Operation(tags = ["UserWallet"], summary = "Lists the instances of UserWallet")
     fun listUserWallet(@BeanParam param: AuthUserWalletListParam): PageCollection<UserWallet> {
         // TODO: review generated method
-        return PublicPipe.handle(readPipe, param) {
-            UserWalletProcess(it).list(param)
+        return PublicPipe.handle(readPipe, param) { context ->
+            UserWalletProcess(context).list(param)
 		}
     }
 
@@ -49,7 +49,7 @@ class UserWalletRouter : RouterWrapper() {
     @Operation(tags = ["UserWallet"], summary = "Lists the instances of UserWallet to export as a file")
     fun listExportUserWallet(@BeanParam param: AuthUserWalletListParam): PageCollection<UserWallet> {
         // TODO: review generated method
-        return AuthPipe.handle(readPipe, param) { context, _ ->
+        return PublicPipe.handle(readPipe, param) { context ->
             UserWalletProcess(context).list(param)
 		}
     }

@@ -19,7 +19,8 @@ import org.junit.Test
  * @author Simpli CLI generator
  */
 class VoteProcessTest : ProcessTest() {
-    private val id = 1L
+    private val id1 = 1L
+    private val id2 = 1L
     private val model = Vote()
 
     private val listFilter = AuthVoteListParam()
@@ -27,12 +28,9 @@ class VoteProcessTest : ProcessTest() {
     private val subject = VoteProcess(context)
 
     init {
-        model.idVotePk = 1
-        model.lastUpdate = Date()
-        model.tokensAmount = "1"
-        model.idCampaingFk = 1
-        model.idOrganizationFk = 1
+        model.idVotingFk = 1
         model.idUserWalletFk = 1
+        model.tokenAmount = 1.0
     }
 
     @Test
@@ -55,18 +53,20 @@ class VoteProcessTest : ProcessTest() {
 
     @Test
     fun testGetSuccess() {
-        val result = subject.get(id)
-        assertNotSame(0, result.id)
+        val result = subject.get(id1, id2)
+        assertNotSame(0, result.id1)
+        assertNotSame(0, result.id2)
     }
 
     @Test(expected = NotFoundException::class)
     fun testGetFail() {
-        subject.get(0)
+        subject.get(0, 0)
     }
 
     @Test
     fun testCreateSuccess() {
-        model.id = 0
+        model.id1 = 1
+        model.id2 = 2
 
         val result = subject.create(model)
         assertTrue(result > 0)
@@ -74,14 +74,16 @@ class VoteProcessTest : ProcessTest() {
 
     @Test(expected = BadRequestException::class)
     fun testCreateFail() {
-        model.id = id
+        model.id1 = id1
+        model.id2 = id2
 
         subject.create(model)
     }
 
     @Test
     fun testUpdateSuccess() {
-        model.id = id
+        model.id1 = id1
+        model.id2 = id2
 
         val result = subject.update(model)
         assertTrue(result > 0)
@@ -89,7 +91,8 @@ class VoteProcessTest : ProcessTest() {
 
     @Test(expected = BadRequestException::class)
     fun testUpdateFail() {
-        model.id = 0
+        model.id1 = 0
+        model.id2 = 0
 
         subject.update(model)
     }

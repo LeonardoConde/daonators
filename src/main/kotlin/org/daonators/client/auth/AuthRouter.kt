@@ -36,8 +36,8 @@ class AuthRouter : RouterWrapper() {
     @POST
     @Operation(tags = ["AuthRequest"], summary = "Submits the user authentication")
     fun signIn(@BeanParam param: DefaultParam.Auth, request: AuthRequest): AuthResponse {
-        return PublicPipe.handle(readPipe, param) {
-            AuthProcess(it).signIn(request)
+        return PublicPipe.handle(readPipe, param) { context ->
+            AuthProcess(context).signIn(request)
         }
     }
 

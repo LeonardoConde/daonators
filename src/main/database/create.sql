@@ -15,156 +15,202 @@ CREATE SCHEMA IF NOT EXISTS `daonators` DEFAULT CHARACTER SET utf8 ;
 USE `daonators` ;
 
 -- -----------------------------------------------------
--- Table `daonators`.`user`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `daonators`.`user` (
-  `idUser` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  `password` VARCHAR(255) NULL,
-  PRIMARY KEY (`idUser`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `daonators`.`user_wallet`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `daonators`.`user_wallet` (
-  `idUserWalletPk` INT NOT NULL AUTO_INCREMENT,
-  `walletAddress` VARCHAR(34) NOT NULL,
-  `idUserFk` INT NULL DEFAULT 0,
-  PRIMARY KEY (`idUserWalletPk`),
-  INDEX `fk_user_wallet_user1_idx` (`idUserFk` ASC) VISIBLE,
-  CONSTRAINT `fk_user_wallet_user1`
-    FOREIGN KEY (`idUserFk`)
-    REFERENCES `daonators`.`user` (`idUser`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `daonators`.`campaing_type`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `daonators`.`campaing_type` (
-  `idCampaingTypePk` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `active` TINYINT(1) NOT NULL DEFAULT 1,
-  PRIMARY KEY (`idCampaingTypePk`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `daonators`.`campaing`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `daonators`.`campaing` (
-  `idCampaingPk` INT NOT NULL AUTO_INCREMENT,
-  `idCampaingTypePk` INT NOT NULL,
-  `beginDate` DATE NOT NULL,
-  `endDate` DATE NULL,
-  PRIMARY KEY (`idCampaingPk`),
-  INDEX `fk_campaing_campaing_type1_idx` (`idCampaingTypePk` ASC) VISIBLE,
-  CONSTRAINT `fk_campaing_campaing_type1`
-    FOREIGN KEY (`idCampaingTypePk`)
-    REFERENCES `daonators`.`campaing_type` (`idCampaingTypePk`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+                                                         `idUserWalletPk` INT NOT NULL AUTO_INCREMENT,
+                                                         `walletAdress` VARCHAR(34) NOT NULL,
+    PRIMARY KEY (`idUserWalletPk`))
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `daonators`.`organization`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `daonators`.`organization` (
-  `idOrganizationPk` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `walletAddress` VARCHAR(34) NOT NULL,
-  `active` TINYINT(1) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`idOrganizationPk`))
-ENGINE = InnoDB;
+                                                          `idOrganizationPk` INT NOT NULL AUTO_INCREMENT,
+                                                          `name` VARCHAR(45) NOT NULL,
+    `scriptHash` VARCHAR(42) NOT NULL,
+    `active` TINYINT(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY (`idOrganizationPk`))
+    ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `daonators`.`campaing`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `daonators`.`campaing` (
+                                                      `idCampaingPk` INT NOT NULL AUTO_INCREMENT,
+                                                      `name` VARCHAR(45) NULL,
+    `socialCause` VARCHAR(255) NOT NULL,
+    `beginDate` DATE NOT NULL,
+    `endDate` DATE NOT NULL,
+    PRIMARY KEY (`idCampaingPk`))
+    ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `daonators`.`voting`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `daonators`.`voting` (
+                                                    `idVotingPk` INT NOT NULL AUTO_INCREMENT,
+                                                    `idOrganizationfk` INT NOT NULL,
+                                                    `idCampaingFk` INT NULL,
+                                                    `idVotingTypeFk` INT NOT NULL,
+                                                    PRIMARY KEY (`idVotingPk`, `idOrganizationfk`),
+    INDEX `fk_voting_organization1_idx` (`idOrganizationfk` ASC) VISIBLE,
+    INDEX `fk_voting_campaing1_idx` (`idCampaingFk` ASC) VISIBLE,
+    INDEX `fk_voting_voting_type1_idx` (`idVotingTypeFk` ASC) VISIBLE,
+    UNIQUE INDEX `idCampaingFk_UNIQUE` (`idCampaingFk` ASC) VISIBLE,
+    CONSTRAINT `fk_voting_organization1`
+    FOREIGN KEY (`idOrganizationfk`)
+    REFERENCES `daonators`.`organization` (`idOrganizationPk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_voting_campaing1`
+    FOREIGN KEY (`idCampaingFk`)
+    REFERENCES `daonators`.`campaing` (`idCampaingPk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_voting_voting_type1`
+    FOREIGN KEY (`idVotingTypeFk`)
+    REFERENCES `daonators`.`voting_type` (`idVotingTypePk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+    ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `daonators`.`donation`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `daonators`.`donation` (
+                                                      `idDonationPk` INT NOT NULL AUTO_INCREMENT,
+                                                      `idCampaingFk` INT NOT NULL,
+                                                      `idOrganizationFk` INT NOT NULL,
+                                                      `gasAmount` DOUBLE NOT NULL,
+                                                      `transactionHash` VARCHAR(66) NOT NULL,
+    PRIMARY KEY (`idDonationPk`, `idCampaingFk`, `idOrganizationFk`),
+    INDEX `fk_donation_campaing1_idx` (`idCampaingFk` ASC) VISIBLE,
+    INDEX `fk_donation_organization1_idx` (`idOrganizationFk` ASC) VISIBLE,
+    CONSTRAINT `fk_donation_campaing1`
+    FOREIGN KEY (`idCampaingFk`)
+    REFERENCES `daonators`.`campaing` (`idCampaingPk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_donation_organization1`
+    FOREIGN KEY (`idOrganizationFk`)
+    REFERENCES `daonators`.`organization` (`idOrganizationPk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+    ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `daonators`.`wallet`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `daonators`.`wallet` (
+                                                    `idWalletPk` INT NOT NULL AUTO_INCREMENT,
+                                                    `wallet` VARCHAR(45) NULL,
+    PRIMARY KEY (`idWalletPk`))
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `daonators`.`campaing_organization`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `daonators`.`campaing_organization` (
-  `idCampaingFk` INT NOT NULL,
-  `idOrganizationFk` INT NOT NULL,
-  `transactionHash` VARCHAR(66) NULL,
-  `gasAmount` DOUBLE NULL DEFAULT 0,
-  PRIMARY KEY (`idCampaingFk`, `idOrganizationFk`),
-  INDEX `fk_campaing_has_organization_organization1_idx` (`idOrganizationFk` ASC) VISIBLE,
-  INDEX `fk_campaing_has_organization_campaing1_idx` (`idCampaingFk` ASC) VISIBLE,
-  CONSTRAINT `fk_campaing_has_organization_campaing1`
+                                                                   `idOrganizationPk` INT NOT NULL,
+                                                                   `idCampaingPk` INT NOT NULL,
+                                                                   PRIMARY KEY (`idOrganizationPk`, `idCampaingPk`),
+    INDEX `fk_organization_has_campaing_campaing1_idx` (`idCampaingPk` ASC) VISIBLE,
+    INDEX `fk_organization_has_campaing_organization_idx` (`idOrganizationPk` ASC) VISIBLE,
+    CONSTRAINT `fk_organization_has_campaing_organization`
+    FOREIGN KEY (`idOrganizationPk`)
+    REFERENCES `daonators`.`organization` (`idOrganizationPk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_organization_has_campaing_campaing1`
+    FOREIGN KEY (`idCampaingPk`)
+    REFERENCES `daonators`.`campaing` (`idCampaingPk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+    ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `daonators`.`voting_type`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `daonators`.`voting_type` (
+                                                         `idVotingTypePk` INT NOT NULL AUTO_INCREMENT,
+                                                         `name` VARCHAR(45) NOT NULL,
+    `active` TINYINT(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`idVotingTypePk`))
+    ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `daonators`.`voting`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `daonators`.`voting` (
+                                                    `idVotingPk` INT NOT NULL AUTO_INCREMENT,
+                                                    `idOrganizationfk` INT NOT NULL,
+                                                    `idCampaingFk` INT NULL,
+                                                    `idVotingTypeFk` INT NOT NULL,
+                                                    PRIMARY KEY (`idVotingPk`, `idOrganizationfk`),
+    INDEX `fk_voting_organization1_idx` (`idOrganizationfk` ASC) VISIBLE,
+    INDEX `fk_voting_campaing1_idx` (`idCampaingFk` ASC) VISIBLE,
+    INDEX `fk_voting_voting_type1_idx` (`idVotingTypeFk` ASC) VISIBLE,
+    UNIQUE INDEX `idCampaingFk_UNIQUE` (`idCampaingFk` ASC) VISIBLE,
+    CONSTRAINT `fk_voting_organization1`
+    FOREIGN KEY (`idOrganizationfk`)
+    REFERENCES `daonators`.`organization` (`idOrganizationPk`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_voting_campaing1`
     FOREIGN KEY (`idCampaingFk`)
     REFERENCES `daonators`.`campaing` (`idCampaingPk`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_campaing_has_organization_organization1`
-    FOREIGN KEY (`idOrganizationFk`)
-    REFERENCES `daonators`.`organization` (`idOrganizationPk`)
+    CONSTRAINT `fk_voting_voting_type1`
+    FOREIGN KEY (`idVotingTypeFk`)
+    REFERENCES `daonators`.`voting_type` (`idVotingTypePk`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `daonators`.`vote`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `daonators`.`vote` (
-  `idVotePk` INT NOT NULL AUTO_INCREMENT,
-  `lastUpdate` DATETIME NOT NULL,
-  `tokensAmount` DOUBLE UNSIGNED NOT NULL DEFAULT 0,
-  `idCampaingFk` INT NOT NULL,
-  `idOrganizationFk` INT NOT NULL,
-  `idUserWalletFk` INT NOT NULL,
-  PRIMARY KEY (`idVotePk`),
-  INDEX `fk_vote_campaing_organization1_idx` (`idCampaingFk` ASC, `idOrganizationFk` ASC) VISIBLE,
-  INDEX `fk_vote_user_wallet1_idx` (`idUserWalletFk` ASC) VISIBLE,
-  CONSTRAINT `fk_vote_campaing_organization1`
-    FOREIGN KEY (`idCampaingFk` , `idOrganizationFk`)
-    REFERENCES `daonators`.`campaing_organization` (`idCampaingFk` , `idOrganizationFk`)
+                                                  `idVotingFk` INT NOT NULL,
+                                                  `idUserWalletFk` INT NOT NULL,
+                                                  `tokenAmount` DOUBLE NOT NULL DEFAULT 0,
+                                                  PRIMARY KEY (`idVotingFk`, `idUserWalletFk`),
+    INDEX `fk_voting_has_user_wallet_user_wallet1_idx` (`idUserWalletFk` ASC) VISIBLE,
+    INDEX `fk_voting_has_user_wallet_voting1_idx` (`idVotingFk` ASC) VISIBLE,
+    CONSTRAINT `fk_voting_has_user_wallet_voting1`
+    FOREIGN KEY (`idVotingFk`)
+    REFERENCES `daonators`.`voting` (`idVotingPk`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_vote_user_wallet1`
+    CONSTRAINT `fk_voting_has_user_wallet_user_wallet1`
     FOREIGN KEY (`idUserWalletFk`)
     REFERENCES `daonators`.`user_wallet` (`idUserWalletPk`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `daonators`.`organization_type`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `daonators`.`organization_type` (
-  `idOrganizationTypePk` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `active` TINYINT(1) NOT NULL,
-  PRIMARY KEY (`idOrganizationTypePk`))
-ENGINE = InnoDB;
-
+    ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `daonators`.`organization_type_list`
+-- Table `daonators`.`authAdm`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `daonators`.`organization_type_list` (
-  `idOrganizationFk` INT NOT NULL,
-  `idOrganizationTypeFk` INT NOT NULL,
-  PRIMARY KEY (`idOrganizationFk`, `idOrganizationTypeFk`),
-  INDEX `fk_organization_has_organization_type_organization_type1_idx` (`idOrganizationTypeFk` ASC) VISIBLE,
-  INDEX `fk_organization_has_organization_type_organization1_idx` (`idOrganizationFk` ASC) VISIBLE,
-  CONSTRAINT `fk_organization_has_organization_type_organization1`
-    FOREIGN KEY (`idOrganizationFk`)
-    REFERENCES `daonators`.`organization` (`idOrganizationPk`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_organization_has_organization_type_organization_type1`
-    FOREIGN KEY (`idOrganizationTypeFk`)
-    REFERENCES `daonators`.`organization_type` (`idOrganizationTypePk`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `daonators`.`authAdm` (
+                                                     `idAuthAdmPk` INT NOT NULL AUTO_INCREMENT,
+                                                     `name` VARCHAR(45) NOT NULL,
+    `email` VARCHAR(45) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`idAuthAdmPk`))
+    ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

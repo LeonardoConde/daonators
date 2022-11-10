@@ -12,8 +12,8 @@ import {
 } from '@simpli/serialized-request'
 import {PageCollection} from '@simpli/resource-collection'
 import {Vote} from '@/model/resource/Vote'
-import {CampaingOrganizationCollection} from '@/model/collection/CampaingOrganizationCollection'
 import {UserWalletCollection} from '@/model/collection/UserWalletCollection'
+import {VotingCollection} from '@/model/collection/VotingCollection'
 
 /* TODO: review generated class */
 @HttpExclude()
@@ -24,43 +24,11 @@ export class VoteCollection extends PageCollection<Vote> {
 
   resource?: IVoteCollectionResourcesHolder
 
-  @RequestExpose() idCampaingFk: number[] = []
-  @RequestExpose() idUserWalletFk: number[] = []
-  @RequestExpose() startLastUpdate: string | null = null
-  @RequestExpose() endLastUpdate: string | null = null
-  @RequestExpose() minIdOrganizationFk: number | null = null
-  @RequestExpose() maxIdOrganizationFk: number | null = null
-
-  get campaingOrganization() {
-    return (
-      this.resource?.collectionCampaingOrganization.getManyIds(
-        this.idCampaingFk
-      ) ?? null
-    )
-  }
-  set campaingOrganization(input) {
-    this.idCampaingFk = input?.map(item => item?.$id) ?? []
-  }
-
-  get userWallet() {
-    return (
-      this.resource?.collectionUserWallet.getManyIds(this.idUserWalletFk) ??
-      null
-    )
-  }
-  set userWallet(input) {
-    this.idUserWalletFk = input?.map(item => item?.$id) ?? []
-  }
+  @RequestExpose() minTokenAmount: number | null = null
+  @RequestExpose() maxTokenAmount: number | null = null
 
   queryAsPage() {
-    return this.listExportVote()
-  }
-
-  async listExportVote() {
-    return await Request.get(`/client/vote/export`, {params: this.params})
-      .name('listExportVote')
-      .as(this)
-      .getResponse()
+    return this.listVote()
   }
 
   async listVote() {
@@ -69,9 +37,16 @@ export class VoteCollection extends PageCollection<Vote> {
       .as(this)
       .getResponse()
   }
+
+  async listExportVote() {
+    return await Request.get(`/client/vote/export`, {params: this.params})
+      .name('listExportVote')
+      .as(this)
+      .getResponse()
+  }
 }
 
 export interface IVoteCollectionResourcesHolder {
-  collectionCampaingOrganization: CampaingOrganizationCollection
   collectionUserWallet: UserWalletCollection
+  collectionVoting: VotingCollection
 }

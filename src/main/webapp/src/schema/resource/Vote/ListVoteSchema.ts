@@ -13,28 +13,19 @@ export class ListVoteSchema extends DefaultSchema {
   readonly name = 'ListVote'
 
   readonly fieldSet: FieldSet<Vote> = {
-    idVotePk: (): FieldComponent => ({
-      is: Component.Render,
-    }),
-    campaingOrganization: (schema): FieldComponent => ({
-      is: Component.Render,
-      bind: {
-        content: schema.model.campaingOrganization?.$tag,
-      },
-    }),
     userWallet: (schema): FieldComponent => ({
       is: Component.Render,
       bind: {
         content: schema.model.userWallet?.$tag,
       },
     }),
-    lastUpdate: (schema): FieldComponent => ({
+    voting: (schema): FieldComponent => ({
       is: Component.Render,
       bind: {
-        content: $.filter.datetime(schema.model.lastUpdate),
+        content: schema.model.voting?.$tag,
       },
     }),
-    tokensAmount: (): FieldComponent => ({
+    tokenAmount: (): FieldComponent => ({
       is: Component.Render,
     }),
   }

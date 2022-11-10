@@ -10,7 +10,4 @@ import javax.ws.rs.QueryParam
  * @author Simpli CLI generator
  */
 open class AuthUserWalletListParam: DefaultParam.AuthPaged(), UserWalletListFilter {
-    @QueryParam("idUserFk")
-    @Schema
-    override var idUserFk: List<Long>? = null
 }

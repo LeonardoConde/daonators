@@ -5,19 +5,18 @@
 import {$} from '@/facade'
 import {Request, ResponseSerialize} from '@simpli/serialized-request'
 import {IResource} from '@simpli/resource-collection/dist/types/IResource'
-import {CampaingType} from '@/model/resource/CampaingType'
+import {Organization} from '@/model/resource/Organization'
 import {CampaingCollection} from '@/model/collection/CampaingCollection'
 
 /* TODO: review generated class */
 export class Campaing implements IResource {
   idCampaingPk: number = 0
-  idCampaingTypePk: number = 0
 
-  @ResponseSerialize(CampaingType)
-  campaingType: CampaingType | null = null
+  @ResponseSerialize(Organization)
+  campaingOrganization: Organization[] | null = null
 
+  socialCause: string | null = null
   beginDate: string | null = null
-
   endDate: string | null = null
 
   name: string | null = null
@@ -29,7 +28,27 @@ export class Campaing implements IResource {
     this.idCampaingPk = val
   }
   get $tag() {
-    return String(this.$id)
+    return String(this.name)
+  }
+
+  /**
+   * Gets a instance of a given ID of Campaing
+   */
+  async getCampaing(id: number) {
+    return await Request.get(`/client/campaing/${id}`)
+      .name('getCampaing')
+      .as(this)
+      .getData()
+  }
+
+  /**
+   * Lists the instances of Campaing to export as a file
+   */
+  static async listExportCampaing(params: any) {
+    return await Request.get(`/client/campaing/export`, {params})
+      .name('listExportCampaing')
+      .as(CampaingCollection)
+      .getData()
   }
 
   /**
@@ -50,26 +69,6 @@ export class Campaing implements IResource {
     return await Request.post(`/client/campaing`, this)
       .name('persistCampaing')
       .asNumber()
-      .getData()
-  }
-
-  /**
-   * Gets a instance of a given ID of Campaing
-   */
-  async getCampaing(id: number) {
-    return await Request.get(`/client/campaing/${id}`)
-      .name('getCampaing')
-      .as(this)
-      .getData()
-  }
-
-  /**
-   * Lists the instances of Campaing to export as a file
-   */
-  static async listExportCampaing(params: any) {
-    return await Request.get(`/client/campaing/export`, {params})
-      .name('listExportCampaing')
-      .as(CampaingCollection)
       .getData()
   }
 }

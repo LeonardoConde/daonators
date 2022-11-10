@@ -16,8 +16,8 @@ export abstract class Auth {
     return Auth.$accessors.read(auth.getters.token)(store)
   }
 
-  static get user() {
-    return Auth.$accessors.read(auth.getters.user)(store)
+  static get authAdm() {
+    return Auth.$accessors.read(auth.getters.authAdm)(store)
   }
 
   static get cachePath() {

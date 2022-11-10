@@ -12,11 +12,8 @@ export class ExportVoteSchema extends DefaultSchema {
   readonly name = 'ExportVote'
 
   readonly fieldSet: FieldSet<Vote> = {
-    idVotePk: schema => schema.model.idVotePk,
-    campaingOrganization: schema =>
-      schema.model.campaingOrganization?.$tag ?? null,
     userWallet: schema => schema.model.userWallet?.$tag ?? null,
-    lastUpdate: schema => $.filter.datetime(schema.model.lastUpdate),
-    tokensAmount: schema => schema.model.tokensAmount,
+    voting: schema => schema.model.voting?.$tag ?? null,
+    tokenAmount: schema => schema.model.tokenAmount,
   }
 }

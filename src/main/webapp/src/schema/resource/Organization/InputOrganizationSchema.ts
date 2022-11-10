@@ -6,20 +6,20 @@ import {DefaultSchema} from '@/schema/DefaultSchema'
 import {FieldSet, FieldComponent} from '@simpli/meta-schema'
 import * as Component from '@simpli/vue-input'
 import {Organization} from '@/model/resource/Organization'
-import {OrganizationTypeCollection} from '@/model/collection/OrganizationTypeCollection'
+import {CampaingCollection} from '@/model/collection/CampaingCollection'
 
 /* TODO: review generated schema */
 export class InputOrganizationSchema extends DefaultSchema {
-  collectionOrganizationType = new OrganizationTypeCollection().noPagination()
+  collectionCampaing = new CampaingCollection().noPagination()
 
   readonly name = 'InputOrganization'
 
   readonly fieldSet: FieldSet<Organization> = {
-    organizationTypeList: (schema): FieldComponent => ({
+    campaingOrganization: (schema): FieldComponent => ({
       is: Component.InputSelect,
       bind: {
         label: this.translateFrom(schema.fieldName),
-        items: this.collectionOrganizationType.items,
+        items: this.collectionCampaing.items,
       },
     }),
     name: (schema): FieldComponent => ({
@@ -32,11 +32,11 @@ export class InputOrganizationSchema extends DefaultSchema {
         validation: 'required',
       },
     }),
-    walletAddress: (schema): FieldComponent => ({
+    scriptHash: (schema): FieldComponent => ({
       is: Component.InputText,
       bind: {
         type: 'text',
-        maxlength: 34,
+        maxlength: 42,
         label: this.translateFrom(schema.fieldName),
         required: true,
         validation: 'required',

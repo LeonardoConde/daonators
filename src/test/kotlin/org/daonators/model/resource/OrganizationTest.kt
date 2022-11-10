@@ -20,7 +20,7 @@ class OrganizationTest: AppTest() {
     init {
         model.idOrganizationPk = 1
         model.name = "1"
-        model.walletAddress = "1"
+        model.scriptHash = "1"
         model.active = true
     }
 
@@ -39,15 +39,15 @@ class OrganizationTest: AppTest() {
     }
 
     @Test(expected = BadRequestException::class)
-    fun testValidateWalletAddressNullFail() {
-        model.walletAddress = ""
+    fun testValidateScriptHashNullFail() {
+        model.scriptHash = ""
 
         model.validate(lang)
     }
 
     @Test(expected = BadRequestException::class)
-    fun testValidateWalletAddressLengthFail() {
-        model.walletAddress = RandomStringUtils.randomAlphabetic(35)
+    fun testValidateScriptHashLengthFail() {
+        model.scriptHash = RandomStringUtils.randomAlphabetic(43)
 
         model.validate(lang)
     }

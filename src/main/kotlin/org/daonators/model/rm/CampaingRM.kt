@@ -13,8 +13,8 @@ object CampaingRM {
     fun build(rs: ResultSet, alias: String = "campaing", allowedColumns: Array<String> = selectFields(alias)) = Campaing().apply {
         ResultBuilder(allowedColumns, rs, alias).run {
             idCampaingPk = getLong("idCampaingPk")
-            idCampaingTypePk = getLong("idCampaingTypePk")
             name = getString("name")
+            socialCause = getString("socialCause")
             beginDate = getTimestamp("beginDate")
             endDate = getTimestamp("endDate")
         }
@@ -22,34 +22,36 @@ object CampaingRM {
 
     fun selectFields(alias: String = "campaing") = arrayOf(
             "$alias.idCampaingPk",
-            "$alias.idCampaingTypePk",
             "$alias.name",
+            "$alias.socialCause",
             "$alias.beginDate",
             "$alias.endDate"
     )
 
     fun fieldsToSearch(alias: String = "campaing") = arrayOf(
-            "$alias.idCampaingPk"
+            "$alias.idCampaingPk",
+            "$alias.name",
+            "$alias.socialCause"
     )
 
     fun orderMap(alias: String = "campaing") = mapOf(
-            "campaingType" to "$alias.idCampaingTypePk",
             "idCampaingPk" to "$alias.idCampaingPk",
             "name" to "$alias.name",
+            "socialCause" to "$alias.socialCause",
             "beginDate" to "$alias.beginDate",
             "endDate" to "$alias.endDate"
     )
 
     fun updateSet(campaing: Campaing) = mapOf(
-            "idCampaingTypePk" to campaing.idCampaingTypePk,
             "name" to campaing.name,
+            "socialCause" to campaing.socialCause,
             "beginDate" to campaing.beginDate,
             "endDate" to campaing.endDate
     )
 
     fun insertValues(campaing: Campaing) = mapOf(
-            "idCampaingTypePk" to campaing.idCampaingTypePk,
             "name" to campaing.name,
+            "socialCause" to campaing.socialCause,
             "beginDate" to campaing.beginDate,
             "endDate" to campaing.endDate
     )

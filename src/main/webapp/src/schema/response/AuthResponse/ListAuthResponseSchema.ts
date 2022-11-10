@@ -16,10 +16,10 @@ export class ListAuthResponseSchema extends DefaultSchema {
     token: (): FieldComponent => ({
       is: Component.Render,
     }),
-    user: (schema): FieldComponent => ({
+    authAdm: (schema): FieldComponent => ({
       is: Component.Render,
       bind: {
-        content: schema.model.user?.$tag,
+        content: schema.model.authAdm?.$tag,
       },
     }),
   }

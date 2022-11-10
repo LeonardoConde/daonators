@@ -14,7 +14,7 @@ object OrganizationRM {
         ResultBuilder(allowedColumns, rs, alias).run {
             idOrganizationPk = getLong("idOrganizationPk")
             name = getString("name")
-            walletAddress = getString("walletAddress")
+            scriptHash = getString("scriptHash")
             active = getBoolean("active")
         }
     }
@@ -22,32 +22,32 @@ object OrganizationRM {
     fun selectFields(alias: String = "organization") = arrayOf(
             "$alias.idOrganizationPk",
             "$alias.name",
-            "$alias.walletAddress",
+            "$alias.scriptHash",
             "$alias.active"
     )
 
     fun fieldsToSearch(alias: String = "organization") = arrayOf(
             "$alias.idOrganizationPk",
             "$alias.name",
-            "$alias.walletAddress"
+            "$alias.scriptHash"
     )
 
     fun orderMap(alias: String = "organization") = mapOf(
             "idOrganizationPk" to "$alias.idOrganizationPk",
             "name" to "$alias.name",
-            "walletAddress" to "$alias.walletAddress",
+            "scriptHash" to "$alias.scriptHash",
             "active" to "$alias.active"
     )
 
     fun updateSet(organization: Organization) = mapOf(
             "name" to organization.name,
-            "walletAddress" to organization.walletAddress,
+            "scriptHash" to organization.scriptHash,
             "active" to organization.active
     )
 
     fun insertValues(organization: Organization) = mapOf(
             "name" to organization.name,
-            "walletAddress" to organization.walletAddress,
+            "scriptHash" to organization.scriptHash,
             "active" to organization.active
     )
 }

@@ -2,12 +2,11 @@
   <div class="navbar bg-primary">
     <div class="container">
       <div class="flex justify-between w-full">
-        <div class="flex items-center  px-2 w-full">
+        <div class="flex items-center px-2 w-full">
           <!-- logo -->
           <router-link to="/">
             <div class="navbar__logo">
-              <img src="@/assets/img/logo.png" class="h-20" />
-
+              <img src="@/assets/img/logo.png" class="h-16" />
               <span class="m-2"> {{ $t('navbar.daonators') }} </span>
             </div>
           </router-link>
@@ -24,7 +23,7 @@
           </div>
           <!-- walletConnect -->
           <button class="navbar__walletConnect hover:text-black ">
-            <div class="self-end bg-secudary">
+            <div class="self-end">
               {{ $t('navbar.walletConnect') }}
             </div>
           </button>
@@ -48,16 +47,16 @@ export default class Navbar extends Vue {
 .navbar {
   @apply shadow-lg;
   &__logo {
-    @apply flex items-center py-2 px-5 font-bold text-4xl;
+    @apply flex items-center py-2 px-5 font-bold text-3xl;
   }
   &__menu {
     @apply hidden horiz w-full justify-end;
   }
   &__itens {
-    @apply text-sm mr-10 capitalize text-xl text-white;
+    @apply text-sm mr-10 capitalize text-lg text-white;
   }
   &__walletConnect {
-    @apply hidden flex items-end py-3 px-4 rounded-3xl border-2 border-black bg-yellow-400 text-lg;
+    @apply hidden flex items-end py-3 px-4 rounded-3xl border-2 border-black text-lg  bg-secondary;
   }
 }
 </style>

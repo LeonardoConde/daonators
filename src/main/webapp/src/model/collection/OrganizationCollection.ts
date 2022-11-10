@@ -12,7 +12,7 @@ import {
 } from '@simpli/serialized-request'
 import {PageCollection} from '@simpli/resource-collection'
 import {Organization} from '@/model/resource/Organization'
-import {OrganizationTypeCollection} from '@/model/collection/OrganizationTypeCollection'
+import {CampaingCollection} from '@/model/collection/CampaingCollection'
 
 /* TODO: review generated class */
 @HttpExclude()
@@ -45,5 +45,5 @@ export class OrganizationCollection extends PageCollection<Organization> {
 }
 
 export interface IOrganizationCollectionResourcesHolder {
-  collectionOrganizationType: OrganizationTypeCollection
+  collectionCampaing: CampaingCollection
 }

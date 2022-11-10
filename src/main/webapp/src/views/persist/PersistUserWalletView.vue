@@ -48,12 +48,7 @@ export default class PersistUserWalletView extends Vue {
   userWallet = new UserWallet()
 
   async created() {
-    this.populateResource()
     await this.populate()
-  }
-
-  populateResource() {
-    this.schema.collectionUser.queryAsPage()
   }
 
   async populate() {

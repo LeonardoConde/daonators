@@ -14,7 +14,7 @@ export class ExportOrganizationSchema extends DefaultSchema {
   readonly fieldSet: FieldSet<Organization> = {
     idOrganizationPk: schema => schema.model.idOrganizationPk,
     name: schema => schema.model.name,
-    walletAddress: schema => schema.model.walletAddress,
+    scriptHash: schema => schema.model.scriptHash,
     active: schema => $.filter.bool(schema.model.active),
   }
 }

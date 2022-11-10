@@ -7,5 +7,4 @@ import java.util.Date
  * @author Simpli CLI generator
  */
 interface UserWalletListFilter : ListFilter {
-    var idUserFk: List<Long>?
 }

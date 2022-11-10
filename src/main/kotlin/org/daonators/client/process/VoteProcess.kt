@@ -17,11 +17,12 @@ class VoteProcess(val context: RequestContext) {
 
     val dao = VoteDao(context.con)
 
-    fun get(id: Long?): Vote {
+    fun get(id1: Long?, id2: Long?): Vote {
         // TODO: review generated method
-        if (id == null) throw BadRequestException()
+        if (id1 == null) throw BadRequestException()
+        if (id2 == null) throw BadRequestException()
 
-        return dao.getOne(id) ?: throw NotFoundException()
+        return dao.getOne(id1, id2) ?: throw NotFoundException()
     }
 
     fun list(filter: VoteListFilter): PageCollection<Vote> {
@@ -36,13 +37,15 @@ class VoteProcess(val context: RequestContext) {
      * Use this to handle similarities between create and update
      */
     fun persist(model: Vote): Long {
-        if (model.id > 0) {
+        val exist = dao.exist(model.id1, model.id2)
+
+        if (exist) {
             update(model)
         } else {
             create(model)
         }
 
-        return model.id
+        return model.id1
     }
 
     fun create(model: Vote): Long {
@@ -51,12 +54,12 @@ class VoteProcess(val context: RequestContext) {
             validate(context.lang)
         }
 
-        model.id = dao.run {
+        dao.run {
             validate(model, updating = false)
             insert(model)
         }
 
-        return model.id
+        return 1L
     }
 
     fun update(model: Vote): Int {
@@ -73,11 +76,11 @@ class VoteProcess(val context: RequestContext) {
 
     private fun VoteDao.validate(model: Vote, updating: Boolean) {
         if (updating) {
-            if (!exist(model.id)) {
+            if (!exist(model.id1, model.id2)) {
                 throw BadRequestException(context.lang["does_not_exist"])
             }
         } else {
-            if (exist(model.id)) {
+            if (exist(model.id1, model.id2)) {
                 throw BadRequestException(context.lang["already_exists"])
             }
         }
