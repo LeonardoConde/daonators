@@ -1,7 +1,8 @@
 <template>
   <div class="bg-black-50 min-h-screen">
     <navbar />
-    <div class="min-h-screen mb-4">
+    <div class="min-h-screen font-bold">
+      <h1 class="text-center text-4xl">Votações</h1>
       <voting-grid />
     </div>
     <footer-menu />

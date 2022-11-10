@@ -18,6 +18,7 @@ class CampaingOrganization {
 
     var campaing: Campaing? = null
     var organization: Organization? = null
+    var organizations: List<Organization>? = null
 
     @Schema(maxLength = 66) var transactionHash: String? = null
 

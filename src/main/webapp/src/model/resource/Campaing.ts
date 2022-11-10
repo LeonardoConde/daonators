@@ -7,7 +7,6 @@ import {Request, ResponseSerialize} from '@simpli/serialized-request'
 import {IResource} from '@simpli/resource-collection/dist/types/IResource'
 import {CampaingType} from '@/model/resource/CampaingType'
 import {CampaingCollection} from '@/model/collection/CampaingCollection'
-import {Helper} from 'simpli-web-sdk'
 import moment from 'moment'
 
 /* TODO: review generated class */

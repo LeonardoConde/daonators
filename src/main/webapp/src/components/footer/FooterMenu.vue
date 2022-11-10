@@ -1,23 +1,25 @@
 <template>
   <div class="footer-menu">
-    <div class="container horiz justify-between">
+    <div class="container horiz grid-col-3 w-full">
       <!-- logo -->
-      <router-link to="/">
-        <div class="footer-menu__logo">
-          <img src="@/assets/img/logo.png" class="h-20" />
+      <div class="weight-1">
+        <router-link to="/">
+          <div class="footer-menu__logo">
+            <img src="@/assets/img/logo.png" class="h-20" />
 
-          <span class="m-2"> {{ $t('footerMenu.daonators') }} </span>
-        </div>
-      </router-link>
+            <span class="m-2"> {{ $t('footerMenu.daonators') }} </span>
+          </div>
+        </router-link>
+      </div>
       <!-- email -->
-      <div class="footer-menu__email verti">
+      <div class="footer-menu__email weight-1 verti">
         <div class="mb-2">Entre em contato com nós:</div>
         <a :href="$t('app.mailto')" class="text-blue-500">
           {{ $t('app.email') }}
         </a>
       </div>
       <!-- topicos -->
-      <div class="verti items-center">
+      <div class="verti items-center weight-1">
         <router-link
           v-for="(item, i) in itens"
           :key="i"

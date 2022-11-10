@@ -19,6 +19,7 @@ import ListCampaingView from '@/views/list/ListCampaingView.vue'
 export class RouterConfig implements RouterOptions {
   readonly mode = 'history'
 
+  // @ts-ignore
   readonly routes = [
     {
       path: '/',

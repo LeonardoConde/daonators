@@ -22,7 +22,7 @@ export class FilterCampaingSchema extends DefaultSchema
       bind: {
         type: 'mask',
         maskPreset: 'date',
-        label: this.translateFrom(schema.fieldName),
+        placeholder: this.translateFrom(schema.fieldName),
       },
     }),
 
@@ -31,7 +31,7 @@ export class FilterCampaingSchema extends DefaultSchema
       bind: {
         type: 'mask',
         maskPreset: 'date',
-        label: this.translateFrom(schema.fieldName),
+        placeholder: this.translateFrom(schema.fieldName),
       },
     }),
   }
