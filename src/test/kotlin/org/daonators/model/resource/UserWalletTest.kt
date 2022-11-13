@@ -19,19 +19,19 @@ class UserWalletTest: AppTest() {
 
     init {
         model.idUserWalletPk = 1
-        model.walletAdress = "1"
+        model.walletAddress = "1"
     }
 
     @Test(expected = BadRequestException::class)
-    fun testValidateWalletAdressNullFail() {
-        model.walletAdress = ""
+    fun testValidateWalletAddressNullFail() {
+        model.walletAddress = ""
 
         model.validate(lang)
     }
 
     @Test(expected = BadRequestException::class)
-    fun testValidateWalletAdressLengthFail() {
-        model.walletAdress = RandomStringUtils.randomAlphabetic(35)
+    fun testValidateWalletAddressLengthFail() {
+        model.walletAddress = RandomStringUtils.randomAlphabetic(35)
 
         model.validate(lang)
     }

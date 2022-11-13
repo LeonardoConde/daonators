@@ -12,7 +12,7 @@ export class InputUserWalletSchema extends DefaultSchema {
   readonly name = 'InputUserWallet'
 
   readonly fieldSet: FieldSet<UserWallet> = {
-    walletAdress: (schema): FieldComponent => ({
+    walletAddress: (schema): FieldComponent => ({
       is: Component.InputText,
       bind: {
         type: 'text',

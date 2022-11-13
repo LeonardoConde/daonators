@@ -11,7 +11,7 @@ import {UserWalletCollection} from '@/model/collection/UserWalletCollection'
 export class UserWallet implements IResource {
   idUserWalletPk: number = 0
 
-  walletAdress: string | null = null
+  walletAddress: string | null = null
 
   get $id() {
     return this.idUserWalletPk

@@ -73,7 +73,7 @@ class EnUs : EnglishLanguage() {
                  * UserWallet
                  */
                 "UserWallet.idUserWalletPk" to "Id User Wallet Pk",
-                "UserWallet.walletAdress" to "Wallet Adress",
+                "UserWallet.walletAddress" to "Wallet Address",
 
                 /**
                  * Vote

@@ -483,15 +483,15 @@
     },
     "InputUserWallet": {
       "idUserWalletPk": "Id User Wallet Pk",
-      "walletAdress": "Wallet Adress"
+      "walletAddress": "Wallet Address"
     },
     "ListUserWallet": {
       "idUserWalletPk": "Id User Wallet Pk",
-      "walletAdress": "Wallet Adress"
+      "walletAddress": "Wallet Address"
     },
     "ExportUserWallet": {
       "idUserWalletPk": "Id User Wallet Pk",
-      "walletAdress": "Wallet Adress"
+      "walletAddress": "Wallet Address"
     }
   }
 }

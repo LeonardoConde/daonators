@@ -28,7 +28,7 @@ class UserWalletProcessTest : ProcessTest() {
 
     init {
         model.idUserWalletPk = 1
-        model.walletAdress = "1"
+        model.walletAddress = "1"
     }
 
     @Test

@@ -13,6 +13,6 @@ export class ExportUserWalletSchema extends DefaultSchema {
 
   readonly fieldSet: FieldSet<UserWallet> = {
     idUserWalletPk: schema => schema.model.idUserWalletPk,
-    walletAdress: schema => schema.model.walletAdress,
+    walletAddress: schema => schema.model.walletAddress,
   }
 }

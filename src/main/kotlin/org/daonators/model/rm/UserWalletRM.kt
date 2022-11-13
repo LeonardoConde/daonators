@@ -13,30 +13,30 @@ object UserWalletRM {
     fun build(rs: ResultSet, alias: String = "user_wallet", allowedColumns: Array<String> = selectFields(alias)) = UserWallet().apply {
         ResultBuilder(allowedColumns, rs, alias).run {
             idUserWalletPk = getLong("idUserWalletPk")
-            walletAdress = getString("walletAdress")
+            walletAddress = getString("walletAddress")
         }
     }
 
     fun selectFields(alias: String = "user_wallet") = arrayOf(
             "$alias.idUserWalletPk",
-            "$alias.walletAdress"
+            "$alias.walletAddress"
     )
 
     fun fieldsToSearch(alias: String = "user_wallet") = arrayOf(
             "$alias.idUserWalletPk",
-            "$alias.walletAdress"
+            "$alias.walletAddress"
     )
 
     fun orderMap(alias: String = "user_wallet") = mapOf(
             "idUserWalletPk" to "$alias.idUserWalletPk",
-            "walletAdress" to "$alias.walletAdress"
+            "walletAddress" to "$alias.walletAddress"
     )
 
     fun updateSet(userWallet: UserWallet) = mapOf(
-            "walletAdress" to userWallet.walletAdress
+            "walletAddress" to userWallet.walletAddress
     )
 
     fun insertValues(userWallet: UserWallet) = mapOf(
-            "walletAdress" to userWallet.walletAdress
+            "walletAddress" to userWallet.walletAddress
     )
 }

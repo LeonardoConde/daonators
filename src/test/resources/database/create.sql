@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `organization` (
 
 CREATE TABLE IF NOT EXISTS `user_wallet` (
   `idUserWalletPk` int NOT NULL AUTO_INCREMENT,
-  `walletAdress` varchar(34) NOT NULL,
+  `walletAddress` varchar(34) NOT NULL,
   PRIMARY KEY (`idUserWalletPk`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
 

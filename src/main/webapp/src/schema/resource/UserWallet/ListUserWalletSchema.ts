@@ -16,7 +16,7 @@ export class ListUserWalletSchema extends DefaultSchema {
     idUserWalletPk: (): FieldComponent => ({
       is: Component.Render,
     }),
-    walletAdress: (): FieldComponent => ({
+    walletAddress: (): FieldComponent => ({
       is: Component.Render,
     }),
   }

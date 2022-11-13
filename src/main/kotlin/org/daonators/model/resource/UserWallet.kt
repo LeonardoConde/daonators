@@ -16,7 +16,7 @@ class UserWallet {
     @Schema(required = true) var idUserWalletPk: Long = 0
 
     @Schema(required = true, maxLength = 34)
-    var walletAdress: String? = null
+    var walletAddress: String? = null
 
     var id
         @Schema(hidden = true)
@@ -27,11 +27,11 @@ class UserWallet {
 
     fun validate(lang: LanguageHolder) {
         // TODO: review generated method
-        if (walletAdress.isNullOrBlank()) {
-            throw BadRequestException(lang.cannotBeNull(lang["UserWallet.walletAdress"]))
+        if (walletAddress.isNullOrBlank()) {
+            throw BadRequestException(lang.cannotBeNull(lang["UserWallet.walletAddress"]))
         }
-        if (walletAdress?.length ?: 0 > 34) {
-            throw BadRequestException(lang.lengthCannotBeMoreThan(lang["UserWallet.walletAdress"], 34))
+        if (walletAddress?.length ?: 0 > 34) {
+            throw BadRequestException(lang.lengthCannotBeMoreThan(lang["UserWallet.walletAddress"], 34))
         }
     }
 }

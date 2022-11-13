@@ -308,7 +308,7 @@ UNLOCK TABLES;
 LOCK TABLES `daonators`.`user_wallet` WRITE;
 
 INSERT INTO `daonators`.`user_wallet`
-(`idUserWalletPk`,`walletAdress`)
+(`idUserWalletPk`,`walletAddress`)
 VALUES
 (1,'accusamus'),
 (2,'harum'),
