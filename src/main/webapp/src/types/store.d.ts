@@ -1,4 +1,4 @@
-import {User} from '@/model/resource/User'
+import {AuthAdm} from '@/model/resource/AuthAdm'
 import {Lang} from '@/enums/Lang'
 import {Currency} from '@/enums/Currency'
 
@@ -16,6 +16,6 @@ export interface RootState {
  */
 export interface AuthState {
   token: string | null
-  user: User | null
+  authAdm: AuthAdm | null
   cachePath: string | null
 }

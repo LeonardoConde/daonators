@@ -87,18 +87,18 @@ class AuthProcessTest : ProcessTest() {
     @Test
     fun testGetId() {
         val result = subject.getId(authRequest)
-        assertEquals(user.id, result)
+        assertEquals(authAdm.id, result)
     }
 
     @Test(expected = NotFoundException::class)
-    fun testGetUserNotFound() {
-        subject.getUser(0)
+    fun testGetAuthAdmNotFound() {
+        subject.getAuthAdm(0)
     }
 
     @Test
-    fun testGetUser() {
-        val result = subject.getUser(user.id)
-        assertEquals(user.email, result.email)
+    fun testGetAuthAdm() {
+        val result = subject.getAuthAdm(authAdm.id)
+        assertEquals(authAdm.email, result.email)
     }
 
     @Test
@@ -110,6 +110,6 @@ class AuthProcessTest : ProcessTest() {
     @Test
     fun testTokenToRequest() {
         val result = AuthProcess.tokenToRequest(token)
-        assertEquals(user.email, result.email)
+        assertEquals(authAdm.email, result.email)
     }
 }

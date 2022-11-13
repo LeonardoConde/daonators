@@ -175,7 +175,6 @@ export abstract class FileHelper {
     arrBuffer: ArrayBuffer,
     abortController: AbortController | null = null
   ) {
-    // @ts-ignore
     await fetch(uploadUrl, {
       method: 'PUT',
       mode: 'cors',
@@ -199,7 +198,6 @@ export abstract class FileHelper {
   ) {
     const blob = await this.compressFile(file, options)
 
-    // @ts-ignore
     const arrBuffer = await blob.arrayBuffer()
 
     await this.uploadToS3(uploadUrl, arrBuffer, abortController)

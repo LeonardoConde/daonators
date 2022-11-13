@@ -1,16 +1,16 @@
 package org.daonators.client.mail
 
 import org.daonators.wrapper.MailWrapper
-import org.daonators.model.resource.User
+import org.daonators.model.resource.AuthAdm
 import br.com.simpli.model.LanguageHolder
 
 /**
  * Recover Password E-Mail handler
  * @author Simpli CLI generator
  */
-class RecoverPasswordMail(lang: LanguageHolder, user: User, hash: String) : MailWrapper(lang) {
+class RecoverPasswordMail(lang: LanguageHolder, authAdm: AuthAdm, hash: String) : MailWrapper(lang) {
     init {
-        to = "${user.email}"
+        to = "${authAdm.email}"
         subject = lang["email_reset_password_subject"]
 
         data["title"] = lang["email_reset_password_title"]

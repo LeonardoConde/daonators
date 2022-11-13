@@ -6,31 +6,26 @@ export abstract class FilterHelper {
   static toString(input?: InputType) {
     return input !== null && input !== undefined ? String(input) : ''
   }
-
   static bool(input?: InputType | boolean) {
     return input !== undefined && input !== null
       ? ($.t(`boolean.${Boolean(input)}`) as string)
       : ''
   }
-
   static datetime(input?: moment.MomentInput | null) {
     return moment(input ?? undefined).isValid()
       ? moment(input ?? undefined).format($.t('dateFormat.datetime') as string)
       : ''
   }
-
   static date(input?: moment.MomentInput | null) {
     return moment(input ?? undefined).isValid()
       ? moment(input ?? undefined).format($.t('dateFormat.date') as string)
       : ''
   }
-
   static time(input?: moment.MomentInput | null) {
     return moment(input ?? undefined).isValid()
       ? moment(input ?? undefined).format($.t('dateFormat.time') as string)
       : ''
   }
-
   static truncate(input?: InputType, length?: number) {
     const value = this.toString(input)
     if (value.length > (length || 0)) {
@@ -38,7 +33,6 @@ export abstract class FilterHelper {
     }
     return value
   }
-
   static stripHtml(input?: InputType) {
     const value = this.toString(input)
     const doc = new DOMParser().parseFromString(value, 'text/html')

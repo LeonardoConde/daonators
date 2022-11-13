@@ -10,10 +10,6 @@ import javax.ws.rs.QueryParam
  * @author Simpli CLI generator
  */
 open class AuthCampaingListParam: DefaultParam.AuthPaged(), CampaingListFilter {
-    @QueryParam("idCampaingTypePk")
-    @Schema
-    override var idCampaingTypePk: List<Long>? = null
-
     @QueryParam("startBeginDate")
     @Schema
     override var startBeginDate: Date? = null

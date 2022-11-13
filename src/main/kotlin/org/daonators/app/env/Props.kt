@@ -54,7 +54,7 @@ abstract class Props(val MODE: Mode) {
      * @warning DO NOT SHARE this hash in order to keep your project safe
      * Your are able to change it whenever you want, but all clients must login again
      */
-    val ENCRYPT_HASH = "e3223903-5a10-4f2c-a4b1-0435674df0e7"
+    val ENCRYPT_HASH = "5f336f65-0f0a-477d-b037-474b032c10d5"
 
     /**
      * Credentials used in Unit Test

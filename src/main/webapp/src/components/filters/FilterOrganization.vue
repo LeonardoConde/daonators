@@ -33,7 +33,7 @@ export default class FilterOrganization extends Vue {
     this.collection.resource = this.schema
 
     const promises: Array<Promise<any>> = [
-      this.collection.resource.collectionOrganizationType.queryAsPage(),
+      this.collection.resource.collectionCampaing.queryAsPage(),
     ]
 
     await this.$await.run('softQuery', () => Promise.all(promises))

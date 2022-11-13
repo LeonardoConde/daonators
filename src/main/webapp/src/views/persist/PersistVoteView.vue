@@ -40,7 +40,8 @@ import {InputVoteSchema} from '@/schema/resource/Vote/InputVoteSchema'
 
 @Component
 export default class PersistVoteView extends Vue {
-  @Prop() id?: string
+  @Prop() id1?: string
+  @Prop() id2?: string
 
   @Provide('validator') validator = this.$validator
 
@@ -53,15 +54,16 @@ export default class PersistVoteView extends Vue {
   }
 
   populateResource() {
-    this.schema.collectionCampaingOrganization.queryAsPage()
     this.schema.collectionUserWallet.queryAsPage()
+    this.schema.collectionVoting.queryAsPage()
   }
 
   async populate() {
-    const id = Number(this.id) || null
+    const id1 = Number(this.id1) || null
+    const id2 = Number(this.id2) || null
 
-    if (id) {
-      await this.vote.getVote(id)
+    if (id1 && id2) {
+      await this.vote.getVote(id1, id2)
     }
 
     this.$await.done('getVote')

@@ -3,8 +3,8 @@ package org.daonators.dao
 import org.daonators.model.filter.VoteListFilter
 import org.daonators.model.resource.Vote
 import org.daonators.model.rm.VoteRM
-import org.daonators.model.rm.CampaingOrganizationRM
 import org.daonators.model.rm.UserWalletRM
+import org.daonators.model.rm.VotingRM
 import br.com.simpli.sql.AbstractConnector
 import br.com.simpli.sql.Query
 
@@ -13,12 +13,13 @@ import br.com.simpli.sql.Query
  * @author Simpli CLI generator
  */
 class VoteDao(val con: AbstractConnector) {
-    fun getOne(idVotePk: Long): Vote? {
+    fun getOne(idVotingFk: Long, idUserWalletFk: Long): Vote? {
         // TODO: review generated method
         val query = Query()
                 .selectVote()
                 .from("vote")
-                .whereEq("idVotePk", idVotePk)
+                .whereEq("idVotingFk", idVotingFk)
+                .whereEq("idUserWalletFk", idUserWalletFk)
 
         return con.getOne(query) {
             VoteRM.build(it)
@@ -28,17 +29,17 @@ class VoteDao(val con: AbstractConnector) {
     fun getList(filter: VoteListFilter): MutableList<Vote> {
         // TODO: review generated method
         val query = Query()
-                .selectFields(VoteRM.selectFields() + CampaingOrganizationRM.selectFields() + UserWalletRM.selectFields())
+                .selectFields(VoteRM.selectFields() + UserWalletRM.selectFields() + VotingRM.selectFields())
                 .from("vote")
-                .innerJoin("campaing_organization", "campaing_organization.idCampaingFk", "vote.idCampaingFk")
                 .innerJoin("user_wallet", "user_wallet.idUserWalletPk", "vote.idUserWalletFk")
+                .innerJoin("voting", "voting.idVotingPk", "vote.idVotingFk")
                 .whereVoteFilter(filter)
                 .orderAndLimitVote(filter)
 
         return con.getList(query) {
             VoteRM.build(it).apply {
-                campaingOrganization = CampaingOrganizationRM.build(it)
                 userWallet = UserWalletRM.build(it)
+                voting = VotingRM.build(it)
             }
         }
     }
@@ -46,7 +47,7 @@ class VoteDao(val con: AbstractConnector) {
     fun count(filter: VoteListFilter): Int {
         // TODO: review generated method
         val query = Query()
-                .countRaw("DISTINCT idVotePk")
+                .countRaw("DISTINCT idVotingFk")
                 .from("vote")
                 .whereVoteFilter(filter)
 
@@ -58,7 +59,8 @@ class VoteDao(val con: AbstractConnector) {
         val query = Query()
                 .updateTable("vote")
                 .updateVoteSet(vote)
-                .whereEq("idVotePk", vote.id)
+                .whereEq("idVotingFk", vote.id1)
+                .whereEq("idUserWalletFk", vote.id2)
 
         return con.execute(query).affectedRows
     }
@@ -72,12 +74,13 @@ class VoteDao(val con: AbstractConnector) {
         return con.execute(query).key
     }
 
-    fun exist(idVotePk: Long): Boolean {
+    fun exist(idVotingFk: Long, idUserWalletFk: Long): Boolean {
         // TODO: review generated method
         val query = Query()
-                .select("idVotePk")
+                .select("idVotingFk")
                 .from("vote")
-                .whereEq("idVotePk", idVotePk)
+                .whereEq("idVotingFk", idVotingFk)
+                .whereEq("idUserWalletFk", idUserWalletFk)
 
         return con.exist(query)
     }
@@ -95,30 +98,11 @@ class VoteDao(val con: AbstractConnector) {
             }
         }
 
-        filter.idCampaingFk?.also {
-            if (it.isNotEmpty()) {
-                whereIn("$alias.idCampaingFk", *it.toTypedArray())
-            }
+        filter.minTokenAmount?.also {
+            whereGtEq("$alias.tokenAmount", it)
         }
-
-        filter.idUserWalletFk?.also {
-            if (it.isNotEmpty()) {
-                whereIn("$alias.idUserWalletFk", *it.toTypedArray())
-            }
-        }
-
-        filter.startLastUpdate?.also {
-            where("DATE($alias.lastUpdate) >= DATE(?)", it)
-        }
-        filter.endLastUpdate?.also {
-            where("DATE($alias.lastUpdate) <= DATE(?)", it)
-        }
-
-        filter.minIdOrganizationFk?.also {
-            whereGtEq("$alias.idOrganizationFk", it)
-        }
-        filter.maxIdOrganizationFk?.also {
-            whereLtEq("$alias.idOrganizationFk", it)
+        filter.maxTokenAmount?.also {
+            whereLtEq("$alias.tokenAmount", it)
         }
 
         return this

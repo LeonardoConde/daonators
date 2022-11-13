@@ -140,7 +140,7 @@ export default class ListVoteView extends Mixins(MixinRouteMatch) {
   }
 
   goToPersistView(item: Vote) {
-    this.$nav.pushByName('editVote', item.$id)
+    this.$nav.pushByName('editVote', item.idVotingFk, item.idUserWalletFk)
   }
 
   async downloadXlsx() {

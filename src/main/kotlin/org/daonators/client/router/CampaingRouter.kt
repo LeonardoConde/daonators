@@ -30,8 +30,8 @@ class CampaingRouter : RouterWrapper() {
     @Operation(tags = ["Campaing"], summary = "Gets a instance of a given ID of Campaing")
     fun getCampaing(@BeanParam param: DefaultParam.RequiredPathId): Campaing {
         // TODO: review generated method
-        return PublicPipe.handle(readPipe, param) {
-            CampaingProcess(it).get(param.id)
+        return PublicPipe.handle(readPipe, param) { context ->
+            CampaingProcess(context).get(param.id)
 		}
     }
 
@@ -39,8 +39,8 @@ class CampaingRouter : RouterWrapper() {
     @Operation(tags = ["Campaing"], summary = "Lists the instances of Campaing")
     fun listCampaing(@BeanParam param: AuthCampaingListParam): PageCollection<Campaing> {
         // TODO: review generated method
-        return PublicPipe.handle(readPipe, param) { 
-            CampaingProcess(it).list(param)
+            return PublicPipe.handle(readPipe, param) { context ->
+            CampaingProcess(context).list(param)
 		}
     }
 
@@ -49,7 +49,7 @@ class CampaingRouter : RouterWrapper() {
     @Operation(tags = ["Campaing"], summary = "Lists the instances of Campaing to export as a file")
     fun listExportCampaing(@BeanParam param: AuthCampaingListParam): PageCollection<Campaing> {
         // TODO: review generated method
-        return AuthPipe.handle(readPipe, param) { context, _ ->
+        return PublicPipe.handle(readPipe, param) { context ->
             CampaingProcess(context).list(param)
 		}
     }

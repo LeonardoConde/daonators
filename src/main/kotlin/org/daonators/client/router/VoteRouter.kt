@@ -26,12 +26,12 @@ import javax.ws.rs.core.MediaType
 @Produces(MediaType.APPLICATION_JSON)
 class VoteRouter : RouterWrapper() {
     @GET
-    @Path("/{id}")
+    @Path("/{id1}/{id2}")
     @Operation(tags = ["Vote"], summary = "Gets a instance of a given ID of Vote")
-    fun getVote(@BeanParam param: DefaultParam.RequiredPathId): Vote {
+    fun getVote(@BeanParam param: Vote.RequiredPathId): Vote {
         // TODO: review generated method
-        return PublicPipe.handle(readPipe, param) {
-            VoteProcess(it).get(param.id)
+        return PublicPipe.handle(readPipe, param) { context ->
+            VoteProcess(context).get(param.id1, param.id2)
 		}
     }
 
@@ -39,8 +39,8 @@ class VoteRouter : RouterWrapper() {
     @Operation(tags = ["Vote"], summary = "Lists the instances of Vote")
     fun listVote(@BeanParam param: AuthVoteListParam): PageCollection<Vote> {
         // TODO: review generated method
-        return PublicPipe.handle(readPipe, param) {
-            VoteProcess(it).list(param)
+        return PublicPipe.handle(readPipe, param) { context ->
+            VoteProcess(context).list(param)
 		}
     }
 
@@ -49,7 +49,7 @@ class VoteRouter : RouterWrapper() {
     @Operation(tags = ["Vote"], summary = "Lists the instances of Vote to export as a file")
     fun listExportVote(@BeanParam param: AuthVoteListParam): PageCollection<Vote> {
         // TODO: review generated method
-        return AuthPipe.handle(readPipe, param) { context, _ ->
+        return PublicPipe.handle(readPipe, param) { context ->
             VoteProcess(context).list(param)
 		}
     }

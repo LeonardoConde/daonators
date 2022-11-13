@@ -5,6 +5,7 @@ import org.daonators.exception.response.BadRequestException
 import org.daonators.exception.response.NotFoundException
 import org.daonators.model.resource.Campaing
 import org.daonators.model.param.AuthCampaingListParam
+import org.daonators.model.resource.Organization
 import java.util.Date
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
@@ -28,8 +29,13 @@ class CampaingProcessTest : ProcessTest() {
 
     init {
         model.idCampaingPk = 1
-        model.idCampaingTypePk = 1
+        model.socialCause = "1"
         model.beginDate = Date()
+        model.endDate = Date()
+
+        val organization = Organization()
+        organization.id = 1L
+        model.campaingOrganization = mutableListOf(organization)
     }
 
     @Test
@@ -54,6 +60,7 @@ class CampaingProcessTest : ProcessTest() {
     fun testGetSuccess() {
         val result = subject.get(id)
         assertNotSame(0, result.id)
+        assertNotNull(result.campaingOrganization)
     }
 
     @Test(expected = NotFoundException::class)

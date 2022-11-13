@@ -31,7 +31,7 @@ data class RequestContext(var con: AbstractConnector, val param: DefaultParam) {
         return auth?.id == idUser
     }
 
-    val isLogged get() = auth?.user != null
+    val isLogged get() = auth?.authAdm != null
     // Alias
     val isAdmin get() = isLogged
 }

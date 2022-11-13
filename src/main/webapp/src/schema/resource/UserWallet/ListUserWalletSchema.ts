@@ -16,12 +16,6 @@ export class ListUserWalletSchema extends DefaultSchema {
     idUserWalletPk: (): FieldComponent => ({
       is: Component.Render,
     }),
-    user: (schema): FieldComponent => ({
-      is: Component.Render,
-      bind: {
-        content: schema.model.user?.$tag,
-      },
-    }),
     walletAddress: (): FieldComponent => ({
       is: Component.Render,
     }),

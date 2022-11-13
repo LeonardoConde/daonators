@@ -10,27 +10,11 @@ import javax.ws.rs.QueryParam
  * @author Simpli CLI generator
  */
 open class AuthVoteListParam: DefaultParam.AuthPaged(), VoteListFilter {
-    @QueryParam("idCampaingFk")
+    @QueryParam("minTokenAmount")
     @Schema
-    override var idCampaingFk: List<Long>? = null
+    override var minTokenAmount: Double? = null
 
-    @QueryParam("idUserWalletFk")
+    @QueryParam("maxTokenAmount")
     @Schema
-    override var idUserWalletFk: List<Long>? = null
-
-    @QueryParam("startLastUpdate")
-    @Schema
-    override var startLastUpdate: Date? = null
-
-    @QueryParam("endLastUpdate")
-    @Schema
-    override var endLastUpdate: Date? = null
-
-    @QueryParam("minIdOrganizationFk")
-    @Schema
-    override var minIdOrganizationFk: Long? = null
-
-    @QueryParam("maxIdOrganizationFk")
-    @Schema
-    override var maxIdOrganizationFk: Long? = null
+    override var maxTokenAmount: Double? = null
 }

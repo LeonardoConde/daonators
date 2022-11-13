@@ -1309,7 +1309,7 @@
     vue-class-component "^7.1.0"
     vue-property-decorator "^7.2.0"
 
-"@simpli/vue-modal@^1.0.4":
+"@simpli/vue-modal@^1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@simpli/vue-modal/-/vue-modal-1.0.5.tgz#8137a6a44e060f02b8a8beeed7abb4a4a3ccb303"
   integrity sha512-2obdb4uvi3kGa+Ud89lf3qNlq+BjSxxtWFFc1H19znocUCUQkOdiJWyhsyysfd6e27ec3zdnj+Njd6oZGx1seA==

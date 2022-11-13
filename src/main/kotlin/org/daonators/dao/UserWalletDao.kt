@@ -3,7 +3,6 @@ package org.daonators.dao
 import org.daonators.model.filter.UserWalletListFilter
 import org.daonators.model.resource.UserWallet
 import org.daonators.model.rm.UserWalletRM
-import org.daonators.model.rm.UserRM
 import br.com.simpli.sql.AbstractConnector
 import br.com.simpli.sql.Query
 
@@ -27,16 +26,13 @@ class UserWalletDao(val con: AbstractConnector) {
     fun getList(filter: UserWalletListFilter): MutableList<UserWallet> {
         // TODO: review generated method
         val query = Query()
-                .selectFields(UserWalletRM.selectFields() + UserRM.selectFields())
+                .selectUserWallet()
                 .from("user_wallet")
-                .leftJoin("user", "user.idUser", "user_wallet.idUserFk")
                 .whereUserWalletFilter(filter)
                 .orderAndLimitUserWallet(filter)
 
         return con.getList(query) {
-            UserWalletRM.build(it).apply {
-                user = UserRM.build(it)
-            }
+            UserWalletRM.build(it)
         }
     }
 
@@ -89,12 +85,6 @@ class UserWalletDao(val con: AbstractConnector) {
         filter.query?.also {
             if (it.isNotEmpty()) {
                 whereSomeLikeThis(UserWalletRM.fieldsToSearch(alias), "%$it%")
-            }
-        }
-
-        filter.idUserFk?.also {
-            if (it.isNotEmpty()) {
-                whereIn("$alias.idUserFk", *it.toTypedArray())
             }
         }
 

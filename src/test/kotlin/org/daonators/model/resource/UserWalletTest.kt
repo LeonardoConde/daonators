@@ -37,15 +37,6 @@ class UserWalletTest: AppTest() {
     }
 
     @Test
-    fun testSetUserNull() {
-        model.user = User()
-        model.idUserFk = null
-        assertNull(model.user)
-        model.idUserFk = 1L
-        assertNotNull(model.user)
-    }
-
-    @Test
     fun testValidateSuccess() {
         model.validate(lang)
     }

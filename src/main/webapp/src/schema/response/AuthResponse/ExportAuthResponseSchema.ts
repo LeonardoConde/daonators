@@ -13,6 +13,6 @@ export class ExportAuthResponseSchema extends DefaultSchema {
 
   readonly fieldSet: FieldSet<AuthResponse> = {
     token: schema => schema.model.token,
-    user: schema => schema.model.user?.$tag ?? null,
+    authAdm: schema => schema.model.authAdm?.$tag ?? null,
   }
 }

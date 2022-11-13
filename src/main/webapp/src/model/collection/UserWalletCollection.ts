@@ -12,7 +12,6 @@ import {
 } from '@simpli/serialized-request'
 import {PageCollection} from '@simpli/resource-collection'
 import {UserWallet} from '@/model/resource/UserWallet'
-import {UserCollection} from '@/model/collection/UserCollection'
 
 /* TODO: review generated class */
 @HttpExclude()
@@ -22,15 +21,6 @@ export class UserWalletCollection extends PageCollection<UserWallet> {
   }
 
   resource?: IUserWalletCollectionResourcesHolder
-
-  @RequestExpose() idUserFk: number[] = []
-
-  get user() {
-    return this.resource?.collectionUser.getManyIds(this.idUserFk) ?? null
-  }
-  set user(input) {
-    this.idUserFk = input?.map(item => item?.$id) ?? []
-  }
 
   queryAsPage() {
     return this.listUserWallet()
@@ -53,6 +43,4 @@ export class UserWalletCollection extends PageCollection<UserWallet> {
   }
 }
 
-export interface IUserWalletCollectionResourcesHolder {
-  collectionUser: UserCollection
-}
+export interface IUserWalletCollectionResourcesHolder {}

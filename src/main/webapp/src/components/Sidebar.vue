@@ -53,14 +53,6 @@
             </router-link>
           </li>
           <li>
-            <router-link to="/user/list" @click.native="menuOff" class="pill">
-              <i class="pill__icon fas fa-table mr-1" />
-              <div class="pill__content">
-                {{ $tc('resource.User', 0) }}
-              </div>
-            </router-link>
-          </li>
-          <li>
             <router-link
               to="/organization/list"
               @click.native="menuOff"
@@ -73,38 +65,54 @@
             </router-link>
           </li>
           <li>
-            <router-link
-              to="/campaing-organization/list"
-              @click.native="menuOff"
-              class="pill"
-            >
+            <router-link to="/wallet/list" @click.native="menuOff" class="pill">
               <i class="pill__icon fas fa-table mr-1" />
               <div class="pill__content">
-                {{ $tc('resource.CampaingOrganization', 0) }}
+                {{ $tc('resource.Wallet', 0) }}
               </div>
             </router-link>
           </li>
           <li>
             <router-link
-              to="/organization-type/list"
+              to="/auth-adm/list"
               @click.native="menuOff"
               class="pill"
             >
               <i class="pill__icon fas fa-table mr-1" />
               <div class="pill__content">
-                {{ $tc('resource.OrganizationType', 0) }}
+                {{ $tc('resource.AuthAdm', 0) }}
+              </div>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/voting/list" @click.native="menuOff" class="pill">
+              <i class="pill__icon fas fa-table mr-1" />
+              <div class="pill__content">
+                {{ $tc('resource.Voting', 0) }}
               </div>
             </router-link>
           </li>
           <li>
             <router-link
-              to="/campaing-type/list"
+              to="/voting-type/list"
               @click.native="menuOff"
               class="pill"
             >
               <i class="pill__icon fas fa-table mr-1" />
               <div class="pill__content">
-                {{ $tc('resource.CampaingType', 0) }}
+                {{ $tc('resource.VotingType', 0) }}
+              </div>
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              to="/donation/list"
+              @click.native="menuOff"
+              class="pill"
+            >
+              <i class="pill__icon fas fa-table mr-1" />
+              <div class="pill__content">
+                {{ $tc('resource.Donation', 0) }}
               </div>
             </router-link>
           </li>

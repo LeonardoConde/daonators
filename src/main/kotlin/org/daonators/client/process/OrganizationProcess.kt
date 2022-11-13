@@ -2,7 +2,7 @@ package org.daonators.client.process
 
 import org.daonators.client.context.RequestContext
 import org.daonators.dao.OrganizationDao
-import org.daonators.dao.OrganizationTypeListDao
+import org.daonators.dao.CampaingOrganizationDao
 import org.daonators.model.filter.OrganizationListFilter
 import org.daonators.model.resource.Organization
 import org.daonators.exception.response.BadRequestException
@@ -22,10 +22,10 @@ class OrganizationProcess(val context: RequestContext) {
         // TODO: review generated method
         if (id == null) throw BadRequestException()
 
-        val organizationTypeListDao = OrganizationTypeListDao(context.con)
+        val campaingOrganizationDao = CampaingOrganizationDao(context.con)
 
         val model = dao.getOne(id) ?: throw NotFoundException()
-        model.organizationTypeList = organizationTypeListDao.listOrganizationTypeOfOrganization(id)
+        model.campaingOrganization = campaingOrganizationDao.listCampaingOfOrganization(id)
 
         return model
     }
@@ -48,12 +48,12 @@ class OrganizationProcess(val context: RequestContext) {
             create(model)
         }
 
-        val organizationTypeListDao = OrganizationTypeListDao(context.con)
+        val campaingOrganizationDao = CampaingOrganizationDao(context.con)
 
-        organizationTypeListDao.removeAllFromOrganization(model.id)
+        campaingOrganizationDao.removeAllFromOrganization(model.id)
 
-        model.organizationTypeList?.let { list ->
-            list.forEach { organizationTypeListDao.insert(model.id, it.id) }
+        model.campaingOrganization?.let { list ->
+            list.forEach { campaingOrganizationDao.insert(model.id, it.id) }
         }
 
         return model.id

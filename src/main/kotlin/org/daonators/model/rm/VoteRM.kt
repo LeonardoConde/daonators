@@ -12,51 +12,36 @@ import java.sql.ResultSet
 object VoteRM {
     fun build(rs: ResultSet, alias: String = "vote", allowedColumns: Array<String> = selectFields(alias)) = Vote().apply {
         ResultBuilder(allowedColumns, rs, alias).run {
-            idVotePk = getLong("idVotePk")
-            lastUpdate = getTimestamp("lastUpdate")
-            tokensAmount = getString("tokensAmount")
-            idCampaingFk = getLong("idCampaingFk")
-            idOrganizationFk = getLong("idOrganizationFk")
+            idVotingFk = getLong("idVotingFk")
             idUserWalletFk = getLong("idUserWalletFk")
+            tokenAmount = getDouble("tokenAmount")
         }
     }
 
     fun selectFields(alias: String = "vote") = arrayOf(
-            "$alias.idVotePk",
-            "$alias.lastUpdate",
-            "$alias.tokensAmount",
-            "$alias.idCampaingFk",
-            "$alias.idOrganizationFk",
-            "$alias.idUserWalletFk"
+            "$alias.idVotingFk",
+            "$alias.idUserWalletFk",
+            "$alias.tokenAmount"
     )
 
     fun fieldsToSearch(alias: String = "vote") = arrayOf(
-            "$alias.idVotePk",
-            "$alias.tokensAmount"
+            "$alias.idVotingFk",
+            "$alias.idUserWalletFk"
     )
 
     fun orderMap(alias: String = "vote") = mapOf(
-            "campaingOrganization" to "$alias.idCampaingFk",
             "userWallet" to "$alias.idUserWalletFk",
-            "idVotePk" to "$alias.idVotePk",
-            "lastUpdate" to "$alias.lastUpdate",
-            "tokensAmount" to "$alias.tokensAmount",
-            "idOrganizationFk" to "$alias.idOrganizationFk"
+            "voting" to "$alias.idVotingFk",
+            "tokenAmount" to "$alias.tokenAmount"
     )
 
     fun updateSet(vote: Vote) = mapOf(
-            "lastUpdate" to vote.lastUpdate,
-            "tokensAmount" to vote.tokensAmount,
-            "idCampaingFk" to vote.idCampaingFk,
-            "idOrganizationFk" to vote.idOrganizationFk,
-            "idUserWalletFk" to vote.idUserWalletFk
+            "tokenAmount" to vote.tokenAmount
     )
 
     fun insertValues(vote: Vote) = mapOf(
-            "lastUpdate" to vote.lastUpdate,
-            "tokensAmount" to vote.tokensAmount,
-            "idCampaingFk" to vote.idCampaingFk,
-            "idOrganizationFk" to vote.idOrganizationFk,
-            "idUserWalletFk" to vote.idUserWalletFk
+            "idVotingFk" to vote.idVotingFk,
+            "idUserWalletFk" to vote.idUserWalletFk,
+            "tokenAmount" to vote.tokenAmount
     )
 }

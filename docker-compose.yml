@@ -13,7 +13,7 @@ server:
   ports:
     - "8080:8080"
   volumes:
-    - ./target/daonators.war:/usr/local/tomcat/webapps/ROOT.war
+    - ./target/Daonators.war:/usr/local/tomcat/webapps/ROOT.war
   links:
     - db
 db:

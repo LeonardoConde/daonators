@@ -30,74 +30,78 @@ class PtBr : PortugueseLanguage() {
                 "something_went_wrong" to "Algo saiu errado. Contate o admin!",
 
                 /**
+                 * AuthAdm
+                 */
+                "AuthAdm.idAuthAdmPk" to "Id Auth Adm Pk",
+                "AuthAdm.name" to "Name",
+                "AuthAdm.email" to "Email",
+                "AuthAdm.password" to "Password",
+
+                /**
                  * Campaing
                  */
                 "Campaing.idCampaingPk" to "Id Campaing Pk",
-                "Campaing.idCampaingTypePk" to "Id Campaing Type Pk",
                 "Campaing.name" to "Name",
+                "Campaing.socialCause" to "Social Cause",
                 "Campaing.beginDate" to "Begin Date",
                 "Campaing.endDate" to "End Date",
 
                 /**
                  * CampaingOrganization
                  */
-                "CampaingOrganization.idCampaingFk" to "Id Campaing Fk",
-                "CampaingOrganization.idOrganizationFk" to "Id Organization Fk",
-                "CampaingOrganization.transactionHash" to "Transaction Hash",
-                "CampaingOrganization.gasAmount" to "Gas Amount",
+                "CampaingOrganization.idOrganizationPk" to "Id Organization Pk",
+                "CampaingOrganization.idCampaingPk" to "Id Campaing Pk",
 
                 /**
-                 * CampaingType
+                 * Donation
                  */
-                "CampaingType.idCampaingTypePk" to "Id Campaing Type Pk",
-                "CampaingType.name" to "Name",
-                "CampaingType.active" to "Active",
+                "Donation.idDonationPk" to "Id Donation Pk",
+                "Donation.idCampaingFk" to "Id Campaing Fk",
+                "Donation.idOrganizationFk" to "Id Organization Fk",
+                "Donation.gasAmount" to "Gas Amount",
+                "Donation.transactionHash" to "Transaction Hash",
 
                 /**
                  * Organization
                  */
                 "Organization.idOrganizationPk" to "Id Organization Pk",
                 "Organization.name" to "Name",
-                "Organization.walletAddress" to "Wallet Address",
+                "Organization.scriptHash" to "Script Hash",
                 "Organization.active" to "Active",
-
-                /**
-                 * OrganizationType
-                 */
-                "OrganizationType.idOrganizationTypePk" to "Id Organization Type Pk",
-                "OrganizationType.name" to "Name",
-                "OrganizationType.active" to "Active",
-
-                /**
-                 * OrganizationTypeList
-                 */
-                "OrganizationTypeList.idOrganizationFk" to "Id Organization Fk",
-                "OrganizationTypeList.idOrganizationTypeFk" to "Id Organization Type Fk",
-
-                /**
-                 * User
-                 */
-                "User.idUser" to "Id User",
-                "User.name" to "Name",
-                "User.email" to "Email",
-                "User.password" to "Password",
 
                 /**
                  * UserWallet
                  */
                 "UserWallet.idUserWalletPk" to "Id User Wallet Pk",
                 "UserWallet.walletAddress" to "Wallet Address",
-                "UserWallet.idUserFk" to "Id User Fk",
 
                 /**
                  * Vote
                  */
-                "Vote.idVotePk" to "Id Vote Pk",
-                "Vote.lastUpdate" to "Last Update",
-                "Vote.tokensAmount" to "Tokens Amount",
-                "Vote.idCampaingFk" to "Id Campaing Fk",
-                "Vote.idOrganizationFk" to "Id Organization Fk",
-                "Vote.idUserWalletFk" to "Id User Wallet Fk"
+                "Vote.idVotingFk" to "Id Voting Fk",
+                "Vote.idUserWalletFk" to "Id User Wallet Fk",
+                "Vote.tokenAmount" to "Token Amount",
+
+                /**
+                 * Voting
+                 */
+                "Voting.idVotingPk" to "Id Voting Pk",
+                "Voting.idOrganizationfk" to "Id Organizationfk",
+                "Voting.idCampaingFk" to "Id Campaing Fk",
+                "Voting.idVotingTypeFk" to "Id Voting Type Fk",
+
+                /**
+                 * VotingType
+                 */
+                "VotingType.idVotingTypePk" to "Id Voting Type Pk",
+                "VotingType.name" to "Name",
+                "VotingType.active" to "Active",
+
+                /**
+                 * Wallet
+                 */
+                "Wallet.idWalletPk" to "Id Wallet Pk",
+                "Wallet.wallet" to "Wallet"
         )
     }
 }

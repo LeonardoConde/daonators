@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "daonators",
+    "title": "Daonators",
     "subtitle": "Painel Admin",
     "logout": "Sair",
     "menu": "Menu",
@@ -225,13 +225,14 @@
     }
   },
   "resource": {
-    "Campaing": "Campaing",
+    "Campaing": "Votação",
     "Vote": "Vote",
-    "User": "User",
     "Organization": "Organization",
-    "CampaingOrganization": "Campaing Organization",
-    "OrganizationType": "Organization Type",
-    "CampaingType": "Campaing Type",
+    "Wallet": "Wallet",
+    "AuthAdm": "Auth Adm",
+    "Voting": "Voting",
+    "VotingType": "Voting Type",
+    "Donation": "Donation",
     "UserWallet": "User Wallet"
   },
   "navbar": {
@@ -240,7 +241,7 @@
     "itens": [
       {
         "name": "campanhas",
-        "path": "/"
+        "path": "/voting"
       },
       {
         "name": "organizações",
@@ -253,7 +254,7 @@
     "itens": [
       {
         "name": "campanhas",
-        "path": "/"
+        "path": "/voting"
       },
       {
         "name": "organizações",
@@ -281,11 +282,11 @@
     },
     "InputAuthResponse": {
       "token": "Token",
-      "user": "User"
+      "authAdm": "Auth Adm"
     },
     "ExportAuthResponse": {
       "token": "Token",
-      "user": "User"
+      "authAdm": "Auth Adm"
     },
     "FilterCampaing": {
       "startBeginDate": "Start Begin Date",
@@ -295,111 +296,164 @@
     },
     "InputCampaing": {
       "idCampaingPk": "Id Campaing Pk",
-      "campaingType": "Campaing Type",
+      "campaingOrganization": "Campaing Organization",
+      "socialCause": "Social Cause",
       "beginDate": "Begin Date",
       "endDate": "End Date",
-      "idCampaingTypePk": "Id Campaing Type Pk"
+      "name": "Name"
     },
     "ListCampaing": {
       "idCampaingPk": "Id Campaing Pk",
-      "campaingType": "Campaing Type",
+      "campaingOrganization": "Campaing Organization",
+      "socialCause": "Social Cause",
       "beginDate": "Begin Date",
       "endDate": "End Date",
-      "idCampaingTypePk": "Id Campaing Type Pk"
+      "name": "Name"
     },
     "ExportCampaing": {
       "idCampaingPk": "Id Campaing Pk",
-      "campaingType": "Campaing Type",
+      "campaingOrganization": "Campaing Organization",
+      "socialCause": "Social Cause",
       "beginDate": "Begin Date",
       "endDate": "End Date",
-      "idCampaingTypePk": "Id Campaing Type Pk"
+      "name": "Name"
     },
     "FilterVote": {
-      "null": "",
-      "userWallet": "User Wallet",
-      "startLastUpdate": "Start Last Update",
-      "endLastUpdate": "End Last Update",
-      "minIdOrganizationFk": "Min Id Organization Fk",
-      "maxIdOrganizationFk": "Max Id Organization Fk"
+      "minTokenAmount": "Min Token Amount",
+      "maxTokenAmount": "Max Token Amount"
     },
     "InputVote": {
-      "idVotePk": "Id Vote Pk",
-      "campaingOrganization": "Campaing Organization",
+      "idVotingFk": "Id Voting Fk",
+      "idUserWalletFk": "Id User Wallet Fk",
       "userWallet": "User Wallet",
-      "lastUpdate": "Last Update",
-      "tokensAmount": "Tokens Amount",
-      "idOrganizationFk": "Id Organization Fk",
-      "idCampaingFk": "Id Campaing Fk",
-      "idUserWalletFk": "Id User Wallet Fk"
+      "voting": "Voting",
+      "tokenAmount": "Token Amount"
     },
     "ListVote": {
-      "idVotePk": "Id Vote Pk",
-      "campaingOrganization": "Campaing Organization",
+      "idVotingFk": "Id Voting Fk",
+      "idUserWalletFk": "Id User Wallet Fk",
       "userWallet": "User Wallet",
-      "lastUpdate": "Last Update",
-      "tokensAmount": "Tokens Amount",
-      "idOrganizationFk": "Id Organization Fk",
-      "idCampaingFk": "Id Campaing Fk",
-      "idUserWalletFk": "Id User Wallet Fk"
+      "voting": "Voting",
+      "tokenAmount": "Token Amount"
     },
     "ExportVote": {
-      "idVotePk": "Id Vote Pk",
-      "campaingOrganization": "Campaing Organization",
+      "idVotingFk": "Id Voting Fk",
+      "idUserWalletFk": "Id User Wallet Fk",
       "userWallet": "User Wallet",
-      "lastUpdate": "Last Update",
-      "tokensAmount": "Tokens Amount",
-      "idOrganizationFk": "Id Organization Fk",
-      "idCampaingFk": "Id Campaing Fk",
-      "idUserWalletFk": "Id User Wallet Fk"
-    },
-    "FilterUser": {
-    },
-    "InputUser": {
-      "idUser": "Id User",
-      "name": "Name",
-      "email": "Email",
-      "password": "Password"
-    },
-    "ListUser": {
-      "idUser": "Id User",
-      "name": "Name",
-      "email": "Email",
-      "password": "Password"
-    },
-    "ExportUser": {
-      "idUser": "Id User",
-      "name": "Name",
-      "email": "Email",
-      "password": "Password"
+      "voting": "Voting",
+      "tokenAmount": "Token Amount"
     },
     "FilterOrganization": {
     },
     "InputOrganization": {
       "idOrganizationPk": "Id Organization Pk",
-      "organizationTypeList": "Organization Type List",
+      "campaingOrganization": "Campaing Organization",
       "name": "Name",
-      "walletAddress": "Wallet Address",
+      "scriptHash": "Script Hash",
       "active": "Active"
     },
     "ListOrganization": {
       "idOrganizationPk": "Id Organization Pk",
-      "organizationTypeList": "Organization Type List",
+      "campaingOrganization": "Campaing Organization",
       "name": "Name",
-      "walletAddress": "Wallet Address",
+      "scriptHash": "Script Hash",
       "active": "Active"
     },
     "ExportOrganization": {
       "idOrganizationPk": "Id Organization Pk",
-      "organizationTypeList": "Organization Type List",
+      "campaingOrganization": "Campaing Organization",
       "name": "Name",
-      "walletAddress": "Wallet Address",
+      "scriptHash": "Script Hash",
       "active": "Active"
     },
-    "FilterCampaingOrganization": {
+    "FilterWallet": {
+    },
+    "InputWallet": {
+      "idWalletPk": "Id Wallet Pk",
+      "wallet": "Wallet"
+    },
+    "ListWallet": {
+      "idWalletPk": "Id Wallet Pk",
+      "wallet": "Wallet"
+    },
+    "ExportWallet": {
+      "idWalletPk": "Id Wallet Pk",
+      "wallet": "Wallet"
+    },
+    "FilterAuthAdm": {
+    },
+    "InputAuthAdm": {
+      "idAuthAdmPk": "Id Auth Adm Pk",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password"
+    },
+    "ListAuthAdm": {
+      "idAuthAdmPk": "Id Auth Adm Pk",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password"
+    },
+    "ExportAuthAdm": {
+      "idAuthAdmPk": "Id Auth Adm Pk",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password"
+    },
+    "FilterVoting": {
+      "campaing": "Campaing",
+      "votingType": "Voting Type"
+    },
+    "InputVoting": {
+      "idVotingPk": "Id Voting Pk",
+      "idOrganizationfk": "Id Organizationfk",
+      "campaing": "Campaing",
+      "organization": "Organization",
+      "votingType": "Voting Type",
+      "idVotingTypeFk": "Id Voting Type Fk",
+      "idCampaingFk": "Id Campaing Fk"
+    },
+    "ListVoting": {
+      "idVotingPk": "Id Voting Pk",
+      "idOrganizationfk": "Id Organizationfk",
+      "campaing": "Campaing",
+      "organization": "Organization",
+      "votingType": "Voting Type",
+      "idVotingTypeFk": "Id Voting Type Fk",
+      "idCampaingFk": "Id Campaing Fk"
+    },
+    "ExportVoting": {
+      "idVotingPk": "Id Voting Pk",
+      "idOrganizationfk": "Id Organizationfk",
+      "campaing": "Campaing",
+      "organization": "Organization",
+      "votingType": "Voting Type",
+      "idVotingTypeFk": "Id Voting Type Fk",
+      "idCampaingFk": "Id Campaing Fk"
+    },
+    "FilterVotingType": {
+    },
+    "InputVotingType": {
+      "idVotingTypePk": "Id Voting Type Pk",
+      "name": "Name",
+      "active": "Active"
+    },
+    "ListVotingType": {
+      "idVotingTypePk": "Id Voting Type Pk",
+      "name": "Name",
+      "active": "Active"
+    },
+    "ExportVotingType": {
+      "idVotingTypePk": "Id Voting Type Pk",
+      "name": "Name",
+      "active": "Active"
+    },
+    "FilterDonation": {
       "minGasAmount": "Min Gas Amount",
       "maxGasAmount": "Max Gas Amount"
     },
-    "InputCampaingOrganization": {
+    "InputDonation": {
+      "idDonationPk": "Id Donation Pk",
       "idCampaingFk": "Id Campaing Fk",
       "idOrganizationFk": "Id Organization Fk",
       "campaing": "Campaing",
@@ -407,7 +461,8 @@
       "transactionHash": "Transaction Hash",
       "gasAmount": "Gas Amount"
     },
-    "ListCampaingOrganization": {
+    "ListDonation": {
+      "idDonationPk": "Id Donation Pk",
       "idCampaingFk": "Id Campaing Fk",
       "idOrganizationFk": "Id Organization Fk",
       "campaing": "Campaing",
@@ -415,71 +470,28 @@
       "transactionHash": "Transaction Hash",
       "gasAmount": "Gas Amount"
     },
-    "ExportCampaingOrganization": {
+    "ExportDonation": {
+      "idDonationPk": "Id Donation Pk",
       "idCampaingFk": "Id Campaing Fk",
       "idOrganizationFk": "Id Organization Fk",
       "campaing": "Campaing",
       "organization": "Organization",
       "transactionHash": "Transaction Hash",
       "gasAmount": "Gas Amount"
-    },
-    "FilterOrganizationType": {
-    },
-    "InputOrganizationType": {
-      "idOrganizationTypePk": "Id Organization Type Pk",
-      "organizationTypeList": "Organization Type List",
-      "name": "Name",
-      "active": "Active"
-    },
-    "ListOrganizationType": {
-      "idOrganizationTypePk": "Id Organization Type Pk",
-      "organizationTypeList": "Organization Type List",
-      "name": "Name",
-      "active": "Active"
-    },
-    "ExportOrganizationType": {
-      "idOrganizationTypePk": "Id Organization Type Pk",
-      "organizationTypeList": "Organization Type List",
-      "name": "Name",
-      "active": "Active"
-    },
-    "FilterCampaingType": {
-    },
-    "InputCampaingType": {
-      "idCampaingTypePk": "Id Campaing Type Pk",
-      "active": "Active",
-      "name": "Name"
-    },
-    "ListCampaingType": {
-      "idCampaingTypePk": "Id Campaing Type Pk",
-      "active": "Active",
-      "name": "Name"
-    },
-    "ExportCampaingType": {
-      "idCampaingTypePk": "Id Campaing Type Pk",
-      "active": "Active",
-      "name": "Name"
     },
     "FilterUserWallet": {
-      "user": "User"
     },
     "InputUserWallet": {
       "idUserWalletPk": "Id User Wallet Pk",
-      "user": "User",
-      "walletAddress": "Wallet Address",
-      "idUserFk": "Id User Fk"
+      "walletAddress": "Wallet Address"
     },
     "ListUserWallet": {
       "idUserWalletPk": "Id User Wallet Pk",
-      "user": "User",
-      "walletAddress": "Wallet Address",
-      "idUserFk": "Id User Fk"
+      "walletAddress": "Wallet Address"
     },
     "ExportUserWallet": {
       "idUserWalletPk": "Id User Wallet Pk",
-      "user": "User",
-      "walletAddress": "Wallet Address",
-      "idUserFk": "Id User Fk"
+      "walletAddress": "Wallet Address"
     }
   }
 }

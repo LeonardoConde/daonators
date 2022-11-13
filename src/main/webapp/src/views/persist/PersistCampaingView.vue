@@ -53,7 +53,7 @@ export default class PersistCampaingView extends Vue {
   }
 
   populateResource() {
-    this.schema.collectionCampaingType.queryAsPage()
+    this.schema.collectionOrganization.queryAsPage()
   }
 
   async populate() {

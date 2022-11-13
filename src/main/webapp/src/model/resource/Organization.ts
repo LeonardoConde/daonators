@@ -5,18 +5,18 @@
 import {$} from '@/facade'
 import {Request, ResponseSerialize} from '@simpli/serialized-request'
 import {IResource} from '@simpli/resource-collection/dist/types/IResource'
-import {OrganizationType} from '@/model/resource/OrganizationType'
+import {Campaing} from '@/model/resource/Campaing'
 import {OrganizationCollection} from '@/model/collection/OrganizationCollection'
 
 /* TODO: review generated class */
 export class Organization implements IResource {
   idOrganizationPk: number = 0
 
-  @ResponseSerialize(OrganizationType)
-  organizationTypeList: OrganizationType[] | null = null
+  @ResponseSerialize(Campaing)
+  campaingOrganization: Campaing[] | null = null
 
   name: string | null = null
-  walletAddress: string | null = null
+  scriptHash: string | null = null
   active: boolean | null = null
 
   get $id() {

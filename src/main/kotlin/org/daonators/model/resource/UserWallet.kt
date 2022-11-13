@@ -15,8 +15,6 @@ import javax.ws.rs.PathParam
 class UserWallet {
     @Schema(required = true) var idUserWalletPk: Long = 0
 
-    var user: User? = null
-
     @Schema(required = true, maxLength = 34)
     var walletAddress: String? = null
 
@@ -25,19 +23,6 @@ class UserWallet {
         get() = idUserWalletPk
         set(value) {
             idUserWalletPk = value
-        }
-
-    var idUserFk: Long?
-        get() = user?.idUser
-        set(value) {
-            if (value == null || value == 0L) {
-                user = null
-                return
-            }
-            if (user == null) {
-                user = User()
-            }
-            user?.idUser = value
         }
 
     fun validate(lang: LanguageHolder) {

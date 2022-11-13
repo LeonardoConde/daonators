@@ -15,13 +15,15 @@ import javax.ws.rs.PathParam
 class Campaing {
     @Schema(required = true) var idCampaingPk: Long = 0
 
-    var campaingType: CampaingType? = null
+    var campaingOrganization: MutableList<Organization>? = null
+
+    @Schema(required = true, maxLength = 255)
+    var socialCause: String? = null
 
     @Schema(required = true) var beginDate: Date? = null
+    @Schema(required = true) var endDate: Date? = null
 
-    var endDate: Date? = null
-
-    var name: String? = null
+    @Schema(maxLength = 45) var name: String? = null
 
     var id
         @Schema(hidden = true)
@@ -30,30 +32,22 @@ class Campaing {
             idCampaingPk = value
         }
 
-    var idCampaingTypePk: Long
-        @Schema(required = true)
-        get() = campaingType?.idCampaingTypePk ?: 0
-        set(value) {
-            if (value == 0L) {
-                campaingType = null
-                return
-            }
-            if (campaingType == null) {
-                campaingType = CampaingType()
-            }
-            campaingType?.idCampaingTypePk = value
-        }
-
     fun validate(lang: LanguageHolder) {
         // TODO: review generated method
-        if (idCampaingTypePk == 0L) {
-            throw BadRequestException(lang.cannotBeNull(lang["Campaing.idCampaingTypePk"]))
+        if (name?.length ?: 0 > 45) {
+            throw BadRequestException(lang.lengthCannotBeMoreThan(lang["Campaing.name"], 45))
+        }
+        if (socialCause.isNullOrBlank()) {
+            throw BadRequestException(lang.cannotBeNull(lang["Campaing.socialCause"]))
+        }
+        if (socialCause?.length ?: 0 > 255) {
+            throw BadRequestException(lang.lengthCannotBeMoreThan(lang["Campaing.socialCause"], 255))
         }
         if (beginDate == null) {
             throw BadRequestException(lang.cannotBeNull(lang["Campaing.beginDate"]))
         }
-        if (name == null) {
-            throw BadRequestException(lang.cannotBeNull(lang["Campaing.name"]))
+        if (endDate == null) {
+            throw BadRequestException(lang.cannotBeNull(lang["Campaing.endDate"]))
         }
     }
 }

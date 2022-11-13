@@ -1,7 +1,7 @@
 package org.daonators.client.auth
 
-import org.daonators.model.resource.User
-import org.daonators.model.rm.UserRM
+import org.daonators.model.resource.AuthAdm
+import org.daonators.model.rm.AuthAdmRM
 import br.com.simpli.sql.AbstractConnector
 import br.com.simpli.sql.Query
 
@@ -10,41 +10,41 @@ import br.com.simpli.sql.Query
  * @author Simpli CLI generator
  */
 class AuthDao(val con: AbstractConnector) {
-    fun getIdOfUser(email: String, password: String): Long? {
+    fun getIdOfAuthAdm(email: String, password: String): Long? {
         val query = Query()
-                .select("idUser")
-                .from("user")
+                .select("idAuthAdmPk")
+                .from("auth_adm")
                 .whereEq("email", email)
                 .where("password = SHA2(?, 256)", password)
 
         return con.getFirstLong(query)
     }
 
-    fun getUser(idUser: Long): User? {
+    fun getAuthAdm(idAuthAdmPk: Long): AuthAdm? {
         val query = Query()
                 .selectAll()
-                .from("user")
-                .whereEq("idUser", idUser)
+                .from("auth_adm")
+                .whereEq("idAuthAdmPk", idAuthAdmPk)
 
         return con.getOne(query) {
-            UserRM.build(it)
+            AuthAdmRM.build(it)
         }
     }
 
-    fun getUserByEmail(email: String): User? {
+    fun getAuthAdmByEmail(email: String): AuthAdm? {
         val query = Query()
                 .selectAll()
-                .from("user")
+                .from("auth_adm")
                 .whereEq("email", email)
 
         return con.getOne(query) {
-            UserRM.build(it)
+            AuthAdmRM.build(it)
         }
     }
 
-    fun updateUserPassword(email: String, password: String): Int {
+    fun updateAuthAdmPassword(email: String, password: String): Int {
         val query = Query()
-                .updateTable("user")
+                .updateTable("auth_adm")
                 .updateSet(
                         "password" to Query("SHA2(?, 256)", password)
                 )

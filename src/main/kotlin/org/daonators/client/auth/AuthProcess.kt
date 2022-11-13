@@ -6,7 +6,7 @@ import org.daonators.exception.response.BadRequestException
 import org.daonators.exception.response.NotFoundException
 import org.daonators.exception.response.UnauthorizedException
 import org.daonators.model.param.DefaultParam
-import org.daonators.model.resource.User
+import org.daonators.model.resource.AuthAdm
 import org.daonators.client.context.RequestContext
 import org.daonators.client.mail.RecoverPasswordMail
 import org.daonators.client.request.AuthRequest
@@ -34,9 +34,9 @@ class AuthProcess(val context: RequestContext) {
         try {
             val request = tokenToRequest(token)
             val id = getId(request)
-            val user = getUser(id)
+            val authAdm = getAuthAdm(id)
 
-            return AuthResponse(token, user)
+            return AuthResponse(token, authAdm)
         } catch (e: BadRequestException) {
             throw UnauthorizedException(context.lang.pleaseLogin())
         } catch (e: NotFoundException) {
@@ -51,9 +51,9 @@ class AuthProcess(val context: RequestContext) {
         try {
             val token = requestToToken(request)
             val id = getId(request)
-            val user = getUser(id)
+            val authAdm = getAuthAdm(id)
 
-            return AuthResponse(token, user)
+            return AuthResponse(token, authAdm)
         } catch (e: NotFoundException) {
             throw UnauthorizedException(context.lang.invalidLogin())
         }
@@ -67,13 +67,13 @@ class AuthProcess(val context: RequestContext) {
     fun recoverPasswordByMail(request: RecoverPasswordByMailRequest): Long {
         request.validate(context.lang)
 
-        val user = dao.getUserByEmail("${request.email}") ?: throw BadRequestException(context.lang.emailNotFound())
+        val authAdm = dao.getAuthAdmByEmail("${request.email}") ?: throw BadRequestException(context.lang.emailNotFound())
 
-        val json = Cast.classToJson(TokenForgottenPassword("${user.email}"))
+        val json = Cast.classToJson(TokenForgottenPassword("${authAdm.email}"))
         val encrypted = SecurityUtils.encrypt(json, Env.ENCRYPT_HASH)
         val hash = encrypted?.replace("/", "%2F") ?: "invalid_hash"
 
-        RecoverPasswordMail(context.lang, user, hash).send()
+        RecoverPasswordMail(context.lang, authAdm, hash).send()
 
         return 1L
     }
@@ -97,7 +97,7 @@ class AuthProcess(val context: RequestContext) {
         if (calendar.time.before(Date())) throw BadRequestException(context.lang.expiredToken())
 
         request.newPassword?.also {
-            dao.updateUserPassword(tokenForgottenPassword.email, it)
+            dao.updateAuthAdmPassword(tokenForgottenPassword.email, it)
         }
 
         return requestToToken(AuthRequest(tokenForgottenPassword.email, request.newPassword))
@@ -108,17 +108,17 @@ class AuthProcess(val context: RequestContext) {
      */
     fun changePassword(request: ChangePasswordRequest, auth: AuthResponse): Long {
         val id = auth.id
-        val user = auth.user
-        val email = user.email ?: throw BadRequestException()
+        val authAdm = auth.authAdm
+        val email = authAdm.email ?: throw BadRequestException()
 
         request.validate(context.lang)
 
         request.newPassword?.also { newPassword ->
             request.currentPassword?.also { currentPassword ->
-                val idVerify = dao.getIdOfUser(email, currentPassword)
+                val idVerify = dao.getIdOfAuthAdm(email, currentPassword)
                 if (id != idVerify) throw BadRequestException(context.lang["wrong_password"])
 
-                dao.updateUserPassword(email, newPassword)
+                dao.updateAuthAdmPassword(email, newPassword)
             }
         }
 
@@ -131,14 +131,14 @@ class AuthProcess(val context: RequestContext) {
     fun getId(request: AuthRequest): Long {
         request.validate(context.lang)
 
-        return dao.getIdOfUser("${request.email}", "${request.password}") ?: throw NotFoundException(context.lang["user_id_not_found"])
+        return dao.getIdOfAuthAdm("${request.email}", "${request.password}") ?: throw NotFoundException(context.lang["user_id_not_found"])
     }
 
     /**
      * Get the user by ID
      */
-    fun getUser(idUser: Long): User {
-        return dao.getUser(idUser) ?: throw NotFoundException(context.lang["user_not_found"])
+    fun getAuthAdm(idAuthAdmPk: Long): AuthAdm {
+        return dao.getAuthAdm(idAuthAdmPk) ?: throw NotFoundException(context.lang["user_not_found"])
     }
 
     companion object {

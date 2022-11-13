@@ -5,33 +5,38 @@
 import {$} from '@/facade'
 import {Request, ResponseSerialize} from '@simpli/serialized-request'
 import {IResource} from '@simpli/resource-collection/dist/types/IResource'
-import {CampaingOrganization} from '@/model/resource/CampaingOrganization'
 import {UserWallet} from '@/model/resource/UserWallet'
+import {Voting} from '@/model/resource/Voting'
 import {VoteCollection} from '@/model/collection/VoteCollection'
 
 /* TODO: review generated class */
 export class Vote implements IResource {
-  idVotePk: number = 0
-
-  @ResponseSerialize(CampaingOrganization)
-  campaingOrganization: CampaingOrganization | null = null
-
   @ResponseSerialize(UserWallet)
   userWallet: UserWallet | null = null
 
-  lastUpdate: string | null = null
-  tokensAmount: string | null = null
-  idOrganizationFk: number | null = null
-  idCampaingFk: number | null = null
+  @ResponseSerialize(Voting)
+  voting: Voting | null = null
+
+  tokenAmount: number | null = null
 
   get $id() {
-    return this.idVotePk
+    /* TODO: define the ID */
+    return 0
   }
   set $id(val) {
-    this.idVotePk = val
+    /* TODO: define the ID */
   }
   get $tag() {
     return String(this.$id)
+  }
+
+  get idVotingFk() {
+    if (!this.voting) return 0
+    return this.voting.$id
+  }
+  set idVotingFk(val) {
+    if (!this.voting) this.voting = new Voting()
+    this.voting.$id = val
   }
 
   get idUserWalletFk() {
@@ -46,20 +51,10 @@ export class Vote implements IResource {
   /**
    * Gets a instance of a given ID of Vote
    */
-  async getVote(id: number) {
-    return await Request.get(`/client/vote/${id}`)
+  async getVote(id1: number, id2: number) {
+    return await Request.get(`/client/vote/${id1}/${id2}`)
       .name('getVote')
       .as(this)
-      .getData()
-  }
-
-  /**
-   * Lists the instances of Vote to export as a file
-   */
-  static async listExportVote(params: any) {
-    return await Request.get(`/client/vote/export`, {params})
-      .name('listExportVote')
-      .as(VoteCollection)
       .getData()
   }
 
@@ -81,6 +76,16 @@ export class Vote implements IResource {
     return await Request.post(`/client/vote`, this)
       .name('persistVote')
       .asNumber()
+      .getData()
+  }
+
+  /**
+   * Lists the instances of Vote to export as a file
+   */
+  static async listExportVote(params: any) {
+    return await Request.get(`/client/vote/export`, {params})
+      .name('listExportVote')
+      .as(VoteCollection)
       .getData()
   }
 }

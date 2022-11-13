@@ -7,8 +7,6 @@ import java.util.Date
  * @author Simpli CLI generator
  */
 interface CampaingListFilter : ListFilter {
-    var idCampaingTypePk: List<Long>?
-
     var startBeginDate: Date?
     var endBeginDate: Date?
 
