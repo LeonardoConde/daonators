@@ -20,7 +20,7 @@ Vue.use(VueRouter)
 Vue.use(VueI18n)
 
 export abstract class $ {
-  static readonly vm = new Vue({
+  static readonly vm: Vue = new Vue({
     router: new VueRouter(Config.router),
     i18n: new VueI18n(Config.i18n),
     store,
@@ -81,9 +81,5 @@ export abstract class $ {
 
   static get axios() {
     return this.config.http.axiosInstance
-  }
-
-  static get socket() {
-    return this.config.http.socketInstance
   }
 }

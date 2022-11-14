@@ -55,34 +55,18 @@ export class AuthModule implements Module<AuthState, RootState> {
     async authenticate(context: AuthContext) {
       context.commit('POPULATE_TOKEN')
 
-      if (!context.getters.isLogged) {
-        context.commit('SET_CACHE_PATH', $.route.path)
-
-        await context.dispatch('signOut')
-        $.toast.abort('system.error.unauthorized')
+      let authResponse
+      if (context.getters.token) {
+        try {
+          authResponse = await AuthRequest.authenticate()
+        } catch {
+          context.commit('FORGET')
+        }
       }
 
-      const authResponse = await AuthRequest.authenticate()
-
-      const id = authResponse.authAdm?.$id ?? 0
-      const token = authResponse.token || ''
-
-      // TODO: verify the need of a socket connection
-      const connection = $.socket.connect<string>(
-        'notification',
-        `/client/notification/${token}`
-      )
-
-      connection.onOpen(() =>
-        console.info(`Socket connection with client id=${id} established`)
-      )
-      connection.onClose(() =>
-        console.info(`Socket connection with client id=${id} lost`)
-      )
-      connection.onError(() =>
-        console.error(`Error with socket connection(client id=${id})`)
-      )
-      connection.onData(resp => $.snotify.info(resp as string))
+      if (!authResponse) {
+        return
+      }
 
       context.commit('POPULATE', authResponse)
 
@@ -93,11 +77,6 @@ export class AuthModule implements Module<AuthState, RootState> {
      * Sign out account
      */
     async signOut(context: AuthContext) {
-      await $.nav.push('/sign-in')
-
-      // TODO: verify the need of a socket connection
-      $.socket.disconnect('notification')
-
       context.commit('FORGET')
     },
   }
@@ -116,10 +95,6 @@ export class AuthModule implements Module<AuthState, RootState> {
       state.authAdm = null
 
       localStorage.removeItem('token')
-    },
-
-    SET_CACHE_PATH(state: AuthState, cachePath: string | null) {
-      state.cachePath = cachePath
     },
   }
 }
