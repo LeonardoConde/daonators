@@ -4,7 +4,7 @@ from boa3.builtin import NeoMetadata, metadata, public
 from boa3.builtin.contract import Nep17TransferEvent, abort
 from boa3.builtin.interop import runtime, storage
 from boa3.builtin.interop.blockchain import Transaction
-from boa3.builtin.interop.contract import GAS as GAS_SCRIPT, NEO as NEO_SCRIPT, call_contract
+from boa3.builtin.interop.contract import GAS as GAS_SCRIPT, NEO as NEO_SCRIPT, call_contract, update_contract
 from boa3.builtin.interop.runtime import executing_script_hash, notify
 from boa3.builtin.nativecontract.contractmanagement import ContractManagement
 from boa3.builtin.type import UInt160, ByteString
@@ -201,3 +201,13 @@ def has_adm() -> bool:
 
 def change_account_balance(address: UInt160, value: int):
     storage.put(mk_account(address), value)
+
+
+@public
+def update(script: bytes, manifest: bytes, data: Any):
+    update_contract(script, manifest, data)
+
+
+@public(name='update')
+def update_dataless(script: bytes, manifest: bytes):
+    update_contract(script, manifest)

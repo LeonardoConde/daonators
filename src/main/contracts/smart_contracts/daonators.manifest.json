@@ -87,7 +87,7 @@
             },
             {
                 "name": "_deploy",
-                "offset": 782,
+                "offset": 830,
                 "parameters": [
                     {
                         "name": "data",
@@ -102,27 +102,34 @@
                 "safe": false
             },
             {
+                "name": "update",
+                "offset": 782,
+                "parameters": [
+                    {
+                        "name": "script",
+                        "type": "ByteArray"
+                    },
+                    {
+                        "name": "manifest",
+                        "type": "ByteArray"
+                    },
+                    {
+                        "name": "data",
+                        "type": "Any"
+                    }
+                ],
+                "returntype": "Void",
+                "safe": false
+            },
+            {
                 "name": "_initialize",
-                "offset": 1343,
+                "offset": 1391,
                 "parameters": [],
                 "returntype": "Void",
                 "safe": false
             }
         ],
         "events": [
-            {
-                "name": "org_added",
-                "parameters": [
-                    {
-                        "name": "script_hash",
-                        "type": "Hash160"
-                    },
-                    {
-                        "name": "name",
-                        "type": "String"
-                    }
-                ]
-            },
             {
                 "name": "campaign_created",
                 "parameters": [
@@ -132,6 +139,19 @@
                     },
                     {
                         "name": "org_name",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "org_added",
+                "parameters": [
+                    {
+                        "name": "script_hash",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "name",
                         "type": "String"
                     }
                 ]
