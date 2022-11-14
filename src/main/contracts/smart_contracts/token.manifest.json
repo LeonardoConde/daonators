@@ -62,7 +62,7 @@
             },
             {
                 "name": "_deploy",
-                "offset": 663,
+                "offset": 711,
                 "parameters": [
                     {
                         "name": "data",
@@ -147,8 +147,28 @@
                 "safe": false
             },
             {
+                "name": "update",
+                "offset": 663,
+                "parameters": [
+                    {
+                        "name": "script",
+                        "type": "ByteArray"
+                    },
+                    {
+                        "name": "manifest",
+                        "type": "ByteArray"
+                    },
+                    {
+                        "name": "data",
+                        "type": "Any"
+                    }
+                ],
+                "returntype": "Void",
+                "safe": false
+            },
+            {
                 "name": "_initialize",
-                "offset": 872,
+                "offset": 920,
                 "parameters": [],
                 "returntype": "Void",
                 "safe": false

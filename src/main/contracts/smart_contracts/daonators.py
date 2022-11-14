@@ -4,13 +4,14 @@ from boa3.builtin import NeoMetadata, metadata, public, CreateNewEvent, contract
 from boa3.builtin.contract import Nep17TransferEvent, abort
 from boa3.builtin.interop import runtime, storage
 from boa3.builtin.interop.blockchain import Transaction
-from boa3.builtin.interop.contract import GAS as GAS_SCRIPT, NEO as NEO_SCRIPT, call_contract
+from boa3.builtin.interop.contract import GAS as GAS_SCRIPT, NEO as NEO_SCRIPT, call_contract, update_contract
 from boa3.builtin.interop.runtime import executing_script_hash, notify, calling_script_hash, check_witness
 from boa3.builtin.interop.stdlib import serialize, deserialize
 from boa3.builtin.nativecontract.contractmanagement import ContractManagement
 from boa3.builtin.interop.storage import get_context, find
 from boa3.builtin.interop.storage.findoptions import FindOptions
 from boa3.builtin.type import UInt160, ByteString
+
 
 # Prefixes
 PF_ORG = b'pforg'
@@ -231,10 +232,15 @@ def _save_cmp(org_script_hash: UInt160, campaign: Campaign):
     storage.put(_mk_cmp_key(org_script_hash), serialize(campaign))
 
 
-@contract(b'J\xec\xb9\x85\x8cq\xaf\xf9\t1\xa6\xd1\xb0\x87e\x94\xab~\xb9S')
+@contract(b'\xc7\xf2\x93\xee\xc2\x92\x98\x96\xdcJ8\n\xe5\x01\xb34\xe0\x91sy')
 class Token:
 
     @staticmethod
     @display_name('balanceOf')
     def balance_of(account: UInt160) -> int:
         pass
+
+
+@public
+def update(script: bytes, manifest: bytes, data: Any):
+    update_contract(script, manifest, data)
