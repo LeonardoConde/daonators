@@ -42,8 +42,24 @@
                 "safe": false
             },
             {
-                "name": "create_campaign",
+                "name": "add_organization",
                 "offset": 378,
+                "parameters": [
+                    {
+                        "name": "org_script_hash",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "name",
+                        "type": "Any"
+                    }
+                ],
+                "returntype": "Boolean",
+                "safe": false
+            },
+            {
+                "name": "create_campaign",
+                "offset": 422,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -55,7 +71,7 @@
             },
             {
                 "name": "vote",
-                "offset": 469,
+                "offset": 516,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -71,7 +87,7 @@
             },
             {
                 "name": "remove_vote",
-                "offset": 582,
+                "offset": 629,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -87,7 +103,7 @@
             },
             {
                 "name": "_deploy",
-                "offset": 830,
+                "offset": 877,
                 "parameters": [
                     {
                         "name": "data",
@@ -103,7 +119,7 @@
             },
             {
                 "name": "update",
-                "offset": 782,
+                "offset": 829,
                 "parameters": [
                     {
                         "name": "script",
@@ -123,26 +139,13 @@
             },
             {
                 "name": "_initialize",
-                "offset": 1391,
+                "offset": 1438,
                 "parameters": [],
                 "returntype": "Void",
                 "safe": false
             }
         ],
         "events": [
-            {
-                "name": "campaign_created",
-                "parameters": [
-                    {
-                        "name": "org_script_hash",
-                        "type": "Hash160"
-                    },
-                    {
-                        "name": "org_name",
-                        "type": "String"
-                    }
-                ]
-            },
             {
                 "name": "org_added",
                 "parameters": [
@@ -152,6 +155,19 @@
                     },
                     {
                         "name": "name",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "campaign_created",
+                "parameters": [
+                    {
+                        "name": "org_script_hash",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "org_name",
                         "type": "String"
                     }
                 ]

@@ -39,7 +39,10 @@ NewCampaignEvent = CreateNewEvent(
 
 
 class Org:
-    def __init__(self, _script_hash: UInt160, _name: str = ''):
+    def __init__(self, _script_hash: UInt160, _name: Optional[str] = None):
+        if _name is None:
+            _name: str = ''
+
         self.script_hash: UInt160 = _script_hash
         self.name: str = _name
 
@@ -121,6 +124,20 @@ def get_org(org_script_hash: UInt160) -> Optional[Org]:
     if len(org_bytes) == 0:
         return None
     return cast(Org, deserialize(org_bytes))
+
+
+@public
+def add_organization(org_script_hash: UInt160, name: Optional[str]) -> bool:
+    _org: Optional[Org] = get_org(org_script_hash)
+
+    # check if org exists
+    if _org is not None:
+        return False
+
+    new_org = Org(org_script_hash, name)
+    _save_org(org_script_hash, new_org)
+
+    return True
 
 
 @public
