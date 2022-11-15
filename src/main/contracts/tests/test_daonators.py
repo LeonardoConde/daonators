@@ -50,6 +50,24 @@ class TestDaonators(BoaTest):
         ]
         self.assertEqual(orgs_added, result)
 
+    def test_add_org(self):
+        result = self.run_smart_contract(self.engine, self.path, 'get_orgs', expected_result_type=List[bytes])
+        length_before = len(result)
+
+        # não da pra adicionar uma que já existe
+        result = self.run_smart_contract(self.engine, self.path, 'add_organization', self.ORG_SCRIPT_HASH1, None)
+        self.assertEqual(False, result)
+
+        # adicionando uma nova
+        result = self.run_smart_contract(self.engine, self.path, 'add_organization', self.ORG_SCRIPT_HASH4, None)
+        self.assertEqual(True, result)
+
+        result = self.run_smart_contract(self.engine, self.path, 'get_orgs', expected_result_type=List[bytes])
+        length_after = len(result)
+        self.assertEqual(length_after, length_before + 1)
+
+        self.assertEqual(result[-1], [self.ORG_SCRIPT_HASH4.decode('utf-8'), ''])
+
     def test_dao_create_campaign_and_get(self):
         self.engine.reset_engine()
 
