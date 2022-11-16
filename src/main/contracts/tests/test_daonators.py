@@ -119,7 +119,7 @@ class TestDaonators(BoaTest):
                                          self.USER_SCRIPT_HASH_ONE, signer_accounts=[self.USER_SCRIPT_HASH_ONE])
         self.assertEqual(False, result)
 
-        result = self.run_smart_contract(self.engine, self.path, 'create_campaign', self.ORG_SCRIPT_HASH1)
+        result = self.run_smart_contract(self.engine, self.path, 'create_campaign', self.ORG_SCRIPT_HASH2)
         self.assertEqual(True, result)
 
         # user doesn't have any token to vote yet
@@ -155,6 +155,11 @@ class TestDaonators(BoaTest):
         # pega a campanha pra verificar que o usuario não esta na lista de votados
         result = self.run_smart_contract(self.engine, self.path, 'get_campaign', self.ORG_SCRIPT_HASH1)
         self.assertNotIn(self.USER_SCRIPT_HASH_ONE.decode('utf-8'), result[1])
+
+        # vota mais uma vez pra garantir que vai dar certo
+        result = self.run_smart_contract(self.engine, self.path, 'vote', self.ORG_SCRIPT_HASH1,
+                                         self.USER_SCRIPT_HASH_ONE, signer_accounts=[self.USER_SCRIPT_HASH_ONE])
+        self.assertEqual(True, result)
 
     def set_token_data(self):
         total_supply = 10_000_000 * 10 ** 8

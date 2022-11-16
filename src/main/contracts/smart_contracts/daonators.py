@@ -16,6 +16,7 @@ from boa3.builtin.type import UInt160, ByteString
 # Prefixes
 PF_ORG = b'pforg'
 PF_CMP = b'pfcmp'
+PF_ACC = b'pfacc'   # será usada pra indicar qual campanha o usuário irá votar
 
 # Getters constants
 PERCENT_VOTES = b'prcvt'
@@ -26,7 +27,7 @@ NewOrgEvent = CreateNewEvent(
         ('script_hash', UInt160),
         ('name', str),
     ],
-    'org_added'
+    'Org added'
 )
 
 NewCampaignEvent = CreateNewEvent(
@@ -34,7 +35,25 @@ NewCampaignEvent = CreateNewEvent(
         ('org_script_hash', UInt160),
         ('org_name', str),
     ],
-    'campaign_created'
+    'Campaign created'
+)
+
+NewVoteEvent = CreateNewEvent(
+    [
+        ('voter_script_hash', UInt160),
+        ('org_script_hash', UInt160),
+        ('org_name', str),
+    ],
+    'Vote campaign added'
+)
+
+RemoveVoteEvent = CreateNewEvent(
+    [
+        ('voter_script_hash', UInt160),
+        ('org_script_hash', UInt160),
+        ('org_name', str),
+    ],
+    'Vote campaign removed'
 )
 
 
@@ -119,6 +138,15 @@ def get_orgs() -> List[Org]:
 
 
 @public
+def get_account_voting(account_script_hash: UInt160) -> Optional[Org]:
+    org_bytes = storage.get(_mk_acc_key(account_script_hash))
+    if len(org_bytes) == 0:
+        return None
+
+    return cast(Org,deserialize(org_bytes))
+
+
+@public
 def get_org(org_script_hash: UInt160) -> Optional[Org]:
     org_bytes = storage.get(_mk_org_key(org_script_hash))
     if len(org_bytes) == 0:
@@ -142,8 +170,10 @@ def add_organization(org_script_hash: UInt160, name: Optional[str]) -> bool:
 
 @public
 def create_campaign(org_script_hash: UInt160) -> bool:
-    # pode ser que tenha uma verificação se é adm ou se tem x tokens pra poder criar a campanha,
-    # mas atualmente qualquer pessoa pode
+    # Pode ser que tenha uma verificação se:
+    #   é administrador ou;
+    #   se tem x tokens para poder criar a campanha.
+    # Mas atualmente qualquer pessoa pode
 
     _org: Optional[Org] = get_org(org_script_hash)
 
@@ -180,12 +210,28 @@ def vote(org_script_hash: UInt160, voter_script_hash: UInt160) -> bool:
         return False
 
     campaign: Campaign = get_campaign(org_script_hash)
+    org_voted: Org = campaign.org_full
 
     voter_added = campaign.add_voter(voter_script_hash)
+    # se adicionar o voto falhou, então retorna False
     if not voter_added:
         return False
 
+    verify: Optional[Org] = get_account_voting(voter_script_hash)
+    # se o usuário já está votando em alguém então é necessário remover esse voto
+    if verify is not None:
+        old_org: Org = verify
+        old_org_script_hash = old_org.script_hash
+        old_campaign: Campaign = get_campaign(old_org_script_hash)
+        old_campaign.remove_voter(voter_script_hash)
+        _save_cmp(old_org_script_hash, old_campaign)
+        RemoveVoteEvent(voter_script_hash, old_org_script_hash, old_org.name)
+
+    # salva as mudanças no storage
     _save_cmp(org_script_hash, campaign)
+    _save_account_vote(voter_script_hash, org_script_hash)
+
+    NewVoteEvent(voter_script_hash, org_voted.script_hash, org_voted.name)
 
     return True
 
@@ -195,17 +241,20 @@ def remove_vote(org_script_hash: UInt160, voter_script_hash: UInt160) -> bool:
     if not check_witness(voter_script_hash):
         return False
 
-    # se não existe campanha então não da pra tirar o voto
+    # se não existe campanha então não da para tirar o voto
     if get_campaign(org_script_hash) is None:
         return False
 
     campaign: Campaign = get_campaign(org_script_hash)
+    org_voted: Org = campaign.org_full
 
     voter_removed = campaign.remove_voter(voter_script_hash)
     if not voter_removed:
         return False
 
     _save_cmp(org_script_hash, campaign)
+    _remove_account_vote(voter_script_hash)
+    RemoveVoteEvent(voter_script_hash, org_voted.script_hash, org_voted.name)
 
     return True
 
@@ -232,6 +281,8 @@ def _deploy(data: Any, update: bool):
         _save_org(script_hash3, test_org3)
         NewOrgEvent(script_hash3, nome_org3)
 
+        create_campaign(script_hash1)
+
 
 def _mk_org_key(org_address: UInt160) -> ByteString:
     return PF_ORG + org_address
@@ -239,6 +290,10 @@ def _mk_org_key(org_address: UInt160) -> ByteString:
 
 def _mk_cmp_key(org_address: UInt160) -> ByteString:
     return PF_CMP + org_address
+
+
+def _mk_acc_key(account_address: UInt160) -> ByteString:
+    return PF_ACC + account_address
 
 
 def _save_org(org_script_hash: UInt160, org: Org):
@@ -249,8 +304,19 @@ def _save_cmp(org_script_hash: UInt160, campaign: Campaign):
     storage.put(_mk_cmp_key(org_script_hash), serialize(campaign))
 
 
-@contract(b'\xc7\xf2\x93\xee\xc2\x92\x98\x96\xdcJ8\n\xe5\x01\xb34\xe0\x91sy')
+def _save_account_vote(account_script_hash: UInt160, org_script_hash: UInt160):
+    storage.put(_mk_acc_key(account_script_hash), org_script_hash)
+
+
+def _remove_account_vote(account_script_hash: UInt160):
+    storage.delete(_mk_acc_key(account_script_hash))
+
+
+@contract(b'ys\x91\xe04\xb3\x01\xe5\n8J\xdc\x96\x98\x92\xc2\xee\x93\xf2\xc7')
 class Token:
+    # token no teste b'\x9d\x1f0\x89\xc8L\x01\xf9w@\xfa\x1f\xa3!\x01bj\xbf\xd6\x8b'
+    # token na TestNet b'ys\x91\xe04\xb3\x01\xe5\n8J\xdc\x96\x98\x92\xc2\xee\x93\xf2\xc7'
+    # Tem que fazer o reverse nos dois casos
 
     @staticmethod
     @display_name('balanceOf')
