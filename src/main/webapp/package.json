@@ -14,6 +14,9 @@
   },
   "dependencies": {
     "@brazilian-utils/brazilian-utils": "^1.0.0-rc.4",
+    "@cityofzion/neon-invoker": "^1.1.2",
+    "@cityofzion/neon-js": "^5.2.2",
+    "@cityofzion/neon-parser": "^1.5.2",
     "@fortawesome/fontawesome-free": "^5.11.2",
     "@simpli/meta-schema": "^1.0.2",
     "@simpli/resource-collection": "^1.1.5",
@@ -122,4 +125,3 @@
     ]
   }
 }
-
