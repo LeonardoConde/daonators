@@ -53,6 +53,10 @@ export class Voting implements IResource {
     this.campaing.$id = val
   }
 
+  get name() {
+    return this.campaing?.name || this.votingType?.name || '-'
+  }
+
   /**
    * Gets a instance of a given ID of Voting
    */

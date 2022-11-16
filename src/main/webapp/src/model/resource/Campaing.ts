@@ -31,6 +31,10 @@ export class Campaing implements IResource {
     return String(this.name)
   }
 
+  get formattedEnd() {
+    return 0
+  }
+
   /**
    * Gets a instance of a given ID of Campaing
    */

@@ -230,7 +230,7 @@
     "Organization": "Organization",
     "Wallet": "Wallet",
     "AuthAdm": "Auth Adm",
-    "Voting": "Voting",
+    "Voting": "Votações",
     "VotingType": "Voting Type",
     "Donation": "Donation",
     "UserWallet": "User Wallet"
@@ -261,6 +261,18 @@
         "path": "/"
       }
     ]
+  },
+  "campaingExpose": {
+    "view": {
+      "lastHash": "Ultimo hash gerado:"
+    },
+    "card": {
+      "voteName": "Nome:",
+      "voteHash": "Hash:",
+      "vote": "Votar",
+      "unvote": "Cancelar o voto",
+      "blockchainProcess": "Sua operação será processada em breve"
+    }
   },
   "schema": {
     "InputAuthRequest": {

@@ -36,6 +36,7 @@ import PersistVotingTypeView from '@/views/persist/PersistVotingTypeView.vue'
 import PersistDonationView from '@/views/persist/PersistDonationView.vue'
 import PersistUserWalletView from '@/views/persist/PersistUserWalletView.vue'
 import HomeView from '@/views/public/HomeView.vue'
+import VotingView from '@/views/public/VotingView.vue'
 
 /**
  * VUE Router Configuration
@@ -49,6 +50,11 @@ export class RouterConfig implements RouterOptions {
       path: '/',
       name: 'home',
       component: HomeView,
+    },
+    {
+      path: '/voting',
+      name: 'voting',
+      component: VotingView,
     },
     {
       path: '/admin/sign-in',
