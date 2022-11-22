@@ -114,8 +114,15 @@
                 "safe": false
             },
             {
+                "name": "amount_to_donate",
+                "offset": 950,
+                "parameters": [],
+                "returntype": "Integer",
+                "safe": false
+            },
+            {
                 "name": "_deploy",
-                "offset": 1188,
+                "offset": 1198,
                 "parameters": [
                     {
                         "name": "data",
@@ -131,7 +138,7 @@
             },
             {
                 "name": "update",
-                "offset": 1140,
+                "offset": 1150,
                 "parameters": [
                     {
                         "name": "script",
@@ -151,13 +158,26 @@
             },
             {
                 "name": "_initialize",
-                "offset": 1777,
+                "offset": 1787,
                 "parameters": [],
                 "returntype": "Void",
                 "safe": false
             }
         ],
         "events": [
+            {
+                "name": "Org added",
+                "parameters": [
+                    {
+                        "name": "script_hash",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "name",
+                        "type": "String"
+                    }
+                ]
+            },
             {
                 "name": "Vote campaign added",
                 "parameters": [
@@ -201,19 +221,6 @@
                     },
                     {
                         "name": "org_name",
-                        "type": "String"
-                    }
-                ]
-            },
-            {
-                "name": "Org added",
-                "parameters": [
-                    {
-                        "name": "script_hash",
-                        "type": "Hash160"
-                    },
-                    {
-                        "name": "name",
                         "type": "String"
                     }
                 ]

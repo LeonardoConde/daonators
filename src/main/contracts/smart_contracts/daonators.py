@@ -5,7 +5,7 @@ from boa3.builtin.contract import Nep17TransferEvent, abort
 from boa3.builtin.interop import runtime, storage
 from boa3.builtin.interop.blockchain import Transaction
 from boa3.builtin.interop.contract import GAS as GAS_SCRIPT, NEO as NEO_SCRIPT, call_contract, update_contract
-from boa3.builtin.interop.runtime import executing_script_hash, notify, calling_script_hash, check_witness
+from boa3.builtin.interop.runtime import executing_script_hash, notify, calling_script_hash, check_witness, time
 from boa3.builtin.interop.stdlib import serialize, deserialize
 from boa3.builtin.nativecontract.contractmanagement import ContractManagement
 from boa3.builtin.interop.storage import get_context, find
@@ -257,6 +257,13 @@ def remove_vote(org_script_hash: UInt160, voter_script_hash: UInt160) -> bool:
     RemoveVoteEvent(voter_script_hash, org_voted.script_hash, org_voted.name)
 
     return True
+
+
+@public
+def amount_to_donate() -> int:
+    # ta sendo mockado atualmente, futuramente isso seria um balanceOf no NeoBurger desse contrato
+
+    return time // 10000
 
 
 @public
