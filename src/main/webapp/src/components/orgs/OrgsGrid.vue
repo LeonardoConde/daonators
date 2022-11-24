@@ -4,15 +4,10 @@
     :spinnerScale="0.8"
     class="verti items-center"
   >
-    <h1>{{ $t('resource.Voting') }}</h1>
-    <voting-public-filter :collection="collection" />
+    <h1>{{ $t('resource.Organization') }}</h1>
 
     <div class="grid grid-cols-2 gap-8 container mt-4 ">
-      <voting-card
-        v-for="(card, i) in collection.items"
-        :key="i"
-        :item="card"
-      />
+      <org-card v-for="(card, i) in collection.items" :key="i" :item="card" />
     </div>
     <div class="mt-4 place-self-center">
       <adap-pagination :collection="collection" class=" text-md " />
@@ -28,11 +23,13 @@ import FilterToggle from '@/components/FilterToggle.vue'
 import FilterCampaing from '@/components/filters/FilterCampaing.vue'
 import {VotingCollection} from '@/model/collection/VotingCollection'
 import VotingPublicFilter from '@/components/voting/VotingPublicFilter.vue'
+import {OrganizationCollection} from '@/model/collection/OrganizationCollection'
+import OrgCard from '@/components/orgs/OrgCard.vue'
 @Component({
-  components: {VotingPublicFilter, VotingCard, FilterToggle, FilterCampaing},
+  components: {OrgCard},
 })
-export default class VotingGrid extends Vue {
-  collection = new VotingCollection()
+export default class OrgsGrid extends Vue {
+  collection = new OrganizationCollection()
   filterOpen = false
 
   async created() {

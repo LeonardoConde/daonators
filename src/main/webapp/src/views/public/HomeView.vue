@@ -1,8 +1,10 @@
 <template>
-  <div class="bg-black-50 h-screen">
+  <div class="verti bg-black-50 h-screen">
     <navbar />
-    <div class="h-screen container">
-      <campaing-expose />
+    <div class="verti h-full flex container">
+      <funds-view class="my-5" />
+      <campaing-expose class="mb-auto" />
+      <github-pages />
     </div>
     <footer-menu />
   </div>
@@ -13,11 +15,12 @@ import {Component, Prop, Vue} from 'vue-property-decorator'
 import Navbar from '@/components/navbar/Navbar.vue'
 import FooterMenu from '@/components/footer/FooterMenu.vue'
 import CampaingExpose from '@/components/campaing/campaingExpose.vue'
-import {AuthAdmCollection} from '@/model/collection/AuthAdmCollection'
-import {GetCampaignsResponse} from '@/model/response/GetCampaignsResponse'
-
+import GithubPages from '@/components/githubPages/githubPages.vue'
+import FundsView from '@/components/funds/fundsView.vue'
 @Component({
   components: {
+    FundsView,
+    GithubPages,
     CampaingExpose,
     Navbar,
     FooterMenu,

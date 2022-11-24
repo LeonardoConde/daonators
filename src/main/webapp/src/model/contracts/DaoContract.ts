@@ -4,11 +4,12 @@ import Neon from '@cityofzion/neon-js'
 import {NeonParser} from '@cityofzion/neon-parser'
 import {GetCampaignsResponse} from '@/model/response/GetCampaignsResponse'
 import {NeonInvoker} from '@cityofzion/neon-invoker'
+import {GetOrganizationResponse} from '@/model/response/GetOrganizationResponse'
 
 export class DaoContract {
   NODE = 'https://testnet1.neo.coz.io:443'
   PRIVATE_KEY = 'Ky5hxa62UZ2PxfwDKviKjBcCnBFuyS9JUwSsTv6qLET21Ng9yeY1'
-  SCRIPT_HASH = '0xc5e4fb061c072d5453170206e611ecc2a8fd0b74'
+  SCRIPT_HASH = '0xf39209a3d527b8df6893036cd5afbd84308dca8c'
   SIGNER = new wallet.Account(this.PRIVATE_KEY)
   rpcNode = new rpc.RPCClient(this.NODE)
   config: CommonConfig = {
@@ -31,6 +32,16 @@ export class DaoContract {
     return result
   }
 
+  async getOrgs(): Promise<GetOrganizationResponse[]> {
+    const res = await this.contract.testInvoke('get_orgs')
+    const valorLegivel = this.formatResponse(res)
+    let result: GetOrganizationResponse[] = []
+    valorLegivel.forEach((element: any) => {
+      result.push(new GetOrganizationResponse(element))
+    })
+    return result
+  }
+
   async getCampaign(hash: string): Promise<GetCampaignsResponse> {
     const involker = await NeonInvoker.init(this.NODE, this.SIGNER)
     const res = await involker.testInvoke({
@@ -49,6 +60,12 @@ export class DaoContract {
       ],
     })
     return new GetCampaignsResponse(this.formatResponse(res)[0] || null)
+  }
+
+  async getAmountToDonate(): Promise<string> {
+    const res = await this.contract.testInvoke('amount_to_donate')
+    const valorLegivel = this.formatResponse(res)
+    return (valorLegivel / 10 ** 8).toString()
   }
 
   async vote(hash: string): Promise<string> {

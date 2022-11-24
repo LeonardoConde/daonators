@@ -225,9 +225,9 @@
     }
   },
   "resource": {
-    "Campaing": "Votação",
+    "Campaing": "Votações",
     "Vote": "Vote",
-    "Organization": "Organization",
+    "Organization": "Organizações",
     "Wallet": "Wallet",
     "AuthAdm": "Auth Adm",
     "Voting": "Votações",
@@ -240,12 +240,12 @@
     "walletConnect": "WalletConnect",
     "itens": [
       {
-        "name": "campanhas",
+        "name": "Votações",
         "path": "/voting"
       },
       {
         "name": "organizações",
-        "path": "/"
+        "path": "/organization"
       }
     ]
   },
@@ -253,18 +253,34 @@
     "daonators": "DAOnators",
     "itens": [
       {
-        "name": "campanhas",
+        "name": "Votações",
         "path": "/voting"
       },
       {
         "name": "organizações",
-        "path": "/"
+        "path": "/organization"
       }
     ]
   },
+  "votingcard": {
+    "tipo" : "Tipo:",
+    "aberto": "Aberta",
+    "fechado": "Encerrada",
+    "semfim": "Sem fim",
+    "inicio": "Inicio:",
+    "fim": "Fim:"
+  },
+  "github": {
+    "title": "Tem dúvidas dos processos por de trás do sistema? Confira nossos códigos!",
+    "project": "Link para o nosso projeto",
+    "projectLink": "https://github.com/LeonardoConde/daonators",
+    "contracts": "Link para os nossos contratos",
+    "contractsLink": "https://github.com/LeonardoConde/daonators/tree/dev/src/main/contracts/smart_contracts"
+  },
   "campaingExpose": {
     "view": {
-      "lastHash": "Ultimo hash gerado:"
+      "lastHash": "Ultimo hash gerado:",
+      "openVotings" : "Votações abertas:"
     },
     "card": {
       "voteName": "Nome:",
