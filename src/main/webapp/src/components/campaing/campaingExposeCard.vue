@@ -12,12 +12,18 @@
       </div>
       <div class="w-1/2 items-center-center">{{ item.hash }}</div>
     </div>
-    <button @click="vote" class="w-1/2">
-      {{ $t('campaingExpose.card.vote') }}
-    </button>
-    <button @click="unvote" class="w-1/2">
-      {{ $t('campaingExpose.card.unvote') }}
-    </button>
+    <div class="horiz  items-center-center my-3">
+      <div class="w-1/2 items-center-center">
+        <button @click="vote" class="bg-green-400 py-1 px-3 rounded-lg">
+          {{ $t('campaingExpose.card.vote') }}
+        </button>
+      </div>
+      <div class="w-1/2 items-center-center">
+        <button @click="unvote" class="bg-red-500 py-1 px-3 rounded-lg">
+          {{ $t('campaingExpose.card.unvote') }}
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 

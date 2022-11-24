@@ -9,7 +9,7 @@ import {Campaing} from '@/model/resource/Campaing'
 import {Organization} from '@/model/resource/Organization'
 import {VotingType} from '@/model/resource/VotingType'
 import {VotingCollection} from '@/model/collection/VotingCollection'
-
+import moment from 'moment'
 /* TODO: review generated class */
 export class Voting implements IResource {
   idVotingPk: number = 0
@@ -53,8 +53,21 @@ export class Voting implements IResource {
     this.campaing.$id = val
   }
 
-  get name() {
-    return this.campaing?.name || this.votingType?.name || '-'
+  getName(): string {
+    return this.campaing?.name || this.organization?.name || '-'
+  }
+
+  getTipo(): string {
+    return this.votingType?.name || '-'
+  }
+
+  get formattedBegging() {
+    const date = moment(this.campaing?.beginDate)
+    return date.isValid() ? date.format($.t('dateFormat.date') as string) : ''
+  }
+  get formattedEnd() {
+    const date = moment(this.campaing?.endDate)
+    return date.isValid() ? date.format($.t('dateFormat.date') as string) : ''
   }
 
   /**

@@ -2,39 +2,29 @@
   <button class="votingCard">
     <!-- nome -->
     <div class="votingCard__nome bg-primary">
-      <!-- {{ item.name || 'a' }} -->
+      {{ item.getName() }}
     </div>
     <div class="grid grid-cols-2 gap-4 px-4">
       <!-- tipo -->
       <div class="horiz weight-1 my-auto">
-        <div class="font-bold"><!-- {{ $t('votingcard.tipo') }} --></div>
-        <div class="ml-1"><!-- {{ item.campaingType.name }} --></div>
+        <div class="font-bold">
+          {{ $t('votingcard.tipo') }}
+        </div>
+        <div class="ml-1">
+          {{ item.getTipo() }}
+        </div>
       </div>
       <!-- estado -->
-      <div
-        class=" votingCard__status "
-        :class="
-          isVoteOpen()
-            ? 'votingCard__status--aberto'
-            : 'votingCard__status--fechado'
-        "
-      >
-        <div v-if="isVoteOpen()" class="">
-          <!-- {{ $t('votingcard.aberto') }} -->
-        </div>
-        <div v-else class="">
-          <!-- {{ $t('votingcard.fechado') }} -->
-        </div>
-      </div>
+      <div />
       <!-- comeco -->
       <div class="horiz weight-1">
-        <div class="font-bold"><!-- {{ $t('votingcard.inicio') }} --></div>
-        <div class="ml-1"><!-- {{ item.formattedBegging }} --></div>
+        <div class="font-bold">{{ $t('votingcard.inicio') }}</div>
+        <div class="ml-1">{{ item.formattedBegging }}</div>
       </div>
       <!-- fim -->
       <div class="horiz weight-1">
-        <div class="font-bold"><!-- {{ $t('votingcard.fim') }} --></div>
-        <div class="ml-1">{{ hasNoEnd() }}</div>
+        <div class="font-bold">{{ $t('votingcard.fim') }}</div>
+        <div class="ml-1">{{ item.formattedEnd }}</div>
       </div>
     </div>
   </button>
@@ -42,7 +32,6 @@
 
 <script lang="ts">
 import {Component, Prop, Vue} from 'vue-property-decorator'
-import {Campaing} from '@/model/resource/Campaing'
 import {Voting} from '@/model/resource/Voting'
 
 @Component
