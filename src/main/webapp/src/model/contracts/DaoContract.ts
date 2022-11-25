@@ -9,7 +9,7 @@ import {GetOrganizationResponse} from '@/model/response/GetOrganizationResponse'
 export class DaoContract {
   NODE = 'https://testnet1.neo.coz.io:443'
   PRIVATE_KEY = 'Ky5hxa62UZ2PxfwDKviKjBcCnBFuyS9JUwSsTv6qLET21Ng9yeY1'
-  SCRIPT_HASH = '0xf39209a3d527b8df6893036cd5afbd84308dca8c'
+  SCRIPT_HASH = '0xd0e178397a6cce9fd686735bdbe3dc381ea71980'
   SIGNER = new wallet.Account(this.PRIVATE_KEY)
   rpcNode = new rpc.RPCClient(this.NODE)
   config: CommonConfig = {
@@ -30,6 +30,49 @@ export class DaoContract {
       result.push(new GetCampaignsResponse(element[0]))
     })
     return result
+  }
+
+  async createCampaing(): Promise<string> {
+    const involker = await NeonInvoker.init(this.NODE, this.SIGNER)
+    const res = await involker.invokeFunction({
+      signers: [],
+      invocations: [
+        {
+          scriptHash: this.SCRIPT_HASH,
+          operation: 'create_campaign',
+          args: [
+            {
+              type: 'Hash160',
+              value: NeonParser.reverseHex(
+                NeonParser.strToHexstring('testeScriptHashNovo2')
+              ),
+            },
+          ],
+        },
+      ],
+    })
+    console.log(res, 'aaaaaaa')
+    return 'true'
+  }
+
+  async getVotedCampaings(): Promise<string> {
+    const involker = await NeonInvoker.init(this.NODE, this.SIGNER)
+    const res = await involker.testInvoke({
+      signers: [],
+      invocations: [
+        {
+          scriptHash: this.SCRIPT_HASH,
+          operation: 'get_account_voting',
+          args: [
+            {
+              type: 'Hash160',
+              value: this.SIGNER.scriptHash,
+            },
+          ],
+        },
+      ],
+    })
+    return this.formatResponse(res)
   }
 
   async getOrgs(): Promise<GetOrganizationResponse[]> {

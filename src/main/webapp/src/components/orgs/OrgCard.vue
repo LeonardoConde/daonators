@@ -1,7 +1,10 @@
 <template>
   <button class="votingCard">
     <!-- nome -->
-    <div class="votingCard__nome bg-primary">
+    <div
+      class="votingCard__nome"
+      :class="item.active ? ' bg-primary' : 'bg-red-600'"
+    >
       {{ item.name }}
     </div>
     <div class="px-4">
