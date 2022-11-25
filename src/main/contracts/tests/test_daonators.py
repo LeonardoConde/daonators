@@ -163,6 +163,12 @@ class TestDaonators(BoaTest):
                                          self.USER_SCRIPT_HASH_ONE, signer_accounts=[self.USER_SCRIPT_HASH_ONE])
         self.assertEqual(True, result)
 
+        result = self.run_smart_contract(self.engine, self.path, 'get_account_voting', self.ORG_SCRIPT_HASH1)
+        print(result)
+
+        result = self.run_smart_contract(self.engine, self.path, 'get_account_voting', self.USER_SCRIPT_HASH_ONE)
+        print(result)
+
     def test_dao_amount_to_donate(self):
         # ta sendo mockado atualmente, só confirmar se é um inteiro menor que 10 e maior que 0
         result = self.run_smart_contract(self.engine, self.path, 'amount_to_donate')

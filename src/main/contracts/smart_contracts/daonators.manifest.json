@@ -43,7 +43,7 @@
             },
             {
                 "name": "get_org",
-                "offset": 378,
+                "offset": 388,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -55,7 +55,7 @@
             },
             {
                 "name": "add_organization",
-                "offset": 462,
+                "offset": 472,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -71,7 +71,7 @@
             },
             {
                 "name": "create_campaign",
-                "offset": 506,
+                "offset": 516,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -83,7 +83,7 @@
             },
             {
                 "name": "vote",
-                "offset": 600,
+                "offset": 610,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -99,7 +99,7 @@
             },
             {
                 "name": "remove_vote",
-                "offset": 837,
+                "offset": 847,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -115,14 +115,14 @@
             },
             {
                 "name": "amount_to_donate",
-                "offset": 950,
+                "offset": 960,
                 "parameters": [],
                 "returntype": "Integer",
                 "safe": false
             },
             {
                 "name": "_deploy",
-                "offset": 1198,
+                "offset": 1208,
                 "parameters": [
                     {
                         "name": "data",
@@ -138,7 +138,7 @@
             },
             {
                 "name": "update",
-                "offset": 1150,
+                "offset": 1160,
                 "parameters": [
                     {
                         "name": "script",
@@ -158,26 +158,13 @@
             },
             {
                 "name": "_initialize",
-                "offset": 1787,
+                "offset": 1797,
                 "parameters": [],
                 "returntype": "Void",
                 "safe": false
             }
         ],
         "events": [
-            {
-                "name": "Org added",
-                "parameters": [
-                    {
-                        "name": "script_hash",
-                        "type": "Hash160"
-                    },
-                    {
-                        "name": "name",
-                        "type": "String"
-                    }
-                ]
-            },
             {
                 "name": "Vote campaign added",
                 "parameters": [
@@ -221,6 +208,19 @@
                     },
                     {
                         "name": "org_name",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "Org added",
+                "parameters": [
+                    {
+                        "name": "script_hash",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "name",
                         "type": "String"
                     }
                 ]

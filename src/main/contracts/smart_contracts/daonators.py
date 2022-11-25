@@ -138,12 +138,12 @@ def get_orgs() -> List[Org]:
 
 
 @public
-def get_account_voting(account_script_hash: UInt160) -> Optional[Org]:
+def get_account_voting(account_script_hash: UInt160) -> Optional[UInt160]:
     org_bytes = storage.get(_mk_acc_key(account_script_hash))
     if len(org_bytes) == 0:
         return None
 
-    return cast(Org,deserialize(org_bytes))
+    return UInt160(org_bytes)
 
 
 @public
