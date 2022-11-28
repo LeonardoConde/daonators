@@ -1,17 +1,16 @@
 from typing import List, Any, cast, Optional
 
-from boa3.builtin import NeoMetadata, metadata, public, CreateNewEvent, contract, display_name
-from boa3.builtin.contract import Nep17TransferEvent, abort
-from boa3.builtin.interop import runtime, storage
-from boa3.builtin.interop.blockchain import Transaction
-from boa3.builtin.interop.contract import GAS as GAS_SCRIPT, NEO as NEO_SCRIPT, call_contract, update_contract
-from boa3.builtin.interop.runtime import executing_script_hash, notify, calling_script_hash, check_witness, time
+from boa3.builtin import public, CreateNewEvent, contract, display_name
+from boa3.builtin.interop import storage
+from boa3.builtin.interop.contract import update_contract
+from boa3.builtin.interop.runtime import check_witness, time
 from boa3.builtin.interop.stdlib import serialize, deserialize
-from boa3.builtin.nativecontract.contractmanagement import ContractManagement
 from boa3.builtin.interop.storage import get_context, find
 from boa3.builtin.interop.storage.findoptions import FindOptions
 from boa3.builtin.type import UInt160, ByteString
 
+from smart_contracts.daonators_classes.campaign import Campaign
+from smart_contracts.daonators_classes.org import Org
 
 # Prefixes
 PF_ORG = b'pforg'
@@ -55,51 +54,6 @@ RemoveVoteEvent = CreateNewEvent(
     ],
     'Vote campaign removed'
 )
-
-
-class Org:
-    def __init__(self, _script_hash: UInt160, _name: Optional[str] = None):
-        if _name is None:
-            _name: str = ''
-
-        self.script_hash: UInt160 = _script_hash
-        self.name: str = _name
-
-
-class Campaign:
-    def __init__(self, org_: Org):
-        self._org: Org = org_
-        self.voters: List[Any] = []
-
-    @property
-    def org_script_hash(self) -> UInt160:
-        return self._org.script_hash
-
-    @property
-    def org_name(self) -> str:
-        return self._org.name
-
-    @property
-    def org_full(self) -> Org:
-        return self._org
-
-    def get_quantity_of_votes(self):
-        # do balanceOf voters
-        pass
-
-    def add_voter(self, voter_script_hash: UInt160) -> bool:
-        if voter_script_hash in self.voters:
-            return False
-
-        self.voters.append(voter_script_hash)
-        return True
-
-    def remove_voter(self, voter_script_hash: UInt160) -> bool:
-        if voter_script_hash not in self.voters:
-            return False
-
-        self.voters.remove(voter_script_hash)
-        return True
 
 
 @public
