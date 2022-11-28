@@ -3,6 +3,7 @@ import {NeonParser} from '@cityofzion/neon-parser'
 export class GetCampaignsResponse {
   private key: string | null = null
   private value: string | null = null
+  hasVoted: boolean = false
   constructor(keyValue: String[2] | null) {
     if (keyValue != null) {
       this.key =

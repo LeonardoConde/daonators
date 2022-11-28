@@ -179,7 +179,7 @@
   </dependencies>
 
   <build>
-    <finalName>Daonators</finalName>
+    <finalName>daonators</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

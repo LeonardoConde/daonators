@@ -92,7 +92,7 @@ class OrganizationDao(val con: AbstractConnector) {
     private fun Query.insertOrganizationValues(organization: Organization) = insertValues(OrganizationRM.insertValues(organization))
 
     private fun Query.whereOrganizationFilter(filter: OrganizationListFilter, alias: String = "organization"): Query {
-        whereEq("$alias.active", true)
+        //whereEq("$alias.active", true)
 
         filter.query?.also {
             if (it.isNotEmpty()) {

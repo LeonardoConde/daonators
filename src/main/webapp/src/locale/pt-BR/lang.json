@@ -280,7 +280,7 @@
   "campaingExpose": {
     "view": {
       "lastHash": "Ultimo hash gerado:",
-      "openVotings" : "Votações abertas:"
+      "openVotings" : "Votação aberta:"
     },
     "card": {
       "voteName": "Nome:",
