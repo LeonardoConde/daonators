@@ -54,8 +54,27 @@
                 "safe": false
             },
             {
-                "name": "add_organization",
+                "name": "get_voting",
                 "offset": 472,
+                "parameters": [
+                    {
+                        "name": "voting_id",
+                        "type": "Integer"
+                    }
+                ],
+                "returntype": "Any",
+                "safe": false
+            },
+            {
+                "name": "get_votings",
+                "offset": 556,
+                "parameters": [],
+                "returntype": "Array",
+                "safe": false
+            },
+            {
+                "name": "add_organization",
+                "offset": 663,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -71,7 +90,7 @@
             },
             {
                 "name": "create_campaign",
-                "offset": 516,
+                "offset": 710,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -82,8 +101,36 @@
                 "safe": false
             },
             {
+                "name": "create_voting",
+                "offset": 804,
+                "parameters": [
+                    {
+                        "name": "voting_type_name",
+                        "type": "String"
+                    }
+                ],
+                "returntype": "Integer",
+                "safe": false
+            },
+            {
+                "name": "add_campaign_to_voting",
+                "offset": 889,
+                "parameters": [
+                    {
+                        "name": "voting_id",
+                        "type": "Integer"
+                    },
+                    {
+                        "name": "campaing_script_hash",
+                        "type": "Hash160"
+                    }
+                ],
+                "returntype": "Boolean",
+                "safe": false
+            },
+            {
                 "name": "vote",
-                "offset": 610,
+                "offset": 976,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -99,7 +146,7 @@
             },
             {
                 "name": "remove_vote",
-                "offset": 847,
+                "offset": 1213,
                 "parameters": [
                     {
                         "name": "org_script_hash",
@@ -115,14 +162,14 @@
             },
             {
                 "name": "amount_to_donate",
-                "offset": 960,
+                "offset": 1326,
                 "parameters": [],
                 "returntype": "Integer",
                 "safe": false
             },
             {
                 "name": "_deploy",
-                "offset": 1208,
+                "offset": 2092,
                 "parameters": [
                     {
                         "name": "data",
@@ -138,7 +185,7 @@
             },
             {
                 "name": "update",
-                "offset": 1160,
+                "offset": 1658,
                 "parameters": [
                     {
                         "name": "script",
@@ -158,13 +205,39 @@
             },
             {
                 "name": "_initialize",
-                "offset": 1797,
+                "offset": 2785,
                 "parameters": [],
                 "returntype": "Void",
                 "safe": false
             }
         ],
         "events": [
+            {
+                "name": "Campaign created",
+                "parameters": [
+                    {
+                        "name": "org_script_hash",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "org_name",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
+                "name": "Campaign added to Voting",
+                "parameters": [
+                    {
+                        "name": "campaign_address",
+                        "type": "Hash160"
+                    },
+                    {
+                        "name": "voting_id",
+                        "type": "Integer"
+                    }
+                ]
+            },
             {
                 "name": "Vote campaign added",
                 "parameters": [
@@ -183,25 +256,25 @@
                 ]
             },
             {
+                "name": "Voting created",
+                "parameters": [
+                    {
+                        "name": "voting_id",
+                        "type": "Integer"
+                    },
+                    {
+                        "name": "voting_type",
+                        "type": "String"
+                    }
+                ]
+            },
+            {
                 "name": "Vote campaign removed",
                 "parameters": [
                     {
                         "name": "voter_script_hash",
                         "type": "Hash160"
                     },
-                    {
-                        "name": "org_script_hash",
-                        "type": "Hash160"
-                    },
-                    {
-                        "name": "org_name",
-                        "type": "String"
-                    }
-                ]
-            },
-            {
-                "name": "Campaign created",
-                "parameters": [
                     {
                         "name": "org_script_hash",
                         "type": "Hash160"

@@ -169,6 +169,32 @@ class TestDaonators(BoaTest):
         result = self.run_smart_contract(self.engine, self.path, 'get_account_voting', self.USER_SCRIPT_HASH_ONE)
         print(result)
 
+    def test_dao_voting_class(self):
+        self.compile_and_save(self.path)
+
+        self.engine.reset_engine()
+        self.engine.add_contract(self.path)
+        self.engine.add_contract(self.path_token)
+
+        self.run_smart_contract(self.engine, self.path_token, 'symbol')
+        self.set_token_data()
+
+        result = self.run_smart_contract(self.engine, self.path, 'create_voting', 'Bazinga')
+        print('Resultado do create é:', result)
+        self.assertEqual(result, 1)
+
+        result = self.run_smart_contract(self.engine, self.path, 'get_voting', 0)
+        print(result)
+        self.assertEqual(result, [['testeScriptHashNovo1', 'testeScriptHashNovo2'], [0, 'Educação']])
+
+        result = self.run_smart_contract(self.engine, self.path, 'get_voting', 1)
+        print(result)
+        self.assertEqual(result, [[], [1, 'Bazinga']])
+
+        result = self.run_smart_contract(self.engine, self.path, 'get_votings')
+        print(result)
+        self.assertEqual(result, [[['testeScriptHashNovo1', 'testeScriptHashNovo2'], [0, 'Educação']], [[], [1, 'Bazinga']]])
+
     def test_dao_amount_to_donate(self):
         # ta sendo mockado atualmente, só confirmar se é um inteiro menor que 10 e maior que 0
         result = self.run_smart_contract(self.engine, self.path, 'amount_to_donate')
