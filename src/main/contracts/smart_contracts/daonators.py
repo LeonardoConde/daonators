@@ -1,26 +1,29 @@
 from typing import List, Any, cast, Optional
 
-from boa3.builtin import NeoMetadata, metadata, public, CreateNewEvent, contract, display_name
-from boa3.builtin.contract import Nep17TransferEvent, abort
-from boa3.builtin.interop import runtime, storage
-from boa3.builtin.interop.blockchain import Transaction
-from boa3.builtin.interop.contract import GAS as GAS_SCRIPT, NEO as NEO_SCRIPT, call_contract, update_contract
-from boa3.builtin.interop.runtime import executing_script_hash, notify, calling_script_hash, check_witness, time
+from boa3.builtin import public, CreateNewEvent, contract, display_name
+from boa3.builtin.interop import storage
+from boa3.builtin.interop.contract import update_contract
+from boa3.builtin.interop.runtime import check_witness, time
 from boa3.builtin.interop.stdlib import serialize, deserialize
-from boa3.builtin.nativecontract.contractmanagement import ContractManagement
 from boa3.builtin.interop.storage import get_context, find
 from boa3.builtin.interop.storage.findoptions import FindOptions
 from boa3.builtin.type import UInt160, ByteString
 
+from smart_contracts.daonators_classes.campaign import Campaign
+from smart_contracts.daonators_classes.org import Org
+from smart_contracts.daonators_classes.voting import TypeVoting, Voting
 
 # Prefixes
-PF_ORG = b'pforg'
-PF_CMP = b'pfcmp'
+PF_ORG = b'pforg'   # organization
+PF_CMP = b'pfcmp'   # campaign
+PF_VTN = b'pfvtn'   # voting
 PF_ACC = b'pfacc'   # será usada pra indicar qual campanha o usuário irá votar
 
 # Getters constants
 PERCENT_VOTES = b'prcvt'
 LAST_WINNER = b'lswin'
+
+VTN_COUNT = b'vtcnt'
 
 NewOrgEvent = CreateNewEvent(
     [
@@ -56,50 +59,21 @@ RemoveVoteEvent = CreateNewEvent(
     'Vote campaign removed'
 )
 
+NewVotingEvent = CreateNewEvent(
+    [
+        ('voting_id', int),
+        ('voting_type', str),
+    ],
+    'Voting created'
+)
 
-class Org:
-    def __init__(self, _script_hash: UInt160, _name: Optional[str] = None):
-        if _name is None:
-            _name: str = ''
-
-        self.script_hash: UInt160 = _script_hash
-        self.name: str = _name
-
-
-class Campaign:
-    def __init__(self, org_: Org):
-        self._org: Org = org_
-        self.voters: List[Any] = []
-
-    @property
-    def org_script_hash(self) -> UInt160:
-        return self._org.script_hash
-
-    @property
-    def org_name(self) -> str:
-        return self._org.name
-
-    @property
-    def org_full(self) -> Org:
-        return self._org
-
-    def get_quantity_of_votes(self):
-        # do balanceOf voters
-        pass
-
-    def add_voter(self, voter_script_hash: UInt160) -> bool:
-        if voter_script_hash in self.voters:
-            return False
-
-        self.voters.append(voter_script_hash)
-        return True
-
-    def remove_voter(self, voter_script_hash: UInt160) -> bool:
-        if voter_script_hash not in self.voters:
-            return False
-
-        self.voters.remove(voter_script_hash)
-        return True
+AddCampaignToVoting = CreateNewEvent(
+    [
+        ('campaign_address', UInt160),
+        ('voting_id', int),
+    ],
+    'Campaign added to Voting'
+)
 
 
 @public
@@ -155,6 +129,28 @@ def get_org(org_script_hash: UInt160) -> Optional[Org]:
 
 
 @public
+def get_voting(voting_id: int) -> Optional[Voting]:
+    voting_bytes = storage.get(_mk_vtn_key(voting_id))
+    if len(voting_bytes) == 0:
+        return None
+    return cast(Voting, deserialize(voting_bytes))
+
+
+@public
+def get_votings() -> List[Voting]:
+    context = get_context()
+    iterator = find(PF_VTN, context, FindOptions.VALUES_ONLY)
+    votings: List[Voting] = []
+
+    while iterator.next():
+        voting_bytes = cast(bytes, iterator.value)
+        voting: Voting = cast(Voting, deserialize(voting_bytes))
+        votings.append(voting)
+
+    return votings
+
+
+@public
 def add_organization(org_script_hash: UInt160, name: Optional[str]) -> bool:
     _org: Optional[Org] = get_org(org_script_hash)
 
@@ -194,6 +190,35 @@ def create_campaign(org_script_hash: UInt160) -> bool:
         NewCampaignEvent(org_selected.script_hash, org_selected.name)
 
         return True
+
+
+@public
+def create_voting(voting_type_name: str) -> int:
+    type_voting = TypeVoting(voting_type_name, _get_voting_count())
+    _inc_voting_count()
+
+    voting_ = Voting(type_voting)
+    _save_voting(type_voting.id, voting_)
+    NewVotingEvent(type_voting.id, voting_type_name)
+    return type_voting.id
+
+
+@public
+def add_campaign_to_voting(voting_id: int, campaing_script_hash: UInt160) -> bool:
+    voting_ = get_voting(voting_id)
+
+    if voting_ is None:
+        return False
+
+    if get_campaign(campaing_script_hash) is None:
+        return False
+
+    voting_selected: Voting = cast(Voting, voting_)
+    voting_selected.add_campaign(campaing_script_hash)
+
+    _save_voting(voting_id, voting_selected)
+    AddCampaignToVoting(campaing_script_hash, voting_id)
+    return True
 
 
 @public
@@ -289,6 +314,12 @@ def _deploy(data: Any, update: bool):
         NewOrgEvent(script_hash3, nome_org3)
 
         create_campaign(script_hash1)
+        create_campaign(script_hash2)
+
+        create_voting('Educação')
+
+        add_campaign_to_voting(0, script_hash1)
+        add_campaign_to_voting(0, script_hash2)
 
 
 def _mk_org_key(org_address: UInt160) -> ByteString:
@@ -297,6 +328,10 @@ def _mk_org_key(org_address: UInt160) -> ByteString:
 
 def _mk_cmp_key(org_address: UInt160) -> ByteString:
     return PF_CMP + org_address
+
+
+def _mk_vtn_key(voting_id: int) -> ByteString:
+    return PF_VTN + voting_id.to_bytes()
 
 
 def _mk_acc_key(account_address: UInt160) -> ByteString:
@@ -311,12 +346,26 @@ def _save_cmp(org_script_hash: UInt160, campaign: Campaign):
     storage.put(_mk_cmp_key(org_script_hash), serialize(campaign))
 
 
+def _save_voting(voting_id: int, voting_: Voting):
+    storage.put(_mk_vtn_key(voting_id), serialize(voting_))
+
+
 def _save_account_vote(account_script_hash: UInt160, org_script_hash: UInt160):
     storage.put(_mk_acc_key(account_script_hash), org_script_hash)
 
 
 def _remove_account_vote(account_script_hash: UInt160):
     storage.delete(_mk_acc_key(account_script_hash))
+
+
+def _get_voting_count() -> int:
+    return storage.get(VTN_COUNT).to_int()
+
+
+def _inc_voting_count():
+    amount = _get_voting_count()
+
+    storage.put(VTN_COUNT, amount + 1)
 
 
 @contract(b'ys\x91\xe04\xb3\x01\xe5\n8J\xdc\x96\x98\x92\xc2\xee\x93\xf2\xc7')
