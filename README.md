@@ -1,6 +1,6 @@
-<center>
+<div align="center">
     <h1> DAOnators </h1> 
-</center>
+</div>
 
 O ato de doar é uma das principais formas de ajudar uma causa, seja ela ambiental ou
 social. Com a chegada da pandemia por conta do vírus da COVID-19 muitas instituições de
@@ -15,7 +15,7 @@ seu gerenciamento e divisão de tarefas, também aplica o método ICONIX em seu
 desenvolvimento de software analisando e modelando conceitos e diagramas para definir a
 estrutura e o comportamento do sistema.
 
-## Modules:
+## Modulos:
 ### - [Frontend](https://github.com/LeonardoConde/daonators/tree/dev/src/main/webapp/) - Feito com: VueJs & TypeScript
 ### - [Backend](https://github.com/LeonardoConde/daonators/tree/dev/src/main/kotlin/org/daonators) - Feito com: Kotlin & TomCat
 ### - [Database](https://github.com/LeonardoConde/daonators/tree/dev/src/main/database) - Feito para: MySql
@@ -25,9 +25,9 @@ estrutura e o comportamento do sistema.
 
 <br>
 
-<center>
+<div align="center">
     <img alt="Simpli CLI" src="src/main/webapp/src/assets/img/logo.png" width="512" height="512">
-</center> 
+</div> 
 
 
 
