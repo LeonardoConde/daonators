@@ -319,7 +319,6 @@ def _deploy(data: Any, update: bool):
         create_voting('Educação')
 
         add_campaign_to_voting(0, script_hash1)
-        add_campaign_to_voting(0, script_hash2)
 
 
 def _mk_org_key(org_address: UInt160) -> ByteString:
