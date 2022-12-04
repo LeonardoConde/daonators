@@ -5,11 +5,12 @@ import {NeonParser} from '@cityofzion/neon-parser'
 import {GetCampaignsResponse} from '@/model/response/GetCampaignsResponse'
 import {NeonInvoker} from '@cityofzion/neon-invoker'
 import {GetOrganizationResponse} from '@/model/response/GetOrganizationResponse'
+import {GetVotingsResponse} from '@/model/response/GetVotingsResponse'
 
 export class DaoContract {
   NODE = 'https://testnet1.neo.coz.io:443'
   PRIVATE_KEY = 'Ky5hxa62UZ2PxfwDKviKjBcCnBFuyS9JUwSsTv6qLET21Ng9yeY1'
-  SCRIPT_HASH = '0xd0e178397a6cce9fd686735bdbe3dc381ea71980'
+  SCRIPT_HASH = '0xa80f9f37bcac7979ebddee1cdc756386ac0d1d2a'
   SIGNER = new wallet.Account(this.PRIVATE_KEY)
   rpcNode = new rpc.RPCClient(this.NODE)
   config: CommonConfig = {
@@ -51,8 +52,37 @@ export class DaoContract {
         },
       ],
     })
-    console.log(res, 'aaaaaaa')
     return 'true'
+  }
+
+  async createVoting(type: string): Promise<string> {
+    const involker = await NeonInvoker.init(this.NODE, this.SIGNER)
+    const res = await involker.invokeFunction({
+      signers: [],
+      invocations: [
+        {
+          scriptHash: this.SCRIPT_HASH,
+          operation: 'create_voting',
+          args: [
+            {
+              type: 'String',
+              value: type,
+            },
+          ],
+        },
+      ],
+    })
+    return res
+  }
+
+  async getVotings(): Promise<GetVotingsResponse[]> {
+    const res = await this.contract.testInvoke('get_votings')
+    const valorLegivel = this.formatResponse(res)
+    let result: GetVotingsResponse[] = []
+    valorLegivel.forEach((element: any) => {
+      result.push(new GetVotingsResponse(element))
+    })
+    return result
   }
 
   async getVotedCampaings(): Promise<string> {
@@ -164,5 +194,9 @@ export class DaoContract {
       throw new Error(rpcResult.exception ?? 'unrecognized response')
     }
     return NeonParser.parseRpcResponse(rpcResult.stack[0])
+  }
+
+  private async sleep(time: number) {
+    return new Promise(resolve => setTimeout(resolve, time))
   }
 }

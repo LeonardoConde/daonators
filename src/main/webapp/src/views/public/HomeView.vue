@@ -3,7 +3,7 @@
     <navbar />
     <div class="verti h-full flex container">
       <funds-view class="my-5" />
-      <campaing-expose class="mb-auto" />
+      <voting-expose class="mb-auto" />
       <github-pages />
     </div>
     <footer-menu />
@@ -17,16 +17,23 @@ import FooterMenu from '@/components/footer/FooterMenu.vue'
 import CampaingExpose from '@/components/campaing/campaingExpose.vue'
 import GithubPages from '@/components/githubPages/githubPages.vue'
 import FundsView from '@/components/funds/fundsView.vue'
+import {DaoContract} from '@/model/contracts/DaoContract'
+import VotingExpose from '@/components/campaing/VotingExpose.vue'
 @Component({
   components: {
     FundsView,
+    VotingExpose,
     GithubPages,
     CampaingExpose,
     Navbar,
     FooterMenu,
   },
 })
-export default class HomeView extends Vue {}
+export default class HomeView extends Vue {
+  async created() {
+    await new DaoContract().getVotings()
+  }
+}
 </script>
 
 <style lang="scss" scoped></style>
