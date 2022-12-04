@@ -1,12 +1,46 @@
+<center>
+    <h1> DAOnators </h1> 
+</center>
+
+O ato de doar é uma das principais formas de ajudar uma causa, seja ela ambiental ou
+social. Com a chegada da pandemia por conta do vírus da COVID-19 muitas instituições de
+caridade tiveram uma diminuição nas doações recebidas. Nesse mesmo tempo, houve um
+aumento no interesse de tecnologias como a blockchain e criptomoedas, que deram início à
+criação das DAOs de caridade. Contudo, ainda existem inúmeras pessoas que precisam desse
+auxílio. Portanto, o objetivo desse trabalho é atrair mais doadores, desenvolvendo uma
+plataforma que possibilitará doar em grupo para diversos ramos diferentes, de maneira mais
+segura e transparente em comparação com as doações tradicionais. A DAO utiliza como
+ferramenta a blockchain e o smart contract. O projeto além de utilizar o método Scrum para
+seu gerenciamento e divisão de tarefas, também aplica o método ICONIX em seu
+desenvolvimento de software analisando e modelando conceitos e diagramas para definir a
+estrutura e o comportamento do sistema.
+
+## Modules:
+### - [Frontend](https://github.com/LeonardoConde/daonators/tree/dev/src/main/webapp/) - Feito com: VueJs & TypeScript
+### - [Backend](https://github.com/LeonardoConde/daonators/tree/dev/src/main/kotlin/org/daonators) - Feito com: Kotlin & TomCat
+### - [Database](https://github.com/LeonardoConde/daonators/tree/dev/src/main/database) - Feito para: MySql
+### - [Contracts](https://github.com/LeonardoConde/daonators/tree/dev/src/main/contracts) - Feito com: Python & Neo3-boa
+
+
+
+<br>
+
+<center>
+    <img alt="Simpli CLI" src="src/main/webapp/src/assets/img/logo.png" width="512" height="512">
+</center> 
+
+
+
+
+### Este projeto usou: Simpli CLI
+
 <p align="center">
-  <img alt="Simpli CLI" src="https://raw.githubusercontent.com/simplitech/simpli-cli/master/logo.png" width="256" height="256">
+  <img alt="Simpli CLI" src="https://raw.githubusercontent.com/simplitech/simpli-cli/master/logo.png" width="128" height="128">
   <br>
   <a href="https://www.npmjs.com/package/@simpli/cli"><img src="https://img.shields.io/npm/v/@simpli/cli.svg"></a>
   <a href="https://www.npmjs.com/package/@simpli/cli"><img src="https://img.shields.io/npm/dt/@simpli/cli.svg"></a>
   <a href="https://www.npmjs.com/package/@simpli/cli"><img src="https://img.shields.io/npm/l/@simpli/cli.svg"></a>
 </p>
-
-### Simpli CLI - API Daonators
 
 Make sure the port 8080 is not in use.
 

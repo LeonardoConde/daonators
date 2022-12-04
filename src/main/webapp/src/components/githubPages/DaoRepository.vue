@@ -10,6 +10,16 @@
       <i class="fas fa-file-contract text-2xl" />
       <a
         class="ml-2 text-lg"
+        :href="$t('github.contractDoraLink')"
+        target="_blank"
+      >
+        {{ $t('github.contractDora') }}
+      </a>
+    </div>
+    <div class="horiz items-center-center mt-6">
+      <i class="fas fa-file-code text-2xl" />
+      <a
+        class="ml-2 text-lg"
         :href="$t('github.contractsLink')"
         target="_blank"
       >
